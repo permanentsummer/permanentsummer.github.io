@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Permanent Summer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  background: #F6F1E7;
+  color: #2E2E2E;
+}
+
+h2 { font-family: "Playfair Display", serif; letter-spacing: 2px; font-size: 2.4rem; }
+h3 { font-family: "Playfair Display", serif; letter-spacing: 1.5px; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.08) 45%, rgba(0,0,0,0) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.hero-brand {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  color: #fff;
+  letter-spacing: 6px;
+  font-weight: 700;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  margin: 0 0 8px;
+  line-height: 1.1;
+}
+
+.hero-sub {
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin: 0 0 32px;
+  font-weight: 400;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.9);
+  color: white;
+  padding: 14px 40px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background 0.25s, color 0.25s;
+  backdrop-filter: blur(4px);
+}
+.hero-btn:hover { background: rgba(255,255,255,0.95); color: #2E2E2E; }
+
+/* ── BUTTONS ── */
+.button {
+  display: inline-block;
+  background: #D6A77A;
+  padding: 14px 32px;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.button:hover { background: #c49060; transform: translateY(-1px); }
+
+/* ── PRODUCTS ── */
+.products {
+  padding: 90px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+.products h2 { text-align: center; margin-bottom: 0; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  margin-top: 48px;
+}
+
+.product {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product h3 { margin: 0 0 14px; font-size: 18px; }
+
+/* ── SLIDESHOW ── */
+.product-slideshow {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #f9f6f0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slide.active { opacity: 1; }
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 4px;
+}
+
+.slide.tshirt-slide img {
+  object-fit: cover;
+  object-position: center 10%;
+  transform: scale(1.08);
+}
+
+.slide-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 10px 0 4px;
+}
+
+.slide-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d8cfc4;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.slide-dot.active { background: #D6A77A; }
+
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: #2E2E2E;
+  line-height: 1;
+}
+.product-slideshow:hover .slide-arrow { opacity: 1; }
+.slide-arrow.prev { left: 8px; }
+.slide-arrow.next { right: 8px; }
+
+/* ── PRODUCT META ── */
+.product-meta {
+  width: 100%;
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.product p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 12px;
+  flex: 1;
+}
+
+.price {
+  font-size: 22px;
+  margin: 8px 0 12px;
+  font-weight: bold;
+  color: #2E2E2E;
+}
+
+/* ── SIZE SELECTOR ── */
+.size-selector {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 0 16px;
+}
+
+.size-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d0c8be;
+  background: white;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2E2E2E;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.size-btn:hover, .size-btn.selected {
+  background: #2E2E2E;
+  border-color: #2E2E2E;
+  color: white;
+}
+
+/* ── STORY ── */
+.story {
+  padding: 100px 20px;
+  text-align: center;
+  background: #2E2E2E;
+  color: #F6F1E7;
+}
+.story h2 { color: #F6F1E7; margin-bottom: 0; }
+
+.story-tagline {
+  font-size: 15px;
+  letter-spacing: 2px;
+  font-style: italic;
+  font-family: "Playfair Display", serif;
+  color: rgba(214,167,122,0.9);
+  margin: 6px 0 28px;
+}
+
+.story-body {
+  max-width: 640px;
+  margin: 0 auto 50px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #ccc;
+}
+
+.story-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.story-pillar {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(214,167,122,0.3);
+  border-radius: 8px;
+  padding: 20px 28px;
+  flex: 1 1 180px;
+  max-width: 220px;
+}
+
+.story-pillar-icon { width: 32px; height: 32px; margin: 0 auto 12px; }
+.story-pillar-icon svg {
+  width: 100%; height: 100%;
+  stroke: #D6A77A; fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.story-pillar-label {
+  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #D6A77A; font-weight: 600;
+}
+
+/* ── REVIEWS ── */
+.reviews { background: #fff9f2; padding: 80px 24px; text-align: center; }
+.reviews h2 { margin-bottom: 48px; }
+
+.review-grid {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  justify-content: center; max-width: 960px; margin: 0 auto;
+}
+
+.review-card {
+  background: #F6F1E7; border-radius: 12px;
+  padding: 28px 24px; max-width: 280px; text-align: left; flex: 1 1 220px;
+}
+.review-stars { color: #D6A77A; font-size: 18px; margin-bottom: 10px; letter-spacing: 2px; }
+.review-text { font-size: 14px; line-height: 1.6; color: #2E2E2E; margin-bottom: 16px; }
+.review-author { font-weight: 600; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── NEWSLETTER ── */
+.newsletter {
+  background: #2E2E2E; padding: 90px 20px;
+  text-align: center; color: #F6F1E7;
+}
+.newsletter h2 { color: #F6F1E7; margin-bottom: 12px; }
+.newsletter-sub { color: #aaa; font-size: 15px; margin-bottom: 36px; }
+
+.newsletter-form {
+  display: flex; justify-content: center;
+  max-width: 460px; margin: 0 auto; flex-wrap: wrap; gap: 12px;
+}
+.newsletter-form input[type="email"] {
+  flex: 1; min-width: 220px; padding: 14px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.07); color: #F6F1E7;
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  border-radius: 4px; outline: none; transition: border-color 0.2s;
+}
+.newsletter-form input[type="email"]::placeholder { color: #888; }
+.newsletter-form input[type="email"]:focus { border-color: #D6A77A; }
+
+.newsletter-form button {
+  background: #D6A77A; color: white; border: none; padding: 14px 28px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  border-radius: 4px; cursor: pointer; transition: background 0.2s;
+}
+.newsletter-form button:hover { background: #c49060; }
+.newsletter-note { font-size: 12px; color: #666; margin-top: 14px; }
+
+/* ── SOCIAL ── */
+.social { background: #F6F1E7; padding: 70px 20px; text-align: center; }
+.social h2 { margin-bottom: 8px; }
+.social-sub { font-size: 14px; color: #888; margin-bottom: 36px; }
+.social-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+
+.social-link {
+  display: flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; background: white;
+  border: 1px solid #e8dfd3; border-radius: 50%;
+  text-decoration: none; transition: background 0.2s, border-color 0.2s;
+}
+.social-link:hover { background: #D6A77A; border-color: #D6A77A; }
+.social-link svg { width: 22px; height: 22px; display: block; }
+.social-link:hover svg path { fill: white; }
+.social-link:hover svg.stroke-icon path,
+.social-link:hover svg.stroke-icon rect,
+.social-link:hover svg.stroke-icon polyline { stroke: white; }
+
+/* ── PRODUCT SPECS ── */
+.product-specs {
+  width: 100%;
+  border-top: 1px solid #f0ebe3;
+  margin-top: 14px;
+  padding-top: 14px;
+  text-align: left;
+}
+
+.specs-toggle {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.specs-toggle:hover { color: #2E2E2E; }
+
+.specs-toggle .arrow {
+  font-size: 10px;
+  transition: transform 0.25s;
+  display: inline-block;
+}
+
+.specs-toggle.open .arrow { transform: rotate(180deg); }
+
+.specs-body {
+  display: none;
+  margin-top: 12px;
+}
+
+.specs-body.open { display: block; }
+
+.spec-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 12.5px;
+  color: #666;
+  line-height: 1.5;
+  padding: 4px 0;
+  border-bottom: 1px solid #f5f0ea;
+}
+
+.spec-row:last-child { border-bottom: none; }
+
+.spec-label {
+  font-weight: 600;
+  color: #444;
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 36px 20px; text-align: center;
+  font-size: 14px; color: #888; border-top: 1px solid #e8dfd3;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/hero.png"
+       alt="Permanent Summer" loading="eager" fetchpriority="high">
+  <div class="hero-overlay">
+    <h1 class="hero-brand">Permanent Summer</h1>
+    <p class="hero-sub">Sun · Salt · Simplicity</p>
+    <a class="hero-btn" href="#shop">Shop Now</a>
+  </div>
+</section>
+
+<!-- ════════════ PRODUCTS ════════════ -->
+<section class="products" id="shop">
+  <h2>Summer Essentials</h2>
+  <div class="product-grid">
+
+    <!-- T-Shirt -->
+    <div class="product">
+      <h3>Signature Tee</h3>
+      <div class="product-slideshow" id="slideshow-tee">
+        <div class="slide tshirt-slide active">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/Tshirt%20Sun.png" alt="Signature Tee – White">
+        </div>
+        <div class="slide tshirt-slide">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/Tshirt%20Sun.png" alt="Signature Tee – Sand" style="filter:sepia(35%) brightness(0.95);">
+        </div>
+        <div class="slide tshirt-slide">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/Tshirt%20Sun.png" alt="Signature Tee – Black" style="filter:brightness(0.15) contrast(1.1);">
+        </div>
+        <button class="slide-arrow prev" onclick="moveSlide('slideshow-tee',-1)">&#8249;</button>
+        <button class="slide-arrow next" onclick="moveSlide('slideshow-tee',1)">&#8250;</button>
+      </div>
+      <div class="slide-dots" id="dots-tee">
+        <button class="slide-dot active" onclick="goSlide('slideshow-tee',0)"></button>
+        <button class="slide-dot" onclick="goSlide('slideshow-tee',1)"></button>
+        <button class="slide-dot" onclick="goSlide('slideshow-tee',2)"></button>
+      </div>
+      <div class="product-meta">
+        <p>Heavyweight cotton tee finished with our minimalist embroidered heart. Relaxed fit, made for endless summer days.</p>
+        <div class="price">€29.99</div>
+        <div class="size-selector" id="sizes-tee">
+          <button class="size-btn" onclick="selectSize(this,'sizes-tee')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'sizes-tee')">M</button>
+          <button class="size-btn" onclick="selectSize(this,'sizes-tee')">L</button>
+        </div>
+        <a class="button" target="_blank" href="https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G">Buy Now</a>
+        <div class="product-specs">
+          <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arrow">▼</span></button>
+          <div class="specs-body">
+            <div class="spec-row"><span class="spec-label">Weight</span><span>180 g/m²</span></div>
+            <div class="spec-row"><span class="spec-label">Material</span><span>100% cotton (most colours) · some blends available</span></div>
+            <div class="spec-row"><span class="spec-label">Fit</span><span>Regular cut, round neck</span></div>
+            <div class="spec-row"><span class="spec-label">Sizes</span><span>S to 5XL</span></div>
+            <div class="spec-row"><span class="spec-label">Label</span><span>Removable for rebranding</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cap -->
+    <div class="product">
+      <h3>Coastal Cap</h3>
+      <div class="product-slideshow" id="slideshow-cap">
+        <div class="slide active">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/Caps%20Sun.png" alt="Coastal Cap – Green">
+        </div>
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/Caps%20Sun.png" alt="Coastal Cap – Beige" style="filter:sepia(50%) brightness(1.05) saturate(0.65);">
+        </div>
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/Caps%20Sun.png" alt="Coastal Cap – Navy" style="filter:hue-rotate(195deg) saturate(0.8) brightness(0.72);">
+        </div>
+        <button class="slide-arrow prev" onclick="moveSlide('slideshow-cap',-1)">&#8249;</button>
+        <button class="slide-arrow next" onclick="moveSlide('slideshow-cap',1)">&#8250;</button>
+      </div>
+      <div class="slide-dots" id="dots-cap">
+        <button class="slide-dot active" onclick="goSlide('slideshow-cap',0)"></button>
+        <button class="slide-dot" onclick="goSlide('slideshow-cap',1)"></button>
+        <button class="slide-dot" onclick="goSlide('slideshow-cap',2)"></button>
+      </div>
+      <div class="product-meta">
+        <p>Vintage washed cotton cap with adjustable brass buckle. One size fits all — designed for sun-filled days.</p>
+        <div class="price">€39.99</div>
+        <div class="size-selector" id="sizes-cap">
+          <button class="size-btn" onclick="selectSize(this,'sizes-cap')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'sizes-cap')">M</button>
+          <button class="size-btn" onclick="selectSize(this,'sizes-cap')">L</button>
+        </div>
+        <a class="button" target="_blank" href="https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H">Buy Now</a>
+        <div class="product-specs">
+          <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arrow">▼</span></button>
+          <div class="specs-body">
+            <div class="spec-row"><span class="spec-label">Weight</span><span>93 g</span></div>
+            <div class="spec-row"><span class="spec-label">Material</span><span>100% brushed cotton, washed</span></div>
+            <div class="spec-row"><span class="spec-label">Structure</span><span>6 panels, unstructured, pre-formed visor</span></div>
+            <div class="spec-row"><span class="spec-label">Closure</span><span>Adjustable brass-effect buckle</span></div>
+            <div class="spec-row"><span class="spec-label">Label</span><span>Removable</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bucket Hat -->
+    <div class="product">
+      <h3>Bucket Hat</h3>
+      <div class="product-slideshow" id="slideshow-bucket">
+        <div class="slide active">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/bucket%20hat.png" alt="Bucket Hat – Pink">
+        </div>
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/bucket%20hat.png" alt="Bucket Hat – Cream" style="filter:sepia(30%) brightness(1.1) saturate(0.5);">
+        </div>
+        <div class="slide">
+          <img src="https://raw.githubusercontent.com/permanentsummer/permanent-summer-assets/main/bucket%20hat.png" alt="Bucket Hat – Terracotta" style="filter:sepia(60%) saturate(1.8) hue-rotate(-10deg) brightness(0.9);">
+        </div>
+        <button class="slide-arrow prev" onclick="moveSlide('slideshow-bucket',-1)">&#8249;</button>
+        <button class="slide-arrow next" onclick="moveSlide('slideshow-bucket',1)">&#8250;</button>
+      </div>
+      <div class="slide-dots" id="dots-bucket">
+        <button class="slide-dot active" onclick="goSlide('slideshow-bucket',0)"></button>
+        <button class="slide-dot" onclick="goSlide('slideshow-bucket',1)"></button>
+        <button class="slide-dot" onclick="goSlide('slideshow-bucket',2)"></button>
+      </div>
+      <div class="product-meta">
+        <p>Organic cotton bucket hat inspired by coastal living. Lightweight, breathable and perfect for beach days.</p>
+        <div class="price">€44.99</div>
+        <div class="size-selector" id="sizes-bucket">
+          <button class="size-btn" onclick="selectSize(this,'sizes-bucket')">S</button>
+          <button class="size-btn" onclick="selectSize(this,'sizes-bucket')">M</button>
+          <button class="size-btn" onclick="selectSize(this,'sizes-bucket')">L</button>
+        </div>
+        <a class="button" target="_blank" href="https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I">Buy Now</a>
+        <div class="product-specs">
+          <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arrow">▼</span></button>
+          <div class="specs-body">
+            <div class="spec-row"><span class="spec-label">Material</span><span>100% certified organic cotton corduroy</span></div>
+            <div class="spec-row"><span class="spec-label">Sizes</span><span>S · M · L</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ STORY ════════════ -->
+<section class="story">
+  <h2>Summer Is a Feeling ❤️</h2>
+  <p class="story-tagline">Our Story</p>
+  <p class="story-body">
+    Permanent Summer was created for those who believe summer is more than a season.
+    It is the feeling of warm sand, salt on your skin, and sunsets that never end.
+    Our signature embroidered heart represents that one moment — when everything just feels like summer.
+  </p>
+  <div class="story-pillars">
+    <div class="story-pillar">
+      <div class="story-pillar-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </div>
+      <div class="story-pillar-label">Summer Living</div>
+    </div>
+    <div class="story-pillar">
+      <div class="story-pillar-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 12c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 17c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M2 7c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/></svg>
+      </div>
+      <div class="story-pillar-label">Coastal Lifestyle</div>
+    </div>
+    <div class="story-pillar">
+      <div class="story-pillar-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="story-pillar-label">Made in Portugal</div>
+    </div>
+    <div class="story-pillar">
+      <div class="story-pillar-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="story-pillar-label">Secure Checkout</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ REVIEWS ════════════ -->
+<section class="reviews">
+  <h2>What People Are Saying</h2>
+  <div class="review-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Got the tee and the bucket hat together and honestly the quality blew me away. The embroidery is so clean and the cotton feels really premium. Wore them straight off the delivery box on a trip to the Algarve."</p>
+      <div class="review-author">— Mariana L., Lisbon</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Ordered the cap on a Wednesday, had it by Friday. Shipping was insanely fast. The fit is perfect and that vintage wash makes it look like I've had it forever. Already getting compliments."</p>
+      <div class="review-author">— Tom R., Porto</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The vibe of this brand is exactly what I was looking for — simple, summery, no logos screaming at you. Just that little embroidered heart. Ordered as a gift and she absolutely loved it."</p>
+      <div class="review-author">— Sofia M., Cascais</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"Really happy with the bucket hat. Soft, lightweight, great for the beach. Took about 4 days to arrive which was still totally fine. Will definitely be ordering again before summer."</p>
+      <div class="review-author">— Diogo F., Faro</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ NEWSLETTER ════════════ -->
+<section class="newsletter">
+  <h2>Get €15 Off Your First Order</h2>
+  <p class="newsletter-sub">Join the Permanent Summer community and get your welcome gift.</p>
+  <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+    <input type="email" placeholder="your@email.com" required>
+    <button type="submit">Claim My Coupon</button>
+  </form>
+  <p class="newsletter-note">No spam, ever. Unsubscribe anytime.</p>
+</section>
+
+<!-- ════════════ SOCIAL / CONTACT ════════════ -->
+<section class="social">
+  <h2>Find Us</h2>
+  <p class="social-sub">Follow along, reach out, or say hello anytime.</p>
+  <div class="social-links">
+    <a class="social-link" href="https://instagram.com/permanent_summer" target="_blank" title="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#2E2E2E" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a class="social-link" href="https://facebook.com/permanentsummer" target="_blank" title="Facebook">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#2E2E2E" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a class="social-link" href="/cdn-cgi/l/email-protection#04676c766d77706b746c61764474617669656a616a707771696961762a676b" title="Email">
+      <svg class="stroke-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#2E2E2E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    </a>
+    <a class="social-link" href="https://wa.me/351924477353" target="_blank" title="WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#2E2E2E" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  Designed with ♥️ for endless ☀️ &nbsp;·&nbsp; Portugal &nbsp;·&nbsp; © 2026 Permanent Summer
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function toggleSpecs(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+function getSlides(id) { return document.querySelectorAll('#' + id + ' .slide'); }
+function getDots(id) {
+  const base = id.replace('slideshow-', 'dots-');
+  return document.querySelectorAll('#' + base + ' .slide-dot');
+}
+function currentIndex(id) {
+  const slides = getSlides(id);
+  for (let i = 0; i < slides.length; i++) {
+    if (slides[i].classList.contains('active')) return i;
+  }
+  return 0;
+}
+function goSlide(id, index) {
+  const slides = getSlides(id);
+  const dots = getDots(id);
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+  slides[index].classList.add('active');
+  if (dots[index]) dots[index].classList.add('active');
+}
+function moveSlide(id, dir) {
+  const slides = getSlides(id);
+  let idx = currentIndex(id);
+  idx = (idx + dir + slides.length) % slides.length;
+  goSlide(id, idx);
+}
+function selectSize(btn, groupId) {
+  document.querySelectorAll('#' + groupId + ' .size-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+function handleNewsletter(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  const input = e.target.querySelector('in
