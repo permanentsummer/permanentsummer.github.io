@@ -1069,7 +1069,7 @@ footer {
     <div class="footer-col">
       <h4>Find us</h4>
       <ul>
-        <li><a href="mailto:christopher@permanentsummer.co" data-orig="f6959e849f858299869e9384b68693849b979893988285839b9b9384d89599" data-orig="305358425943445f40585542704055425d515e555e4443455d5d55421e535f">Email us</a></li>
+        <li><a href="mailto:christopher@permanentsummer.co" data-x="f09398829983849f80989582b08095829d919e959e8483859d9d9582de939f" data-orig="f6959e849f858299869e9384b68693849b979893988285839b9b9384d89599" data-orig="305358425943445f40585542704055425d515e555e4443455d5d55421e535f">Email us</a></li>
         <li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li>
         <li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li>
         <li><a href="https://facebook.com/permanentsummer" target="_blank">Facebook</a></li>
@@ -1118,9 +1118,25 @@ footer {
   </div>
 </footer>
 
+
 <script type="text/javascript">
 (function() {
+
+  // COLOUR SWITCHER — tee, cap, bucket
+  window.setColor = function(imgId, el, filter) {
+    var img = document.getElementById(imgId);
+    if (img) img.style.filter = filter;
+    var dots = el.parentElement.querySelectorAll('.color-dot');
+    dots.forEach(function(d) { d.style.outline = ''; d.style.outlineOffset = ''; });
+    el.style.outline = '2px solid #111';
+    el.style.outlineOffset = '2px';
+    var nameEl = document.getElementById('cap-color-name');
+    if (nameEl && imgId === 'cap-img') nameEl.textContent = el.title || '';
+  };
+
   function init() {
+
+    // SPECS TOGGLE
     document.querySelectorAll('.specs-toggle').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var body = btn.parentElement.querySelector('.specs-body');
@@ -1134,20 +1150,8 @@ footer {
         }
       });
     });
-    // UNIFIED COLOUR SWITCHER — works for tee, cap, bucket
-    window.setColor = function(imgId, el, filter) {
-      document.getElementById(imgId).style.filter = filter;
-      var dots = el.parentElement.querySelectorAll('.color-dot');
-      dots.forEach(function(d) {
-        d.style.outline = '';
-        d.style.outlineOffset = '';
-      });
-      el.style.outline = '2px solid #111';
-      el.style.outlineOffset = '2px';
-      var nameEl = document.getElementById('cap-color-name');
-      if (nameEl && imgId === 'cap-img') nameEl.textContent = el.title || '';
-    };
 
+    // SIZE BUTTONS
     document.querySelectorAll('.size-selector').forEach(function(sel) {
       sel.querySelectorAll('.size-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -1156,21 +1160,46 @@ footer {
         });
       });
     });
-    var slides = document.querySelectorAll('#hero-slides .hero-slide');
-    var dots = document.querySelectorAll('#hero-dot-wrap .hero-dot');
-    var cur = 0;
+
+    // HERO SLIDESHOW
+    var heroSlides = document.querySelectorAll('#hero-slides .hero-slide');
+    var heroDots = document.querySelectorAll('#hero-dot-wrap .hero-dot');
+    var heroCur = 0;
     function goHero(n) {
-      slides[cur].classList.remove('active');
-      dots[cur].classList.remove('active');
-      cur = (n + slides.length) % slides.length;
-      slides[cur].classList.add('active');
-      dots[cur].classList.add('active');
+      heroSlides[heroCur].classList.remove('active');
+      heroDots[heroCur].classList.remove('active');
+      heroCur = (n + heroSlides.length) % heroSlides.length;
+      heroSlides[heroCur].classList.add('active');
+      heroDots[heroCur].classList.add('active');
     }
     var prevBtn = document.getElementById('hero-prev');
     var nextBtn = document.getElementById('hero-next');
-    if (prevBtn) prevBtn.addEventListener('click', function() { goHero(cur - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { goHero(cur + 1); });
-    dots.forEach(function(d, i) { d.addEventListener('click', function() { goHero(i); }); });
-    setInterval(function() { goHero(cur + 1); }, 5000);
+    if (prevBtn) prevBtn.addEventListener('click', function() { goHero(heroCur - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goHero(heroCur + 1); });
+    heroDots.forEach(function(d, i) { d.addEventListener('click', function() { goHero(i); }); });
+    setInterval(function() { goHero(heroCur + 1); }, 5000);
+
+    // NEWSLETTER
     var form = document.getElementById('nl-form');
-    if (fo
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var b = document.getElementById('nl-btn');
+        b.textContent = 'Coupon sent!';
+        b.style.background = '#4caf82';
+        document.getElementById('nl-email').disabled = true;
+        b.disabled = true;
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+</body>
+</html>
