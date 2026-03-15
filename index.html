@@ -871,9 +871,9 @@ footer {
         <h3>Signature Tee</h3>
         <div class="product-price">&#8364;29.99</div>
         <div class="product-colors">
-          <div class="color-dot" style="background:#f5f5f5;" title="White" onclick="document.getElementById('tee-img').style.filter='none'"></div>
-          <div class="color-dot" style="background:#d4b896;" title="Sand" onclick="document.getElementById('tee-img').style.filter='sepia(35%) brightness(.95)'"></div>
-          <div class="color-dot" style="background:#111;" title="Black" onclick="document.getElementById('tee-img').style.filter='brightness(.15) contrast(1.1)'"></div>
+          <div class="color-dot" style="background:#f5f5f5;border:1px solid #ccc;" title="White" onclick="setColor('tee-img',this,'none')"></div>
+          <div class="color-dot" style="background:#d4b896;" title="Sand" onclick="setColor('tee-img',this,'sepia(35%) brightness(.95)')"></div>
+          <div class="color-dot" style="background:#111;" title="Black" onclick="setColor('tee-img',this,'brightness(.15) contrast(1.1)')"></div>
         </div>
         <div class="size-selector" id="sz-tee">
           <button class="size-btn">S</button>
@@ -904,18 +904,18 @@ footer {
         <h3>Coastal Cap</h3>
         <div class="product-price">&#8364;39.99</div>
         <div class="product-colors" id="cap-colors" style="flex-wrap:wrap;gap:8px;">
-          <div class="color-dot" style="background:#4a6a8a;" title="Vintage Denim" onclick="capColor(this,'hue-rotate(200deg) saturate(0.7) brightness(0.75)')"></div>
-          <div class="color-dot" style="background:#c8b99a;" title="Vintage Sand" onclick="capColor(this,'sepia(40%) brightness(1.05) saturate(0.6)')"></div>
-          <div class="color-dot" style="background:#8a8278;" title="Vintage Stone" onclick="capColor(this,'sepia(20%) brightness(0.8) saturate(0.5)')"></div>
-          <div class="color-dot" style="background:#222222;" title="Vintage Black" onclick="capColor(this,'brightness(0.2) saturate(0)')"></div>
-          <div class="color-dot" style="background:#5a6b3a;" title="Vintage Olive" onclick="capColor(this,'sepia(30%) hue-rotate(30deg) saturate(0.8) brightness(0.7)')"></div>
-          <div class="color-dot" style="background:#2d5a3d;" title="Vintage Bottle Green" onclick="capColor(this,'hue-rotate(120deg) saturate(0.9) brightness(0.6)')"></div>
-          <div class="color-dot" style="background:#8b2a2a;" title="Vintage Red" onclick="capColor(this,'sepia(60%) hue-rotate(-20deg) saturate(1.5) brightness(0.65)')"></div>
-          <div class="color-dot" style="background:#8aabcc;" title="Vintage Light Denim" onclick="capColor(this,'hue-rotate(195deg) saturate(0.5) brightness(0.95)')"></div>
-          <div class="color-dot" style="background:#6b8cbf;" title="Vintage Cornflower" onclick="capColor(this,'hue-rotate(210deg) saturate(0.8) brightness(0.85)')"></div>
-          <div class="color-dot" style="background:#9a9a9a;" title="Heather Grey" onclick="capColor(this,'saturate(0) brightness(0.8)')"></div>
-          <div class="color-dot" style="background:#2a3550;" title="Heather Navy" onclick="capColor(this,'hue-rotate(220deg) saturate(0.7) brightness(0.45)')"></div>
-          <div class="color-dot" style="background:#4a4a4a;" title="Graphite" onclick="capColor(this,'saturate(0) brightness(0.45)')"></div>
+          <div class="color-dot" style="background:#4a6a8a;" title="Vintage Denim" onclick="setColor('cap-img',this,'hue-rotate(200deg) saturate(0.7) brightness(0.75)')"></div>
+          <div class="color-dot" style="background:#c8b99a;" title="Vintage Sand" onclick="setColor('cap-img',this,'sepia(40%) brightness(1.05) saturate(0.6)')"></div>
+          <div class="color-dot" style="background:#8a8278;" title="Vintage Stone" onclick="setColor('cap-img',this,'sepia(20%) brightness(0.8) saturate(0.5)')"></div>
+          <div class="color-dot" style="background:#222222;" title="Vintage Black" onclick="setColor('cap-img',this,'brightness(0.2) saturate(0)')"></div>
+          <div class="color-dot" style="background:#5a6b3a;" title="Vintage Olive" onclick="setColor('cap-img',this,'sepia(30%) hue-rotate(30deg) saturate(0.8) brightness(0.7)')"></div>
+          <div class="color-dot" style="background:#2d5a3d;" title="Vintage Bottle Green" onclick="setColor('cap-img',this,'hue-rotate(120deg) saturate(0.9) brightness(0.6)')"></div>
+          <div class="color-dot" style="background:#8b2a2a;" title="Vintage Red" onclick="setColor('cap-img',this,'sepia(60%) hue-rotate(-20deg) saturate(1.5) brightness(0.65)')"></div>
+          <div class="color-dot" style="background:#8aabcc;" title="Vintage Light Denim" onclick="setColor('cap-img',this,'hue-rotate(195deg) saturate(0.5) brightness(0.95)')"></div>
+          <div class="color-dot" style="background:#6b8cbf;" title="Vintage Cornflower" onclick="setColor('cap-img',this,'hue-rotate(210deg) saturate(0.8) brightness(0.85)')"></div>
+          <div class="color-dot" style="background:#9a9a9a;" title="Heather Grey" onclick="setColor('cap-img',this,'saturate(0) brightness(0.8)')"></div>
+          <div class="color-dot" style="background:#2a3550;" title="Heather Navy" onclick="setColor('cap-img',this,'hue-rotate(220deg) saturate(0.7) brightness(0.45)')"></div>
+          <div class="color-dot" style="background:#4a4a4a;" title="Graphite" onclick="setColor('cap-img',this,'saturate(0) brightness(0.45)')"></div>
         </div>
         <div id="cap-color-name" style="font-size:11px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:4px;min-height:16px;"></div>
         <div class="size-selector" id="sz-cap">
@@ -946,9 +946,9 @@ footer {
         <h3>Bucket Hat</h3>
         <div class="product-price">&#8364;44.99</div>
         <div class="product-colors">
-          <div class="color-dot" style="background:#f4b8c1;" title="Pink" onclick="document.getElementById('bucket-img').style.filter='none'"></div>
-          <div class="color-dot" style="background:#e8dcc8;" title="Cream" onclick="document.getElementById('bucket-img').style.filter='sepia(30%) brightness(1.1) saturate(.5)'"></div>
-          <div class="color-dot" style="background:#b5623a;" title="Terracotta" onclick="document.getElementById('bucket-img').style.filter='sepia(60%) saturate(1.8) hue-rotate(-10deg) brightness(.9)'"></div>
+          <div class="color-dot" style="background:#f4b8c1;" title="Pink" onclick="setColor('bucket-img',this,'none')"></div>
+          <div class="color-dot" style="background:#e8dcc8;" title="Cream" onclick="setColor('bucket-img',this,'sepia(30%) brightness(1.1) saturate(.5)')"></div>
+          <div class="color-dot" style="background:#b5623a;" title="Terracotta" onclick="setColor('bucket-img',this,'sepia(60%) saturate(1.8) hue-rotate(-10deg) brightness(.9)')"></div>
         </div>
         <div class="size-selector" id="sz-bucket">
           <button class="size-btn">S</button>
@@ -1069,7 +1069,7 @@ footer {
     <div class="footer-col">
       <h4>Find us</h4>
       <ul>
-        <li><a href="mailto:christopher@permanentsummer.co" data-orig="305358425943445f40585542704055425d515e555e4443455d5d55421e535f">Email us</a></li>
+        <li><a href="mailto:christopher@permanentsummer.co" data-orig="f6959e849f858299869e9384b68693849b979893988285839b9b9384d89599" data-orig="305358425943445f40585542704055425d515e555e4443455d5d55421e535f">Email us</a></li>
         <li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li>
         <li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li>
         <li><a href="https://facebook.com/permanentsummer" target="_blank">Facebook</a></li>
@@ -1134,31 +1134,18 @@ footer {
         }
       });
     });
-    // CAP COLOUR SWITCHER
-    var capNames = {
-      'hue-rotate(200deg) saturate(0.7) brightness(0.75)': 'Vintage Denim',
-      'sepia(40%) brightness(1.05) saturate(0.6)': 'Vintage Sand',
-      'sepia(20%) brightness(0.8) saturate(0.5)': 'Vintage Stone',
-      'brightness(0.2) saturate(0)': 'Vintage Black',
-      'sepia(30%) hue-rotate(30deg) saturate(0.8) brightness(0.7)': 'Vintage Olive',
-      'hue-rotate(120deg) saturate(0.9) brightness(0.6)': 'Vintage Bottle Green',
-      'sepia(60%) hue-rotate(-20deg) saturate(1.5) brightness(0.65)': 'Vintage Red',
-      'hue-rotate(195deg) saturate(0.5) brightness(0.95)': 'Vintage Light Denim',
-      'hue-rotate(210deg) saturate(0.8) brightness(0.85)': 'Vintage Cornflower',
-      'saturate(0) brightness(0.8)': 'Heather Grey',
-      'hue-rotate(220deg) saturate(0.7) brightness(0.45)': 'Heather Navy',
-      'saturate(0) brightness(0.45)': 'Graphite'
-    };
-    window.capColor = function(el, f) {
-      document.getElementById('cap-img').style.filter = f;
-      var nameEl = document.getElementById('cap-color-name');
-      if (nameEl) nameEl.textContent = el.title || '';
-      document.querySelectorAll('#cap-colors .color-dot').forEach(function(d) {
+    // UNIFIED COLOUR SWITCHER — works for tee, cap, bucket
+    window.setColor = function(imgId, el, filter) {
+      document.getElementById(imgId).style.filter = filter;
+      var dots = el.parentElement.querySelectorAll('.color-dot');
+      dots.forEach(function(d) {
         d.style.outline = '';
         d.style.outlineOffset = '';
       });
       el.style.outline = '2px solid #111';
       el.style.outlineOffset = '2px';
+      var nameEl = document.getElementById('cap-color-name');
+      if (nameEl && imgId === 'cap-img') nameEl.textContent = el.title || '';
     };
 
     document.querySelectorAll('.size-selector').forEach(function(sel) {
@@ -1186,8 +1173,4 @@ footer {
     dots.forEach(function(d, i) { d.addEventListener('click', function() { goHero(i); }); });
     setInterval(function() { goHero(cur + 1); }, 5000);
     var form = document.getElementById('nl-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var b = document.getElementById('nl-btn');
-        b.textContent = 
+    if (fo
