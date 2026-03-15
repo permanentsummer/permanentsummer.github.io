@@ -898,24 +898,24 @@ footer {
     <!-- CAP -->
     <div class="product-card">
       <div class="product-img-wrap">
-        <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Caps%20Sun.png" alt="Coastal Cap" id="cap-img">
+        <img src="https://assets.wordans.pt/files/colors/466920/c11754/466920_c11754_model.jpg" alt="Coastal Cap" id="cap-img" style="transition:opacity 0.3s ease;">
       </div>
       <div class="product-info">
         <h3>Coastal Cap</h3>
         <div class="product-price">&#8364;39.99</div>
         <div class="product-colors" id="cap-colors" style="flex-wrap:wrap;gap:8px;">
-          <div class="color-dot" style="background:#4a6a8a;" title="Vintage Denim" onclick="setColor('cap-img',this,'hue-rotate(200deg) saturate(0.7) brightness(0.75)')"></div>
-          <div class="color-dot" style="background:#c8b99a;" title="Vintage Sand" onclick="setColor('cap-img',this,'sepia(40%) brightness(1.05) saturate(0.6)')"></div>
-          <div class="color-dot" style="background:#8a8278;" title="Vintage Stone" onclick="setColor('cap-img',this,'sepia(20%) brightness(0.8) saturate(0.5)')"></div>
-          <div class="color-dot" style="background:#222222;" title="Vintage Black" onclick="setColor('cap-img',this,'brightness(0.2) saturate(0)')"></div>
-          <div class="color-dot" style="background:#5a6b3a;" title="Vintage Olive" onclick="setColor('cap-img',this,'sepia(30%) hue-rotate(30deg) saturate(0.8) brightness(0.7)')"></div>
-          <div class="color-dot" style="background:#2d5a3d;" title="Vintage Bottle Green" onclick="setColor('cap-img',this,'hue-rotate(120deg) saturate(0.9) brightness(0.6)')"></div>
-          <div class="color-dot" style="background:#8b2a2a;" title="Vintage Red" onclick="setColor('cap-img',this,'sepia(60%) hue-rotate(-20deg) saturate(1.5) brightness(0.65)')"></div>
-          <div class="color-dot" style="background:#8aabcc;" title="Vintage Light Denim" onclick="setColor('cap-img',this,'hue-rotate(195deg) saturate(0.5) brightness(0.95)')"></div>
-          <div class="color-dot" style="background:#6b8cbf;" title="Vintage Cornflower" onclick="setColor('cap-img',this,'hue-rotate(210deg) saturate(0.8) brightness(0.85)')"></div>
-          <div class="color-dot" style="background:#9a9a9a;" title="Heather Grey" onclick="setColor('cap-img',this,'saturate(0) brightness(0.8)')"></div>
-          <div class="color-dot" style="background:#2a3550;" title="Heather Navy" onclick="setColor('cap-img',this,'hue-rotate(220deg) saturate(0.7) brightness(0.45)')"></div>
-          <div class="color-dot" style="background:#4a4a4a;" title="Graphite" onclick="setColor('cap-img',this,'saturate(0) brightness(0.45)')"></div>
+          <div class="color-dot" style="background:#4a6a8a;" title="Vintage Denim" data-img="https://assets.wordans.pt/files/colors/466920/c11754/466920_c11754_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#c8b99a;border:1px solid #ccc;" title="Vintage Sand" data-img="https://assets.wordans.pt/files/colors/466920/c11756/466920_c11756_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#8a8278;" title="Vintage Stone" data-img="https://assets.wordans.pt/files/colors/466920/c11757/466920_c11757_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#222222;" title="Vintage Black" data-img="https://assets.wordans.pt/files/colors/466920/c11755/466920_c11755_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#5a6b3a;" title="Vintage Olive" data-img="https://assets.wordans.pt/files/colors/466920/c16543/466920_c16543_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#2d5a3d;" title="Vintage Bottle Green" data-img="https://assets.wordans.pt/files/colors/466920/c11760/466920_c11760_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#8b2a2a;" title="Vintage Red" data-img="https://assets.wordans.pt/files/colors/466920/c11761/466920_c11761_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#8aabcc;" title="Vintage Light Denim" data-img="https://assets.wordans.pt/files/colors/466920/c16544/466920_c16544_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#6b8cbf;" title="Vintage Cornflower Blue" data-img="https://assets.wordans.pt/files/colors/466920/c16545/466920_c16545_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#9a9a9a;" title="Heather Grey" data-img="https://assets.wordans.pt/files/colors/466920/c23540/466920_c23540_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#2a3550;" title="Heather Navy" data-img="https://assets.wordans.pt/files/colors/466920/c23541/466920_c23541_model.jpg" onclick="swapCap(this)"></div>
+          <div class="color-dot" style="background:#4a4a4a;" title="Graphite" data-img="https://assets.wordans.pt/files/colors/466920/c23542/466920_c23542_model.jpg" onclick="swapCap(this)"></div>
         </div>
         <div id="cap-color-name" style="font-size:11px;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:4px;min-height:16px;"></div>
         <div class="size-selector" id="sz-cap">
@@ -1069,7 +1069,7 @@ footer {
     <div class="footer-col">
       <h4>Find us</h4>
       <ul>
-        <li><a href="mailto:christopher@permanentsummer.co" data-x="f09398829983849f80989582b08095829d919e959e8483859d9d9582de939f" data-orig="f6959e849f858299869e9384b68693849b979893988285839b9b9384d89599" data-orig="305358425943445f40585542704055425d515e555e4443455d5d55421e535f">Email us</a></li>
+        <li><a href="mailto:christopher@permanentsummer.co" data-x="701318021903041f00181502300015021d111e151e0403051d1d15025e131f" data-x="f09398829983849f80989582b08095829d919e959e8483859d9d9582de939f" data-orig="f6959e849f858299869e9384b68693849b979893988285839b9b9384d89599" data-orig="305358425943445f40585542704055425d515e555e4443455d5d55421e535f">Email us</a></li>
         <li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li>
         <li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li>
         <li><a href="https://facebook.com/permanentsummer" target="_blank">Facebook</a></li>
@@ -1117,12 +1117,21 @@ footer {
     <p>Permanent Summer Lda &nbsp;&middot;&nbsp; Casas Da Alcaria Lote 81, 8950-413 Altura, Portugal &nbsp;&middot;&nbsp; NIF: PT516416804</p>
   </div>
 </footer>
-
-
 <script type="text/javascript">
 (function() {
-
-  // COLOUR SWITCHER — tee, cap, bucket
+  window.swapCap = function(el) {
+    var img = document.getElementById('cap-img');
+    var url = el.getAttribute('data-img');
+    if (img && url) {
+      img.style.opacity = '0';
+      setTimeout(function() { img.src = url; img.style.opacity = '1'; }, 150);
+    }
+    document.querySelectorAll('#cap-colors .color-dot').forEach(function(d) { d.style.outline = ''; d.style.outlineOffset = ''; });
+    el.style.outline = '2px solid #111';
+    el.style.outlineOffset = '2px';
+    var n = document.getElementById('cap-color-name');
+    if (n) n.textContent = el.title || '';
+  };
   window.setColor = function(imgId, el, filter) {
     var img = document.getElementById(imgId);
     if (img) img.style.filter = filter;
@@ -1130,28 +1139,16 @@ footer {
     dots.forEach(function(d) { d.style.outline = ''; d.style.outlineOffset = ''; });
     el.style.outline = '2px solid #111';
     el.style.outlineOffset = '2px';
-    var nameEl = document.getElementById('cap-color-name');
-    if (nameEl && imgId === 'cap-img') nameEl.textContent = el.title || '';
   };
-
   function init() {
-
-    // SPECS TOGGLE
     document.querySelectorAll('.specs-toggle').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var body = btn.parentElement.querySelector('.specs-body');
         var arr = btn.querySelector('.arr');
-        if (body.style.display === 'block') {
-          body.style.display = 'none';
-          if (arr) arr.innerHTML = '&#9660;';
-        } else {
-          body.style.display = 'block';
-          if (arr) arr.innerHTML = '&#9650;';
-        }
+        if (body.style.display === 'block') { body.style.display = 'none'; if (arr) arr.innerHTML = '&#9660;'; }
+        else { body.style.display = 'block'; if (arr) arr.innerHTML = '&#9650;'; }
       });
     });
-
-    // SIZE BUTTONS
     document.querySelectorAll('.size-selector').forEach(function(sel) {
       sel.querySelectorAll('.size-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -1160,17 +1157,13 @@ footer {
         });
       });
     });
-
-    // HERO SLIDESHOW
     var heroSlides = document.querySelectorAll('#hero-slides .hero-slide');
     var heroDots = document.querySelectorAll('#hero-dot-wrap .hero-dot');
     var heroCur = 0;
     function goHero(n) {
-      heroSlides[heroCur].classList.remove('active');
-      heroDots[heroCur].classList.remove('active');
+      heroSlides[heroCur].classList.remove('active'); heroDots[heroCur].classList.remove('active');
       heroCur = (n + heroSlides.length) % heroSlides.length;
-      heroSlides[heroCur].classList.add('active');
-      heroDots[heroCur].classList.add('active');
+      heroSlides[heroCur].classList.add('active'); heroDots[heroCur].classList.add('active');
     }
     var prevBtn = document.getElementById('hero-prev');
     var nextBtn = document.getElementById('hero-next');
@@ -1178,27 +1171,17 @@ footer {
     if (nextBtn) nextBtn.addEventListener('click', function() { goHero(heroCur + 1); });
     heroDots.forEach(function(d, i) { d.addEventListener('click', function() { goHero(i); }); });
     setInterval(function() { goHero(heroCur + 1); }, 5000);
-
-    // NEWSLETTER
     var form = document.getElementById('nl-form');
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         var b = document.getElementById('nl-btn');
-        b.textContent = 'Coupon sent!';
-        b.style.background = '#4caf82';
-        document.getElementById('nl-email').disabled = true;
-        b.disabled = true;
+        b.textContent = 'Coupon sent!'; b.style.background = '#4caf82';
+        document.getElementById('nl-email').disabled = true; b.disabled = true;
       });
     }
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
 })();
 </script>
 </body>
