@@ -3,1111 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Permanent Summer</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<title>About Us – Permanent Summer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #111111;
   --white: #ffffff;
-  --grey: #f5f5f5;
+  --cream: #F6F1E7;
+  --accent: #D6A77A;
   --mid: #888888;
   --border: #e8e8e8;
-  --accent: #D6A77A;
+  --sand: #d9e6f0;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); font-size: 14px; line-height: 1.5; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
-img { display: block; max-width: 100%; }
-button { font-family: inherit; cursor: pointer; }
+img { display: block; width: 100%; }
 
-/* ── ANNOUNCEMENT BAR ── */
-.announce {
-  background: var(--black);
-  color: var(--white);
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 1px;
-  padding: 10px 20px;
-  font-weight: 400;
-}
+/* NAV */
+.announce { background: var(--black); color: #fff; text-align: center; font-size: 12px; letter-spacing: 1px; padding: 10px 20px; }
 .announce strong { font-weight: 600; }
+nav { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 60px; }
+.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: var(--black); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--black); }
+.nav-right { display: flex; gap: 20px; align-items: center; }
+.nav-right > a { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.nav-cta { background: var(--black); color: #fff !important; padding: 8px 18px; transition: background 0.2s; }
+.nav-cta:hover { background: #333; }
+@media(max-width:768px) { .nav-links { display: none; } .nav-right > a:not(.nav-cta) { display: none; } nav { padding: 0 20px; } .nav-logo { font-size: 22px; } }
 
-/* ── NAV ── */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 60px;
-}
-.nav-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
-  letter-spacing: 3px;
-  color: var(--black);
-}
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-.nav-links a {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--black);
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--mid); }
-.nav-right {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-.nav-right a {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-.nav-cart {
-  background: var(--black);
-  color: var(--white);
-  padding: 8px 18px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border: none;
-  transition: background 0.2s;
-}
-.nav-cart:hover { background: #333; }
+/* PAGE TITLE */
+.page-title { padding: 70px 48px 56px; border-bottom: 1px solid var(--border); background: var(--cream); }
+.page-title .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.page-title h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem); letter-spacing: 4px; line-height: 0.95; color: var(--black); }
+@media(max-width:600px) { .page-title { padding: 48px 24px 40px; } }
 
-/* ── HERO SLIDESHOW ── */
-.hero {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 96px);
-  min-height: 500px;
-  overflow: hidden;
-  background: #ddd;
-}
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s ease;
-}
-.hero-slide.active { opacity: 1; }
-.hero-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-}
-.hero-slide-text {
-  position: absolute;
-  bottom: 80px;
-  left: 60px;
-  color: var(--white);
-}
-.hero-slide-text h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 7vw, 6rem);
-  letter-spacing: 4px;
-  line-height: 1;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-  margin-bottom: 20px;
-}
-.hero-cta {
-  display: inline-block;
-  background: var(--white);
-  color: var(--black);
-  padding: 14px 32px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: background 0.2s, color 0.2s;
-}
-.hero-cta:hover { background: var(--black); color: var(--white); }
-.hero-arrows {
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
-  display: flex;
-  gap: 8px;
-}
-.hero-arrow {
-  width: 44px;
-  height: 44px;
-  background: rgba(255,255,255,0.9);
-  border: none;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  color: var(--black);
-}
-.hero-arrow:hover { background: var(--white); }
-.hero-dots {
-  position: absolute;
-  bottom: 52px;
-  left: 60px;
-  display: flex;
-  gap: 8px;
-}
-.hero-dot {
-  width: 24px;
-  height: 2px;
-  background: rgba(255,255,255,0.4);
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  padding: 0;
-}
-.hero-dot.active { background: var(--white); }
+/* HERO DUO */
+.hero-duo { display: grid; grid-template-columns: 1.65fr 1fr; border-bottom: 1px solid var(--border); overflow: hidden; }
+@media(max-width:640px) { .hero-duo { grid-template-columns: 1fr; } .hero-duo-side { display: none; } }
+.hero-duo-main, .hero-duo-side { overflow: hidden; height: 62vh; min-height: 360px; }
+.hero-duo-main img, .hero-duo-side img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; transition: transform 0.6s ease; will-change: transform; }
+.hero-duo-side { border-left: 1px solid var(--border); }
+.hero-duo:hover .hero-duo-main img { transform: scale(1.03); }
+.hero-duo:hover .hero-duo-side img { transform: scale(1.03); }
 
-/* ── TICKER ── */
-.ticker {
-  background: var(--accent);
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 12px 0;
-}
-.ticker-inner {
-  display: inline-flex;
-  animation: ticker 20s linear infinite;
-}
-.ticker-inner span {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--white);
-  padding: 0 32px;
-}
-.ticker-inner span::after {
-  content: '·';
-  margin-left: 32px;
-}
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+/* STICKY SECTIONS */
+.sticky-section { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+.sticky-section.flip { direction: rtl; }
+.sticky-section.flip > * { direction: ltr; }
+@media(max-width:700px) { .sticky-section, .sticky-section.flip { grid-template-columns: 1fr; direction: ltr; } }
 
-/* ── SECTION HEADER ── */
-.section-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 60px 40px 32px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 0;
-}
-.section-header h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.6rem;
-  letter-spacing: 3px;
-}
-.section-header a {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--black);
-  padding-bottom: 2px;
-  transition: opacity 0.2s;
-}
-.section-header a:hover { opacity: 0.5; }
+.sticky-img { position: sticky; top: 60px; height: calc(100vh - 60px); overflow: hidden; align-self: start; }
+.sticky-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+@media(max-width:700px) { .sticky-img { position: relative; top: auto; height: 65vw; min-height: 280px; } }
 
-/* ── PRODUCT GRID ── */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-left: 1px solid var(--border);
+.sticky-text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 100px 64px; border-left: 1px solid var(--border); min-height: 90vh;
 }
-@media (max-width: 900px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .product-grid { grid-template-columns: 1fr; } }
+.sticky-section.flip .sticky-text { border-left: none; border-right: 1px solid var(--border); }
+@media(max-width:700px) { .sticky-text { padding: 48px 24px; min-height: auto; border: none !important; } }
 
-.product-card {
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.product-img-wrap {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 3/4;
-  background: var(--grey);
-}
-.product-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  transition: transform 0.5s ease;
-}
-.product-card:hover .product-img-wrap img { transform: scale(1.03); }
-.product-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  background: var(--black);
-  color: var(--white);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 4px 10px;
-}
-.product-info {
-  padding: 16px 20px 24px;
-  border-top: 1px solid var(--border);
-}
-.product-info h3 {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 6px;
-}
-.product-price {
-  font-size: 13px;
-  color: var(--mid);
-  font-weight: 400;
-}
-.product-colors {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-}
-.color-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,0,0,0.15);
-  cursor: pointer;
-}
-.product-buy {
-  display: block;
-  margin-top: 14px;
-  text-align: center;
-  background: var(--black);
-  color: var(--white);
-  padding: 12px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: background 0.2s;
-  width: 100%;
-  border: none;
-}
-.product-buy:hover { background: #333; }
+/* Fade-in animation */
+.kicker { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.sticky-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 4.5vw, 3.6rem); letter-spacing: 2px; line-height: 1.05; margin-bottom: 22px; color: var(--black); opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease 0.1s, transform 0.65s ease 0.1s; }
+.sticky-text p { font-size: 15px; line-height: 1.9; color: #555; max-width: 400px; opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease 0.2s, transform 0.65s ease 0.2s; }
+.sticky-text p + p { margin-top: 14px; }
+.sticky-text p:nth-child(4) { transition-delay: 0.3s; }
+.sticky-text.visible .kicker,
+.sticky-text.visible h2,
+.sticky-text.visible p { opacity: 1; transform: translateY(0); }
 
-/* ── SPECS ACCORDION ── */
-.product-specs {
-  border-top: 1px solid var(--border);
-  margin-top: 14px;
-}
-.specs-toggle {
-  background: none;
-  border: none;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0 0;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--mid);
-  cursor: pointer;
-}
-.specs-toggle:hover { color: var(--black); }
-.specs-body {
-  padding-top: 10px;
-}
-.spec-row {
-  display: flex;
-  gap: 12px;
-  font-size: 12px;
-  color: #555;
-  padding: 4px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-.spec-row:last-child { border-bottom: none; }
-.spec-label { font-weight: 600; color: var(--black); min-width: 68px; flex-shrink: 0; }
+/* ACCENT BAND */
+.accent-band { background: var(--accent); padding: 24px 48px; display: flex; align-items: center; gap: 16px; overflow: hidden; }
+.accent-band-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 3px; color: #fff; white-space: nowrap; animation: slideticker 18s linear infinite; }
+@keyframes slideticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* ── SIZE SELECTOR ── */
-.size-selector {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-.size-btn {
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--border);
-  background: var(--white);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--black);
-  cursor: pointer;
-  transition: all 0.15s;
-  letter-spacing: 0.5px;
-}
-.size-btn:hover, .size-btn.selected {
-  background: var(--black);
-  border-color: var(--black);
-  color: var(--white);
-}
+/* WHAT MATTERS */
+.matters { padding: 80px 48px 0; border-top: 1px solid var(--border); }
+.matters > h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 3px; margin-bottom: 48px; }
+.matters-grid { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--border); border-bottom: none; margin: 0 -48px; }
+@media(max-width:900px) { .matters-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:500px) { .matters-grid { grid-template-columns: 1fr; } .matters { padding: 60px 20px 0; } .matters-grid { margin: 0 -20px; } }
+.matter-card { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
+.matter-card:last-child { border-right: none; }
+.matter-img { overflow: hidden; aspect-ratio: 1/1; background: var(--cream); }
+.matter-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.matter-card:hover .matter-img img { transform: scale(1.06); }
+.matter-body { padding: 20px 22px 26px; }
+.matter-body h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 8px; }
+.matter-body p { font-size: 13px; color: #666; line-height: 1.65; }
 
-/* ── STORY SECTION ── */
-.story {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 500px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-@media (max-width: 700px) { .story { grid-template-columns: 1fr; } }
-.story-img {
-  overflow: hidden;
-}
-.story-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.story-text {
-  padding: 80px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.story-text .eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--mid);
-  margin-bottom: 20px;
-}
-.story-text h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  letter-spacing: 2px;
-  line-height: 1.05;
-  margin-bottom: 24px;
-}
-.story-text p {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #555;
-  margin-bottom: 36px;
-  max-width: 440px;
-}
-.btn-outline {
-  display: inline-block;
-  border: 1px solid var(--black);
-  padding: 14px 32px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: background 0.2s, color 0.2s;
-  align-self: flex-start;
-}
-.btn-outline:hover { background: var(--black); color: var(--white); }
+/* CTA BANNER */
+.cta-banner { background: var(--black); color: #fff; text-align: center; padding: 100px 40px; }
+.cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 4px; margin-bottom: 14px; line-height: 1; }
+.cta-banner p { font-size: 15px; color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+.cta-banner a { display: inline-block; border: 2px solid #fff; color: #fff; padding: 14px 44px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+.cta-banner a:hover { background: #fff; color: var(--black); }
 
-/* ── PILLARS ── */
-.pillars {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--border);
-}
-@media (max-width: 700px) { .pillars { grid-template-columns: repeat(2, 1fr); } }
-.pillar {
-  padding: 40px 30px;
-  border-right: 1px solid var(--border);
-  text-align: center;
-}
-.pillar:last-child { border-right: none; }
-.pillar-icon {
-  width: 36px;
-  height: 36px;
-  margin: 0 auto 16px;
-}
-.pillar-icon svg {
-  width: 100%;
-  height: 100%;
-  stroke: var(--black);
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.pillar-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-.pillar-desc {
-  font-size: 12px;
-  color: var(--mid);
-  margin-top: 6px;
-  line-height: 1.5;
-}
+/* BADGES */
+.badges { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
+.badge { flex: 1; min-width: 160px; padding: 28px 16px; text-align: center; border-right: 1px solid var(--border); }
+.badge:last-child { border-right: none; }
+.badge-icon { font-size: 22px; margin-bottom: 8px; }
+.badge-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
 
-/* ── REVIEWS ── */
-.reviews-section {
-  padding: 80px 40px;
-  background: var(--grey);
-  border-top: 1px solid var(--border);
-}
-.reviews-section h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem;
-  letter-spacing: 3px;
-  margin-bottom: 48px;
-  text-align: center;
-}
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-@media (max-width: 900px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .reviews-grid { grid-template-columns: 1fr; } }
-.review-card {
-  background: var(--white);
-  padding: 28px 24px;
-  border: 1px solid var(--border);
-}
-.review-stars {
-  color: var(--black);
-  font-size: 14px;
-  letter-spacing: 3px;
-  margin-bottom: 14px;
-}
-.review-text {
-  font-size: 13px;
-  line-height: 1.7;
-  color: #444;
-  font-style: italic;
-  margin-bottom: 16px;
-}
-.review-author {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--mid);
-}
-
-/* ── NEWSLETTER ── */
-.newsletter {
-  padding: 100px 40px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-}
-.newsletter .eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--mid);
-  margin-bottom: 16px;
-}
-.newsletter h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  letter-spacing: 3px;
-  margin-bottom: 12px;
-}
-.newsletter p {
-  font-size: 14px;
-  color: var(--mid);
-  margin-bottom: 36px;
-}
-.nl-form {
-  display: flex;
-  justify-content: center;
-  max-width: 460px;
-  margin: 0 auto;
-  border: 1px solid var(--black);
-}
-.nl-form input {
-  flex: 1;
-  padding: 14px 20px;
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  outline: none;
-  background: var(--white);
-}
-.nl-form button {
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 14px 28px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.2s;
-}
-.nl-form button:hover { background: #333; }
-.nl-note { font-size: 11px; color: var(--mid); margin-top: 12px; }
-
-/* ── FOOTER ── */
-footer {
-  background: var(--black);
-  color: var(--white);
-  padding: 60px 40px 30px;
-}
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
-  padding-bottom: 50px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-@media (max-width: 800px) { .footer-top { grid-template-columns: 1fr 1fr; } }
-.footer-brand {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px;
-  letter-spacing: 4px;
-  margin-bottom: 16px;
-}
-.footer-tagline {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.7;
-  margin-bottom: 24px;
-  max-width: 240px;
-}
-.footer-social {
-  display: flex;
-  gap: 12px;
-}
-.footer-social a {
-  width: 38px;
-  height: 38px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s, background 0.2s;
-}
-.footer-social a:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
-.footer-social svg { width: 16px; height: 16px; }
-.footer-col h4 {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 16px;
-}
-.footer-col ul { list-style: none; }
-.footer-col ul li { margin-bottom: 10px; }
-.footer-col ul a {
-  font-size: 13px;
-  color: rgba(255,255,255,0.7);
-  transition: color 0.2s;
-}
-.footer-col ul a:hover { color: var(--white); }
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.footer-bottom p {
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
-  line-height: 1.7;
-}
-
-/* ── FOOTER REDESIGN ── */
-footer {
-  background: #d9e6f0;
-  color: #444;
-  padding: 70px 40px 30px;
-}
-.footer-cols {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  max-width: 900px;
-  margin: 0 auto 60px;
-  text-align: center;
-}
-@media (max-width: 600px) { .footer-cols { grid-template-columns: 1fr; } }
-.footer-col h4 {
-  font-size: 13px;
-  font-weight: 400;
-  color: #888;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
-}
+/* FOOTER */
+footer { background: var(--sand); color: #444; padding: 70px 40px 30px; }
+.footer-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; max-width: 900px; margin: 0 auto 60px; text-align: center; }
+@media(max-width:600px) { .footer-cols { grid-template-columns: 1fr; } footer { padding: 50px 20px 20px; } }
+.footer-col h4 { font-size: 13px; font-weight: 400; color: #888; margin-bottom: 20px; }
 .footer-col ul { list-style: none; }
 .footer-col ul li { margin-bottom: 12px; }
-.footer-col ul a {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  transition: color 0.2s;
-}
+.footer-col ul a { font-size: 14px; font-weight: 600; color: #333; transition: color 0.2s; }
 .footer-col ul a:hover { color: #000; }
-.footer-middle {
-  text-align: center;
-  padding: 40px 0;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  margin-bottom: 30px;
-}
-.footer-brand-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 36px;
-  letter-spacing: 4px;
-  color: #333;
-  margin-bottom: 4px;
-}
-.footer-brand-sub {
-  font-size: 12px;
-  color: #888;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-}
-.footer-social-row {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-.footer-social-row a {
-  color: #555;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-}
+.footer-middle { text-align: center; padding: 40px 0; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 30px; }
+.footer-brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 4px; color: #333; margin-bottom: 4px; }
+.footer-brand-sub { font-size: 12px; color: #888; letter-spacing: 2px; margin-bottom: 20px; }
+.footer-social-row { display: flex; justify-content: center; gap: 16px; }
+.footer-social-row a { color: #555; transition: color 0.2s; display: flex; align-items: center; }
 .footer-social-row a:hover { color: #111; }
-.footer-payments {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 30px;
-}
-.payment-icon {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #555;
-}
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(0,0,0,0.1);
-}
-.footer-bottom p {
-  font-size: 11px;
-  color: #888;
-}
-
+.footer-payments { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+.pay-logo { background: white; border: 1px solid #ccc; border-radius: 6px; padding: 6px 12px; height: 36px; display: flex; align-items: center; justify-content: center; min-width: 54px; }
+.pay-logo svg { height: 18px; width: auto; display: block; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1); }
+.footer-bottom p { font-size: 11px; color: #888; }
 </style>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT -->
-<div class="announce">
-  <strong>Free shipping</strong> Portugal over &#8364;80 &nbsp;&middot;&nbsp; Europe over &#8364;150
-</div>
-
-<!-- NAV -->
+<div class="announce"><strong>Free shipping</strong> Portugal over &#8364;80 &nbsp;&middot;&nbsp; Europe over &#8364;150</div>
 <nav>
-  <a href="#" class="nav-logo">Permanent Summer</a>
+  <a href="index.html" class="nav-logo">Permanent Summer</a>
   <ul class="nav-links">
-    <li><a href="#shop">Shop</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="index.html#shop">Shop</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#reviews">Reviews</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
   <div class="nav-right">
     <a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a>
-    <button class="nav-cart" onclick="window.location='#shop'">Shop Now</button>
+    <a class="nav-cta" href="index.html#shop">Shop Now</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero" id="hero-slides">
-  <div class="hero-slide active">
-    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/hero.png" alt="Permanent Summer" loading="eager">
-    <div class="hero-slide-text">
-      <h2>Sun. Salt.<br>Simplicity.</h2>
-      <a class="hero-cta" href="#shop">Shop the Collection</a>
-    </div>
+<!-- PAGE TITLE -->
+<div class="page-title">
+  <p class="eyebrow">About Us</p>
+  <h1>Get to know us<br>a bit more.</h1>
+</div>
+
+<!-- HERO DUO -->
+<div class="hero-duo">
+  <div class="hero-duo-main">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80" alt="Algarve beach">
   </div>
-  <div class="hero-slide">
-    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/hero.png" alt="Summer Essentials" style="object-position: center 20%;">
-    <div class="hero-slide-text">
-      <h2>Made for<br>Endless Summers.</h2>
-      <a class="hero-cta" href="#shop">Explore Now</a>
-    </div>
-  </div>
-  <div class="hero-dots" id="hero-dot-wrap">
-    <button class="hero-dot active"></button>
-    <button class="hero-dot"></button>
-  </div>
-  <div class="hero-arrows">
-    <button class="hero-arrow" id="hero-prev">&#8249;</button>
-    <button class="hero-arrow" id="hero-next">&#8250;</button>
+  <div class="hero-duo-side">
+    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="Family">
   </div>
 </div>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner" id="ticker-inner">
-    <span>Summer Living</span>
-    <span>Made in Portugal</span>
-    <span>Organic Cotton</span>
-    <span>Free Shipping</span>
-    <span>New Arrivals</span>
-    <span>Sun Salt Simplicity</span>
-    <span>Summer Living</span>
-    <span>Made in Portugal</span>
-    <span>Organic Cotton</span>
-    <span>Free Shipping</span>
-    <span>New Arrivals</span>
-    <span>Sun Salt Simplicity</span>
+<!-- SECTION 1 -->
+<div class="sticky-section">
+  <div class="sticky-img">
+    <img src="https://images.unsplash.com/photo-1528543606781-2f6e6857f318?w=1000&q=80" alt="Christopher">
+  </div>
+  <div class="sticky-text">
+    <p class="kicker">So&hellip; who's behind this?</p>
+    <h2>Proudly family-run.<br>Born under the Algarve sun.</h2>
+    <p>Permanent Summer is a small, family-run brand born in Altura, in the eastern Algarve &mdash; where the summers are long, the light is golden, and the sea is always close.</p>
+    <p>Christopher is Mauritian by origin and Portuguese by heart. That double dose of sunshine &mdash; two islands, two coastlines, one obsession with warm weather &mdash; is in everything we make. We're not a corporation. We're a family that believes clothing should feel as good as a warm afternoon with nowhere to be.</p>
   </div>
 </div>
 
-<!-- PRODUCTS -->
-<div id="shop">
-  <div class="section-header">
-    <h2>Summer Essentials</h2>
-    <a href="#shop">View All</a>
+<!-- SECTION 2 -->
+<div class="sticky-section flip">
+  <div class="sticky-img">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=80" alt="Garage beginnings">
   </div>
-  <div class="product-grid">
-
-    <!-- TEE -->
-    <div class="product-card">
-      <div class="product-img-wrap">
-        <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png" alt="Signature Tee" id="tee-img">
-        <div class="product-badge">New</div>
-      </div>
-      <div class="product-info">
-        <h3>Signature Tee</h3>
-        <div class="product-price">&#8364;29.99</div>
-        <div class="product-colors">
-          <div class="color-dot" style="background:#f5f5f5;" title="White" onclick="document.getElementById('tee-img').style.filter='none'"></div>
-          <div class="color-dot" style="background:#d4b896;" title="Sand" onclick="document.getElementById('tee-img').style.filter='sepia(35%) brightness(.95)'"></div>
-          <div class="color-dot" style="background:#111;" title="Black" onclick="document.getElementById('tee-img').style.filter='brightness(.15) contrast(1.1)'"></div>
-        </div>
-        <div class="size-selector" id="sz-tee">
-          <button class="size-btn">S</button>
-          <button class="size-btn">M</button>
-          <button class="size-btn">L</button>
-          <button class="size-btn">XL</button>
-        </div>
-        <div class="product-specs">
-          <button class="specs-toggle">Details <span class="arr">&#9660;</span></button>
-          <div class="specs-body" style="display:none;">
-            <div class="spec-row"><span class="spec-label">Weight</span><span>180 g/m&#178;</span></div>
-            <div class="spec-row"><span class="spec-label">Material</span><span>100% cotton (most colours)</span></div>
-            <div class="spec-row"><span class="spec-label">Fit</span><span>Regular cut, round neck</span></div>
-            <div class="spec-row"><span class="spec-label">Sizes</span><span>S to 5XL</span></div>
-            <div class="spec-row"><span class="spec-label">Label</span><span>Removable</span></div>
-          </div>
-        </div>
-        <a class="product-buy" href="https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G" target="_blank">Buy Now</a>
-      </div>
-    </div>
-
-    <!-- CAP -->
-    <div class="product-card">
-      <div class="product-img-wrap">
-        <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Caps%20Sun.png" alt="Coastal Cap" id="cap-img">
-      </div>
-      <div class="product-info">
-        <h3>Coastal Cap</h3>
-        <div class="product-price">&#8364;39.99</div>
-        <div class="product-colors">
-          <div class="color-dot" style="background:#6b8f71;" title="Green" onclick="document.getElementById('cap-img').style.filter='none'"></div>
-          <div class="color-dot" style="background:#c8b99a;" title="Beige" onclick="document.getElementById('cap-img').style.filter='sepia(50%) brightness(1.05) saturate(.65)'"></div>
-          <div class="color-dot" style="background:#2c3e6b;" title="Navy" onclick="document.getElementById('cap-img').style.filter='hue-rotate(195deg) saturate(.8) brightness(.72)'"></div>
-        </div>
-        <div class="size-selector" id="sz-cap">
-          <button class="size-btn">S</button>
-          <button class="size-btn">M</button>
-          <button class="size-btn">L</button>
-        </div>
-        <div class="product-specs">
-          <button class="specs-toggle">Details <span class="arr">&#9660;</span></button>
-          <div class="specs-body" style="display:none;">
-            <div class="spec-row"><span class="spec-label">Weight</span><span>93 g</span></div>
-            <div class="spec-row"><span class="spec-label">Material</span><span>100% brushed cotton, washed</span></div>
-            <div class="spec-row"><span class="spec-label">Structure</span><span>6-panel unstructured</span></div>
-            <div class="spec-row"><span class="spec-label">Closure</span><span>Adjustable brass buckle</span></div>
-            <div class="spec-row"><span class="spec-label">Label</span><span>Removable</span></div>
-          </div>
-        </div>
-        <a class="product-buy" href="https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H" target="_blank">Buy Now</a>
-      </div>
-    </div>
-
-    <!-- BUCKET HAT -->
-    <div class="product-card">
-      <div class="product-img-wrap">
-        <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/bucket%20hat.png" alt="Bucket Hat" id="bucket-img">
-      </div>
-      <div class="product-info">
-        <h3>Bucket Hat</h3>
-        <div class="product-price">&#8364;44.99</div>
-        <div class="product-colors">
-          <div class="color-dot" style="background:#f4b8c1;" title="Pink" onclick="document.getElementById('bucket-img').style.filter='none'"></div>
-          <div class="color-dot" style="background:#e8dcc8;" title="Cream" onclick="document.getElementById('bucket-img').style.filter='sepia(30%) brightness(1.1) saturate(.5)'"></div>
-          <div class="color-dot" style="background:#b5623a;" title="Terracotta" onclick="document.getElementById('bucket-img').style.filter='sepia(60%) saturate(1.8) hue-rotate(-10deg) brightness(.9)'"></div>
-        </div>
-        <div class="size-selector" id="sz-bucket">
-          <button class="size-btn">S</button>
-          <button class="size-btn">M</button>
-          <button class="size-btn">L</button>
-        </div>
-        <div class="product-specs">
-          <button class="specs-toggle">Details <span class="arr">&#9660;</span></button>
-          <div class="specs-body" style="display:none;">
-            <div class="spec-row"><span class="spec-label">Material</span><span>100% certified organic cotton corduroy</span></div>
-            <div class="spec-row"><span class="spec-label">Sizes</span><span>S &middot; M &middot; L</span></div>
-          </div>
-        </div>
-        <a class="product-buy" href="https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I" target="_blank">Buy Now</a>
-      </div>
-    </div>
-
+  <div class="sticky-text">
+    <p class="kicker">How this all began?</p>
+    <h2>From a garage.<br>To your wardrobe.</h2>
+    <p>It started with frustration. Christopher kept looking for simple, well-made summer pieces &mdash; nothing loud, nothing cheap, nothing that falls apart after three washes. He couldn't find them. So he made them.</p>
+    <p>What began in the family garage in Altura quickly became something real. A brand built on one idea: that summer isn't just a season. It's a feeling worth wearing every single day &mdash; whether you're in the Algarve, Mauritius, or anywhere the sun shows up.</p>
   </div>
 </div>
 
-<!-- STORY -->
-<div class="story" id="story">
-  <div class="story-img">
-    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/hero.png" alt="Our Story">
-  </div>
-  <div class="story-text">
-    <p class="eyebrow">Our Story</p>
-    <h2>Summer Is a Feeling.</h2>
-    <p>Permanent Summer was created for those who believe summer is more than a season. It is the feeling of warm sand, salt on your skin, and sunsets that never end. Our signature embroidered heart represents that one moment &mdash; when everything just feels like summer.</p>
-    <a href="#shop" class="btn-outline">Shop the Collection</a>
+<!-- ACCENT TICKER -->
+<div class="accent-band">
+  <div class="accent-band-text">
+    Sun &nbsp;&middot;&nbsp; Salt &nbsp;&middot;&nbsp; Simplicity &nbsp;&middot;&nbsp; Made in Portugal &nbsp;&middot;&nbsp; Organic Cotton &nbsp;&middot;&nbsp; Family Business &nbsp;&middot;&nbsp; Born in the Algarve &nbsp;&middot;&nbsp; Sun &nbsp;&middot;&nbsp; Salt &nbsp;&middot;&nbsp; Simplicity &nbsp;&middot;&nbsp; Made in Portugal &nbsp;&middot;&nbsp; Organic Cotton &nbsp;&middot;&nbsp; Family Business &nbsp;&middot;&nbsp; Born in the Algarve &nbsp;&middot;&nbsp;
   </div>
 </div>
 
-<!-- PILLARS -->
-<div class="pillars">
-  <div class="pillar">
-    <div class="pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
-    <div class="pillar-label">Summer Living</div>
-    <div class="pillar-desc">Designed for sun, salt and endless days</div>
+<!-- SECTION 3 -->
+<div class="sticky-section">
+  <div class="sticky-img">
+    <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=1000&q=80" alt="Our pieces">
   </div>
-  <div class="pillar">
-    <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <div class="pillar-label">Made in Portugal</div>
-    <div class="pillar-desc">Crafted with Portuguese soul, Algarve born</div>
-  </div>
-  <div class="pillar">
-    <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <div class="pillar-label">Organic Cotton</div>
-    <div class="pillar-desc">Soft, sustainable, kind to skin and planet</div>
-  </div>
-  <div class="pillar">
-    <div class="pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-    <div class="pillar-label">Secure Checkout</div>
-    <div class="pillar-desc">Safe payments via Stripe, shipped fast</div>
+  <div class="sticky-text">
+    <p class="kicker">What do we actually make?</p>
+    <h2>Designed with care.<br>Made to last summers.</h2>
+    <p>Every Permanent Summer piece is built around one deliberate detail: our embroidered heart. It's not a logo for show &mdash; it's a mark. A quiet reminder that you chose something made with intention, not just speed.</p>
+    <p>Our designs are crafted digitally, refined obsessively, and produced in small runs using organic and sustainable cotton. Heavyweight tees. Structured caps. Bucket hats that look better with every wear. No fast fashion. No shortcuts.</p>
   </div>
 </div>
 
-<!-- REVIEWS -->
-<div class="reviews-section" id="reviews">
-  <h2>What People Are Saying</h2>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Got the tee and the bucket hat together and honestly the quality blew me away. The embroidery is so clean and the cotton feels really premium."</p>
-      <div class="review-author">Mariana L. &mdash; Lisbon</div>
+<!-- SECTION 4 -->
+<div class="sticky-section flip">
+  <div class="sticky-img">
+    <img src="https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=1000&q=80" alt="Summer feeling">
+  </div>
+  <div class="sticky-text">
+    <p class="kicker">What's our manifesto?</p>
+    <h2>Summer is a feeling,<br>not a forecast.</h2>
+    <p>Summer always comes back. Even in the darkest January, you know it's coming. That certainty &mdash; that warmth on the horizon &mdash; is what Permanent Summer is built on.</p>
+    <p>We believe in slowing down. In wearing something simple that makes you feel good. In the kind of day where you have nowhere to be and the sun has nowhere to go. Sun. Salt. Simplicity. Always.</p>
+  </div>
+</div>
+
+<!-- WHAT MATTERS -->
+<div class="matters">
+  <h2>What reeeally matters to us&hellip;</h2>
+  <div class="matters-grid">
+    <div class="matter-card">
+      <div class="matter-img"><img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" alt="Algarve"></div>
+      <div class="matter-body"><h3>Rooted in the Algarve</h3><p>Altura is our home. The light, the pace, the sea &mdash; it shapes every decision. We're drawing inspiration from a coastline, not a trends report.</p></div>
     </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Ordered the cap on a Wednesday, had it by Friday. Shipping was insanely fast. Already getting compliments."</p>
-      <div class="review-author">Tom R. &mdash; Porto</div>
+    <div class="matter-card">
+      <div class="matter-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Design"></div>
+      <div class="matter-body"><h3>Design with warmth</h3><p>Not everything needs to be loud. Sometimes a clean tee with a small embroidered heart says exactly what it needs to. Quietly confident. Permanently summer.</p></div>
     </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Simple, summery, no logos screaming at you. Just that little embroidered heart. Ordered as a gift and she absolutely loved it."</p>
-      <div class="review-author">Sofia M. &mdash; Cascais</div>
+    <div class="matter-card">
+      <div class="matter-img"><img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=80" alt="Quality"></div>
+      <div class="matter-body"><h3>Properly made</h3><p>180 g/m&#178; cotton. Organic corduroy. Brushed cotton caps. We obsess over weight, feel, and finish because good things shouldn't fall apart.</p></div>
     </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-      <p class="review-text">"Really happy with the bucket hat. Soft, lightweight, great for the beach. Will definitely be ordering again before summer."</p>
-      <div class="review-author">Diogo F. &mdash; Faro</div>
+    <div class="matter-card">
+      <div class="matter-img"><img src="https://images.unsplash.com/photo-1500622944204-b135684e99fd?w=600&q=80" alt="Eco"></div>
+      <div class="matter-body"><h3>Eco-conscious always</h3><p>Small runs. Organic materials. Removable labels. We care about the planet that gives us our summers, and we make choices that show it.</p></div>
     </div>
   </div>
 </div>
 
-<!-- NEWSLETTER -->
-<div class="newsletter" id="contact">
-  <p class="eyebrow">Stay in the loop</p>
-  <h2>Get &#8364;15 Off Your First Order</h2>
-  <p>Join the Permanent Summer community. No spam, just sunshine.</p>
-  <form class="nl-form" id="nl-form">
-    <input type="email" id="nl-email" placeholder="your@email.com" required>
-    <button type="submit" id="nl-btn">Claim Discount</button>
-  </form>
-  <p class="nl-note">No spam, ever. Unsubscribe anytime.</p>
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Wear the feeling.</h2>
+  <p>Organic cotton pieces built for every kind of summer day.</p>
+  <a href="index.html#shop">Explore the Collection</a>
+</div>
+
+<!-- BADGES -->
+<div class="badges">
+  <div class="badge"><div class="badge-icon">&#127807;</div><div class="badge-label">Organic Cotton</div></div>
+  <div class="badge"><div class="badge-icon">&#127477;&#127481;</div><div class="badge-label">Designed in Portugal</div></div>
+  <div class="badge"><div class="badge-icon">&#10084;</div><div class="badge-label">Family Business</div></div>
+  <div class="badge"><div class="badge-icon">&#9728;</div><div class="badge-label">Eco-Conscious</div></div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-cols">
-    <div class="footer-col">
-      <h4>Good to know</h4>
-      <ul>
-        <li><a href="about.html">About us</a></li>
-        <li><a href="terms.html">Terms &amp; conditions</a></li>
-        <li><a href="privacy.html">Privacy policy</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Need help?</h4>
-      <ul>
-        <li><a href="contact.html">Contact us</a></li>
-        <li><a href="faqs.html">FAQs</a></li>
-        <li><a href="shipping.html">Shipping</a></li>
-        <li><a href="returns.html">Exchanges &amp; returns</a></li>
-        <li><a href="sizing.html">Sizing &amp; care</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Find us</h4>
-      <ul>
-        <li><a href="/cdn-cgi/l/email-protection#dfbcb7adb6acabb0afb7baad9fafbaadb2beb1bab1abacaab2b2baadf1bcb0">Email us</a></li>
-        <li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li>
-        <li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li>
-        <li><a href="https://facebook.com/permanentsummer" target="_blank">Facebook</a></li>
-      </ul>
-    </div>
+    <div class="footer-col"><h4>Good to know</h4><ul><li><a href="about.html">About us</a></li><li><a href="terms.html">Terms &amp; conditions</a></li><li><a href="privacy.html">Privacy policy</a></li></ul></div>
+    <div class="footer-col"><h4>Need help?</h4><ul><li><a href="contact.html">Contact us</a></li><li><a href="faqs.html">FAQs</a></li><li><a href="shipping.html">Shipping</a></li><li><a href="returns.html">Exchanges &amp; returns</a></li><li><a href="sizing.html">Sizing &amp; care</a></li></ul></div>
+    <div class="footer-col"><h4>Find us</h4><ul><li><a href="mailto:christopher@permanentsummer.co">Email us</a></li><li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li><li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li><li><a href="https://facebook.com/permanentsummer" target="_blank">Facebook</a></li></ul></div>
   </div>
-
   <div class="footer-middle">
-    <div class="footer-brand-wrap">
-      <div class="footer-brand-name">Permanent Summer</div>
-      <div class="footer-brand-sub">Sun &middot; Salt &middot; Simplicity</div>
-      <div class="footer-social-row">
-        <a href="https://instagram.com/permanent_summer" target="_blank" title="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="https://facebook.com/permanentsummer" target="_blank" title="Facebook">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-        <a href="https://wa.me/351924477353" target="_blank" title="WhatsApp">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        </a>
-      </div>
+    <div class="footer-brand-name">Permanent Summer</div>
+    <div class="footer-brand-sub">Sun &middot; Salt &middot; Simplicity</div>
+    <div class="footer-social-row">
+      <a href="https://instagram.com/permanent_summer" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://facebook.com/permanentsummer" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="mailto:christopher@permanentsummer.co"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
     </div>
   </div>
-
   <div class="footer-payments">
-    <span class="payment-icon">VISA</span>
-    <span class="payment-icon">MC</span>
-    <span class="payment-icon">PayPal</span>
-    <span class="payment-icon">MB</span>
-    <span class="payment-icon">MB WAY</span>
-    <span class="payment-icon">Apple Pay</span>
-    <span class="payment-icon">Google Pay</span>
+    <div class="pay-logo"><svg viewBox="0 0 48 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial" font-weight="bold" font-size="14" fill="#1A1F71">VISA</text></svg></div>
+    <div class="pay-logo"><svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="12" r="10" fill="#EB001B"/><circle cx="24" cy="12" r="10" fill="#F79E1B"/><path d="M19 5.27A10 10 0 0 1 22.73 12 10 10 0 0 1 19 18.73 10 10 0 0 1 15.27 12 10 10 0 0 1 19 5.27z" fill="#FF5F00"/></svg></div>
+    <div class="pay-logo"><svg viewBox="0 0 60 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial" font-weight="bold" font-size="12" fill="#003087">Pay</text><text x="22" y="13" font-family="Arial" font-weight="bold" font-size="12" fill="#009cde">Pal</text></svg></div>
+    <div class="pay-logo"><svg viewBox="0 0 70 20" xmlns="http://www.w3.org/2000/svg"><text x="2" y="15" font-family="-apple-system,Arial" font-size="12" font-weight="500" fill="#000">&#xF8FF; Pay</text></svg></div>
+    <div class="pay-logo"><svg viewBox="0 0 70 20" xmlns="http://www.w3.org/2000/svg"><text x="0" y="15" font-family="Arial" font-size="12" font-weight="500"><tspan fill="#4285F4">G</tspan><tspan fill="#EA4335">o</tspan><tspan fill="#FBBC05">o</tspan><tspan fill="#4285F4">g</tspan><tspan fill="#34A853">l</tspan><tspan fill="#EA4335">e </tspan><tspan fill="#5F6368">Pay</tspan></text></svg></div>
+    <div class="pay-logo" style="background:#003f87;border-radius:4px;padding:2px 8px;"><svg viewBox="0 0 40 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial" font-weight="bold" font-size="11" fill="#fff">MB</text></svg></div>
+    <div class="pay-logo" style="background:#df001a;border-radius:4px;padding:2px 8px;"><svg viewBox="0 0 64 16" xmlns="http://www.w3.org/2000/svg"><text x="0" y="13" font-family="Arial" font-weight="bold" font-size="10" fill="#fff">MB WAY</text></svg></div>
   </div>
-
   <div class="footer-bottom">
     <p>&copy; 2026 Permanent Summer</p>
     <p>Permanent Summer Lda &nbsp;&middot;&nbsp; Casas Da Alcaria Lote 81, 8950-413 Altura, Portugal &nbsp;&middot;&nbsp; NIF: PT516416804</p>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">
+<script type="text/javascript">
 (function() {
   function init() {
-    document.querySelectorAll('.specs-toggle').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var body = btn.parentElement.querySelector('.specs-body');
-        var arr = btn.querySelector('.arr');
-        if (body.style.display === 'block') {
-          body.style.display = 'none';
-          if (arr) arr.innerHTML = '&#9660;';
-        } else {
-          body.style.display = 'block';
-          if (arr) arr.innerHTML = '&#9650;';
-        }
-      });
-    });
-    document.querySelectorAll('.size-selector').forEach(function(sel) {
-      sel.querySelectorAll('.size-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          sel.querySelectorAll('.size-btn').forEach(function(b) { b.classList.remove('selected'); });
-          btn.classList.add('selected');
-        });
-      });
-    });
-    var slides = document.querySelectorAll('#hero-slides .hero-slide');
-    var dots = document.querySelectorAll('#hero-dot-wrap .hero-dot');
-    var cur = 0;
-    function goHero(n) {
-      slides[cur].classList.remove('active');
-      dots[cur].classList.remove('active');
-      cur = (n + slides.length) % slides.length;
-      slides[cur].classList.add('active');
-      dots[cur].classList.add('active');
-    }
-    var prevBtn = document.getElementById('hero-prev');
-    var nextBtn = document.getElementById('hero-next');
-    if (prevBtn) prevBtn.addEventListener('click', function() { goHero(cur - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { goHero(cur + 1); });
-    dots.forEach(function(d, i) { d.addEventListener('click', function() { goHero(i); }); });
-    setInterval(function() { goHero(cur + 1); }, 5000);
-    var form = document.getElementById('nl-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        var b = document.getElementById('nl-btn');
-        b.textContent = 'Coupon sent!';
-        b.style.background = '#4caf82';
-        document.getElementById('nl-email').disabled = true;
-        b.disabled = true;
-      });
-    }
- 
+    var blocks = document.querySelectorAll('.sticky-text');
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    blocks.forEach(function(b) { io.observe(b); });
+
+    var heroImgs = document.querySelectorAll('.hero-duo img');
+    window.addEventListener('scroll', function() {
+      var y = window.scrollY;
+      heroImgs.forEach(function(img) { img.style.transform = 'translateY(' + (y * 0.1) + 'px)'; });
+    }, { passive: true });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+</script>
+</body>
+</html>
