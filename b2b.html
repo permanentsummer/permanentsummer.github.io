@@ -27,11 +27,20 @@ nav{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px 
 @media(max-width:768px){.nav-links{display:none;}nav{padding:0 20px;}.announce{font-size:10px;}}
 
 /* HERO — full screen */
-.hero{position:relative;min-height:100vh;background:var(--black);display:flex;align-items:flex-end;overflow:hidden;}
+.hero{position:relative;min-height:100vh;background:var(--black);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#111 0%,#1a1a1a 40%,#0d0d0d 100%);}
 .hero-grid-overlay{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 60px);}
-.hero-accent-line{position:absolute;top:0;right:160px;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--accent),transparent);}
-.hero-content{position:relative;z-index:2;padding:60px 60px 80px;max-width:900px;}
+.hero-accent-line{position:absolute;top:0;left:50%;width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(214,167,122,.3),transparent);z-index:1;}
+.hero-content{position:relative;z-index:2;padding:80px 60px;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:80px;}
+@media(max-width:900px){.hero-content{padding:120px 24px 60px;}}
+.hero-images{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;gap:0;overflow:hidden;}
+@media(max-width:900px){.hero-images{display:none;}}
+.hero-img-wrap{flex:1;height:100vh;min-height:600px;position:relative;overflow:hidden;}
+.hero-img-wrap img{position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:90%;width:auto;max-width:none;object-fit:contain;object-position:bottom;filter:drop-shadow(0 20px 60px rgba(0,0,0,.8));transition:transform .6s ease;}
+.hero-img-wrap:hover img{transform:translateX(-50%) scale(1.03);}
+.hero-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 40%);}
+.hero-img-label{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap;border:1px solid rgba(255,255,255,.15);padding:6px 14px;}
 .hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--accent);}
 .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,9rem);letter-spacing:4px;line-height:.95;color:#fff;margin-bottom:28px;}
@@ -42,12 +51,12 @@ nav{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px 
 .btn-primary:hover{background:#c49060;transform:translateY(-2px);}
 .btn-outline{display:inline-block;border:1px solid rgba(255,255,255,.3);color:#fff;padding:16px 40px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:border-color .2s,background .2s;}
 .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.05);}
-.hero-stats{position:absolute;right:0;top:0;bottom:0;width:160px;display:flex;flex-direction:column;border-left:1px solid rgba(255,255,255,.08);}
-.hero-stat{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;border-bottom:1px solid rgba(255,255,255,.08);}
-.hero-stat:last-child{border-bottom:none;}
-.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--accent);line-height:1;}
-.hero-stat-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:6px;}
-@media(max-width:700px){.hero-stats{display:none;}.hero-content{padding:40px 24px 60px;}}
+.hero-stats{display:flex;flex-direction:row;gap:0;margin-top:40px;border-top:1px solid rgba(255,255,255,.1);padding-top:28px;}
+.hero-stat{flex:1;display:flex;flex-direction:column;padding-right:20px;border-right:1px solid rgba(255,255,255,.1);margin-right:20px;}
+.hero-stat:last-child{border-right:none;margin-right:0;padding-right:0;}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--accent);line-height:1;}
+.hero-stat-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px;}
+@media(max-width:700px){.hero-stats{flex-wrap:wrap;gap:16px;}.hero-stat{border-right:none;margin-right:0;min-width:40%;}}
 
 /* TICKER */
 .ticker{background:var(--accent);overflow:hidden;white-space:nowrap;padding:12px 0;}
@@ -299,21 +308,38 @@ footer{background:#d9e6f0;color:#444;padding:70px 40px 30px;}
   <div class="hero-bg"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-accent-line"></div>
+
+  <!-- LEFT: text + stats -->
   <div class="hero-content">
-    <p class="hero-eyebrow">Custom Embroidery &amp; Bulk Orders</p>
-    <h1>Build<br>Your<br><span>Swag.</span></h1>
-    <p class="hero-sub">Premium organic cotton pieces embroidered with your logo. For hotels, surf schools, restaurants, events, and any brand that gives a damn about quality.</p>
-    <div class="hero-btns">
-      <a class="btn-primary" href="#quote">Request a Quote</a>
-      <a class="btn-outline" href="#gallery">See Our Work</a>
+    <div>
+      <p class="hero-eyebrow">Custom Embroidery &amp; Bulk Orders</p>
+      <h1>Build<br>Your<br><span>Swag.</span></h1>
+      <p class="hero-sub">Premium organic cotton pieces embroidered with your logo. For hotels, surf schools, restaurants, events, and any brand that gives a damn about quality.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#quote">Request a Quote</a>
+        <a class="btn-outline" href="#gallery">See Our Work</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">10</span><span class="hero-stat-label">Min units</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">7&ndash;14</span><span class="hero-stat-label">Days</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">500+</span><span class="hero-stat-label">Orders</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">EU</span><span class="hero-stat-label">Shipping</span></div>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="hero-stat"><span class="hero-stat-num">10</span><span class="hero-stat-label">Min units</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">7–14</span><span class="hero-stat-label">Days</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">500+</span><span class="hero-stat-label">Orders</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">EU</span><span class="hero-stat-label">Shipping</span></div>
+
+  <!-- RIGHT: product photos -->
+  <div class="hero-images">
+    <div class="hero-img-wrap">
+      <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Hanging.png" alt="Permanent Summer Tee Hanging">
+      <span class="hero-img-label">Signature Tee</span>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20with%20Label.png" alt="Permanent Summer Tee with Label">
+      <span class="hero-img-label">Custom Label</span>
+    </div>
   </div>
+
 </section>
 
 <!-- TICKER -->
@@ -461,7 +487,7 @@ footer{background:#d9e6f0;color:#444;padding:70px 40px 30px;}
         <div class="contact-direct">
           <p>Or reach us directly</p>
           <a href="https://wa.me/351924477353" target="_blank">WhatsApp &mdash; +351 924 477 353</a>
-          <a href="mailto:christopher@permanentsummer.co">Email &mdash; christopher@permanentsummer.co</a>
+          <a href="/cdn-cgi/l/email-protection#7b18130912080f140b131e093b0b1e09161a151e150f080e16161e09551814">Email &mdash; <span class="__cf_email__" data-cfemail="9af9f2e8f3e9eef5eaf2ffe8daeaffe8f7fbf4fff4eee9eff7f7ffe8b4f9f5">[email&#160;protected]</span></a>
         </div>
       </div>
       <div class="form-main">
@@ -561,14 +587,14 @@ footer{background:#d9e6f0;color:#444;padding:70px 40px 30px;}
   <div class="footer-cols">
     <div class="footer-col"><h4>Good to know</h4><ul><li><a href="about.html">About us</a></li><li><a href="terms.html">Terms &amp; conditions</a></li><li><a href="privacy.html">Privacy policy</a></li></ul></div>
     <div class="footer-col"><h4>Need help?</h4><ul><li><a href="contact.html">Contact us</a></li><li><a href="faqs.html">FAQs</a></li><li><a href="shipping.html">Shipping</a></li><li><a href="returns.html">Exchanges &amp; returns</a></li></ul></div>
-    <div class="footer-col"><h4>Find us</h4><ul><li><a href="mailto:christopher@permanentsummer.co">Email us</a></li><li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li><li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li><li><a href="b2b.html">B2B &amp; Custom</a></li></ul></div>
+    <div class="footer-col"><h4>Find us</h4><ul><li><a href="/cdn-cgi/l/email-protection#ddbeb5afb4aea9b2adb5b8af9dadb8afb0bcb3b8b3a9aea8b0b0b8aff3beb2">Email us</a></li><li><a href="https://wa.me/351924477353" target="_blank">WhatsApp</a></li><li><a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a></li><li><a href="b2b.html">B2B &amp; Custom</a></li></ul></div>
   </div>
   <div class="footer-middle">
     <div class="footer-brand-name">Permanent Summer</div>
     <div class="footer-brand-sub">Sun &middot; Salt &middot; Simplicity</div>
     <div class="footer-social-row">
       <a href="https://instagram.com/permanent_summer" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
-      <a href="mailto:christopher@permanentsummer.co"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
+      <a href="/cdn-cgi/l/email-protection#fe9d968c978d8a918e969b8cbe8e9b8c939f909b908a8d8b93939b8cd09d91"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -577,6 +603,7 @@ footer{background:#d9e6f0;color:#444;padding:70px 40px 30px;}
   </div>
 </footer>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script>
 function goStep(n) {
   for (var i = 1; i <= 3; i++) {
@@ -615,8 +642,7 @@ function submitB2B(e) {
   if (!company || !company.value.trim()) { goStep(1); if (company) company.focus(); return; }
   if (!email || !email.value.trim()) { goStep(1); if (email) email.focus(); return; }
   for (var i = 1; i <= 3; i++) {
-    var s = document.getElementById('step-' + i);
-    var p = document.getElementById('pill-' + i);
+    var s = document.getElementById('step-' + i); var p = document.getElementById('pill-' + i);
     if (s) s.classList.remove('active');
     if (p) { p.classList.remove('active'); p.classList.add('done'); }
   }
