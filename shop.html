@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop &mdash; Permanent Summer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --black: #2d3142;
+  --white: #ffffff;
+  --cream: #F6F1E7;
+  --sand: #ede8df;
+  --accent: #D6A77A;
+  --mid: #8a8fa8;
+  --border: #e4e0d8;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--white); color: var(--black); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ANNOUNCE */
+.announce { background: var(--black); color: #fff; text-align: center; font-size: 12px; letter-spacing: 1px; padding: 9px 20px; }
+.announce strong { font-weight: 600; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 400; letter-spacing: 4px;
+  text-transform: lowercase; color: var(--black);
+  font-style: italic;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--mid); transition: color .2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--black); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-right > a { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); transition: color .2s; }
+.nav-right > a:hover { color: var(--black); }
+.nav-cart-btn {
+  position: relative; background: none; border: none;
+  cursor: pointer; padding: 4px; color: var(--black);
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+}
+.nav-cart-btn svg { width: 20px; height: 20px; }
+.cart-count {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--accent); color: #fff;
+  width: 16px; height: 16px; border-radius: 50%;
+  font-size: 9px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  display: none;
+}
+.hamburger {
+  display: none; flex-direction: column; justify-content: center;
+  gap: 5px; width: 36px; height: 36px;
+  background: none; border: none; cursor: pointer; padding: 4px; z-index: 301;
+}
+.hamburger span {
+  display: block; width: 100%; height: 1.5px;
+  background: var(--black); transition: transform .3s, opacity .3s;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: var(--cream); z-index: 300;
+  flex-direction: column; padding: 80px 40px 48px;
+  overflow-y: auto;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu ul { list-style: none; flex: 1; }
+.mobile-menu ul li { border-bottom: 1px solid var(--border); }
+.mobile-menu ul a {
+  display: block; font-family: var(--font-display);
+  font-size: 3rem; font-weight: 400; font-style: italic;
+  color: var(--black); padding: 14px 0; transition: color .2s;
+}
+.mobile-menu ul a:hover { color: var(--accent); }
+.mobile-menu-meta { margin-top: 36px; display: flex; flex-direction: column; gap: 10px; }
+.mobile-menu-meta a { font-size: 13px; color: var(--mid); font-weight: 500; }
+.mobile-socials { display: flex; gap: 14px; margin-top: 16px; }
+.mobile-socials a { color: var(--black); display: flex; }
+.mobile-cart-link {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; color: var(--black);
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+
+/* CART DRAWER */
+.cart-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4); z-index: 400;
+}
+.cart-overlay.open { display: block; }
+.cart-drawer {
+  position: fixed; top: 0; right: -420px; bottom: 0; width: 420px;
+  background: var(--white); z-index: 401;
+  display: flex; flex-direction: column;
+  transition: right .35s cubic-bezier(.4,0,.2,1);
+  box-shadow: -4px 0 32px rgba(0,0,0,.12);
+}
+.cart-drawer.open { right: 0; }
+@media(max-width:480px) { .cart-drawer { width: 100%; right: -100%; } }
+.cart-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 28px; border-bottom: 1px solid var(--border);
+}
+.cart-header h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; font-style: italic; letter-spacing: 1px; }
+.cart-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--mid); line-height: 1; }
+.cart-close:hover { color: var(--black); }
+.cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+.cart-empty { text-align: center; padding: 60px 20px; }
+.cart-empty p { font-size: 15px; color: var(--mid); margin-bottom: 20px; }
+.cart-empty a { display: inline-block; background: var(--black); color: #fff; padding: 12px 28px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.cart-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: center; }
+.cart-item-img { width: 70px; height: 70px; object-fit: contain; background: var(--sand); flex-shrink: 0; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.cart-item-variant { font-size: 12px; color: var(--mid); margin-bottom: 8px; }
+.cart-item-price { font-size: 14px; font-weight: 600; }
+.cart-item-remove { background: none; border: none; color: var(--mid); font-size: 18px; cursor: pointer; padding: 4px; line-height: 1; }
+.cart-item-remove:hover { color: var(--black); }
+.cart-footer { padding: 20px 28px; border-top: 1px solid var(--border); }
+.cart-total { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+.cart-checkout {
+  display: block; width: 100%; background: var(--black); color: #fff;
+  border: none; padding: 16px; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background .2s;
+}
+.cart-checkout:hover { background: #444; }
+.cart-note { font-size: 11px; color: var(--mid); text-align: center; margin-top: 10px; }
+
+/* FOOTER */
+footer { background: var(--black); color: rgba(255,255,255,.7); }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding: 64px 40px 48px; border-bottom: 1px solid rgba(255,255,255,.08); }
+@media(max-width:800px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .footer-top { grid-template-columns: 1fr; } }
+.footer-brand-name { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; font-style: italic; letter-spacing: 2px; color: #fff; margin-bottom: 12px; }
+.footer-brand-sub { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.8; margin-bottom: 24px; max-width: 220px; }
+.footer-social { display: flex; gap: 12px; }
+.footer-social a { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: border-color .2s, background .2s; }
+.footer-social a:hover { border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.05); }
+.footer-social svg { width: 15px; height: 15px; }
+.footer-col h4 { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 18px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul a { font-size: 13px; color: rgba(255,255,255,.6); transition: color .2s; }
+.footer-col ul a:hover { color: #fff; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 20px 40px; }
+.footer-bottom p { font-size: 11px; color: rgba(255,255,255,.25); }
+
+/* SHARED UTILITIES */
+.btn-dark { display: inline-block; background: var(--black); color: #fff; padding: 14px 36px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer; transition: background .2s; }
+.btn-dark:hover { background: #444; }
+.btn-outline-dark { display: inline-block; border: 1px solid var(--black); color: var(--black); padding: 13px 36px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: background .2s, color .2s; }
+.btn-outline-dark:hover { background: var(--black); color: #fff; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); margin-bottom: 14px; }
+
+@media(max-width:768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-right > a { display: none; }
+  .hamburger { display: flex; }
+  footer { font-size: 13px; }
+}
+
+
+/* SHOP PAGE */
+.shop-hero {
+  background: var(--sand); padding: 80px 40px 60px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.shop-hero h1 {
+  font-family: var(--font-display); font-size: clamp(3rem,7vw,5.5rem);
+  font-weight: 300; font-style: italic; line-height: 1;
+}
+.shop-hero p { font-size: 14px; color: var(--mid); margin-top: 10px; }
+
+.shop-products { padding: 0; }
+
+/* PRODUCT ROW — full editorial layout */
+.shop-product {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+  min-height: 600px;
+}
+.shop-product:nth-child(even) { direction: rtl; }
+.shop-product:nth-child(even) > * { direction: ltr; }
+@media(max-width:768px) {
+  .shop-product, .shop-product:nth-child(even) { grid-template-columns: 1fr; direction: ltr; min-height: auto; }
+}
+
+.shop-product-img {
+  overflow: hidden; background: var(--sand);
+  position: relative;
+}
+.shop-product-img img {
+  width: 100%; height: 100%; object-fit: contain;
+  object-position: center; min-height: 400px;
+  transition: transform .6s ease;
+}
+.shop-product:hover .shop-product-img img { transform: scale(1.03); }
+
+.shop-product-info {
+  padding: 60px 56px; display: flex; flex-direction: column;
+  justify-content: center; background: #fff;
+  border-left: 1px solid var(--border);
+}
+.shop-product:nth-child(even) .shop-product-info { border-left: none; border-right: 1px solid var(--border); }
+@media(max-width:768px) {
+  .shop-product-info { padding: 40px 24px; border: none !important; }
+}
+
+.product-category { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.product-name { font-family: var(--font-display); font-size: 2.4rem; font-weight: 400; font-style: italic; margin-bottom: 6px; line-height: 1.1; }
+.product-price { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; }
+.product-desc { font-size: 14px; color: #666; line-height: 1.85; margin-bottom: 24px; max-width: 380px; }
+
+/* Color swatches */
+.color-dots { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+.color-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.12); cursor: pointer;
+  transition: outline .15s; background: none; padding: 0;
+}
+.color-dot:hover { outline: 2px solid var(--mid); outline-offset: 2px; }
+.color-dot.selected { outline: 2px solid var(--black); outline-offset: 2px; }
+.color-name { font-size: 11px; color: var(--mid); margin-bottom: 16px; min-height: 16px; letter-spacing: .5px; }
+
+/* Size selector */
+.size-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+.size-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.sz {
+  min-width: 38px; height: 38px; border: 1px solid var(--border);
+  background: #fff; font-size: 12px; font-weight: 600;
+  color: var(--black); cursor: pointer; transition: all .15s; padding: 0 8px;
+}
+.sz:hover, .sz.selected { background: var(--black); border-color: var(--black); color: #fff; }
+
+/* Add to cart */
+.add-to-cart-btn {
+  width: 100%; background: var(--black); color: #fff; border: none;
+  padding: 16px; font-family: var(--font-body); font-size: 12px;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: background .2s; margin-bottom: 10px;
+}
+.add-to-cart-btn:hover { background: #444; }
+.buy-now-btn {
+  display: block; width: 100%; text-align: center;
+  border: 1px solid var(--border); color: var(--mid);
+  padding: 14px; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; background: none; transition: all .2s;
+  margin-bottom: 20px;
+}
+.buy-now-btn:hover { border-color: var(--black); color: var(--black); }
+
+/* Specs accordion */
+.specs-toggle {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; background: none; border: none; border-top: 1px solid var(--border);
+  padding: 14px 0 0; font-family: var(--font-body); font-size: 11px;
+  font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--mid); cursor: pointer; transition: color .2s;
+}
+.specs-toggle:hover { color: var(--black); }
+.specs-body { display: none; padding-top: 12px; }
+.specs-body.open { display: block; }
+.spec-row { display: flex; gap: 12px; font-size: 12px; color: #666; padding: 5px 0; border-bottom: 1px solid #f5f0ea; }
+.spec-row:last-child { border-bottom: none; }
+.spec-label { font-weight: 600; color: var(--black); min-width: 76px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <ul>
+    <li><a href="index.html" onclick="closeMobileMenu()">Home</a></li>
+    <li><a href="shop.html" onclick="closeMobileMenu()">Shop</a></li>
+    <li><a href="about.html" onclick="closeMobileMenu()">About</a></li>
+    <li><a href="b2b.html" onclick="closeMobileMenu()">B2B</a></li>
+  </ul>
+  <div class="mobile-menu-meta">
+    <a href="mailto:christopher@permanentsummer.co">christopher@permanentsummer.co</a>
+    <a href="https://wa.me/351924477353">+351 924 477 353</a>
+    <div class="mobile-socials">
+      <a href="https://instagram.com/permanent_summer" target="_blank"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()">&times;</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <p>Your cart is empty.</p>
+      <a href="shop.html" onclick="closeCart()">Shop Now</a>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-total"><span>Total</span><span id="cart-total-price">&euro;0.00</span></div>
+    <button class="cart-checkout" onclick="alert('Checkout coming soon! Use the Buy Now buttons to purchase via Stripe.')">Proceed to Checkout</button>
+    <p class="cart-note">Secure payment via Stripe</p>
+  </div>
+</div>
+
+<div class="announce"><strong>Free shipping</strong> Portugal over &euro;80 &nbsp;&middot;&nbsp; Europe over &euro;150</div>
+<nav>
+  <a href="index.html" class="nav-logo">permanent summer</a>
+  <ul class="nav-links">
+    <li><a href="index.html" >Home</a></li>
+    <li><a href="shop.html" class="active">Shop</a></li>
+    <li><a href="about.html" >About</a></li>
+    <li><a href="b2b.html" >B2B</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://instagram.com/permanent_summer" target="_blank">Instagram</a>
+    <button class="nav-cart-btn" onclick="openCart()" aria-label="Cart">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- SHOP HERO -->
+<div class="shop-hero">
+  <div>
+    <h1>All<br>Products</h1>
+    <p>3 products &nbsp;&middot;&nbsp; Organic cotton &nbsp;&middot;&nbsp; Made in Portugal</p>
+  </div>
+  <p style="font-size:13px;color:var(--mid);max-width:280px;text-align:right;line-height:1.7;">Free shipping Portugal over &euro;80 &nbsp;&middot;&nbsp; Europe over &euro;150</p>
+</div>
+
+<div class="shop-products">
+
+  <!-- TEE -->
+  <div class="shop-product" id="tees">
+    <div class="shop-product-img">
+      <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png" alt="Signature Tee" id="shop-tee-img">
+    </div>
+    <div class="shop-product-info">
+      <p class="product-category">T-Shirt</p>
+      <div class="product-name">Signature Tee</div>
+      <div class="product-price">&euro;29.99</div>
+      <p class="product-desc">180 g/m&sup2; premium cotton with our minimalist embroidered heart. Regular cut, round neck. Relaxed fit made for endless summer days.</p>
+      <div class="color-dots">
+        <button class="color-dot selected" style="background:#f5f5f5;border:1px solid #ccc;" title="White" onclick="swapImg('shop-tee-img','https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png',this,'shop-tee-name')"></button>
+        <button class="color-dot" style="background:#d4b896;" title="Sand" onclick="document.getElementById('shop-tee-img').style.filter='sepia(35%) brightness(.95)';selectDot(this,'shop-tee-name','Sand')"></button>
+        <button class="color-dot" style="background:#111;" title="Black" onclick="document.getElementById('shop-tee-img').style.filter='brightness(.15) contrast(1.1)';selectDot(this,'shop-tee-name','Black')"></button>
+      </div>
+      <div class="color-name" id="shop-tee-name">White</div>
+      <span class="size-label">Select Size</span>
+      <div class="size-btns" id="sz-shop-tee">
+        <button class="sz" onclick="selectSize(this,'sz-shop-tee','shop-tee-selected-size')">S</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-tee','shop-tee-selected-size')">M</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-tee','shop-tee-selected-size')">L</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-tee','shop-tee-selected-size')">XL</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-tee','shop-tee-selected-size')">2XL</button>
+        <input type="hidden" id="shop-tee-selected-size" value="">
+      </div>
+      <button class="add-to-cart-btn" onclick="addToCart('Signature Tee',29.99,'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png',document.getElementById('shop-tee-selected-size').value,'White','https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G')">Add to Cart</button>
+      <a href="https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G" target="_blank" class="buy-now-btn">Buy Now via Stripe</a>
+      <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
+      <div class="specs-body" style="display:none;">
+        <div class="spec-row"><span class="spec-label">Weight</span><span>180 g/m&sup2;</span></div>
+        <div class="spec-row"><span class="spec-label">Material</span><span>100% cotton (most colours)</span></div>
+        <div class="spec-row"><span class="spec-label">Fit</span><span>Regular cut, round neck</span></div>
+        <div class="spec-row"><span class="spec-label">Sizes</span><span>S to 5XL</span></div>
+        <div class="spec-row"><span class="spec-label">Label</span><span>Removable</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAP -->
+  <div class="shop-product" id="caps">
+    <div class="shop-product-img">
+      <img src="https://assets.wordans.pt/files/colors/466920/c11754/466920_c11754_model.jpg" alt="Coastal Cap" id="shop-cap-img" style="transition:opacity .3s;">
+    </div>
+    <div class="shop-product-info">
+      <p class="product-category">Cap</p>
+      <div class="product-name">Coastal Cap</div>
+      <div class="product-price">&euro;39.99</div>
+      <p class="product-desc">93g brushed vintage cotton. 6-panel unstructured with adjustable brass buckle. Available in 12 washed vintage colours.</p>
+      <div class="color-dots">
+        <button class="color-dot" style="background:#4a6a8a;" title="Vintage Denim" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c11754/466920_c11754_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#c8b99a;border:1px solid #ccc;" title="Vintage Sand" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c11756/466920_c11756_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#8a8278;" title="Vintage Stone" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c11757/466920_c11757_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#222;" title="Vintage Black" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c11755/466920_c11755_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#5a6b3a;" title="Vintage Olive" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c16543/466920_c16543_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#2d5a3d;" title="Bottle Green" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c11760/466920_c11760_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#8b2a2a;" title="Vintage Red" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c11761/466920_c11761_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#8aabcc;" title="Light Denim" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c16544/466920_c16544_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#6b8cbf;" title="Cornflower" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c16545/466920_c16545_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#9a9a9a;" title="Heather Grey" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c23540/466920_c23540_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#2a3550;" title="Heather Navy" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c23541/466920_c23541_model.jpg',this,'shop-cap-name')"></button>
+<button class="color-dot" style="background:#4a4a4a;" title="Graphite" onclick="swapImg('shop-cap-img','https://assets.wordans.pt/files/colors/466920/c23542/466920_c23542_model.jpg',this,'shop-cap-name')"></button>
+
+      </div>
+      <div class="color-name" id="shop-cap-name">Vintage Denim</div>
+      <span class="size-label">Select Size</span>
+      <div class="size-btns" id="sz-shop-cap">
+        <button class="sz" onclick="selectSize(this,'sz-shop-cap','shop-cap-selected-size')">S</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-cap','shop-cap-selected-size')">M</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-cap','shop-cap-selected-size')">L</button>
+        <input type="hidden" id="shop-cap-selected-size" value="">
+      </div>
+      <button class="add-to-cart-btn" onclick="addToCart('Coastal Cap',39.99,document.getElementById('shop-cap-img').src,document.getElementById('shop-cap-selected-size').value,document.getElementById('shop-cap-name').textContent,'https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H')">Add to Cart</button>
+      <a href="https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H" target="_blank" class="buy-now-btn">Buy Now via Stripe</a>
+      <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
+      <div class="specs-body" style="display:none;">
+        <div class="spec-row"><span class="spec-label">Weight</span><span>93 g</span></div>
+        <div class="spec-row"><span class="spec-label">Material</span><span>100% brushed cotton, washed</span></div>
+        <div class="spec-row"><span class="spec-label">Structure</span><span>6-panel unstructured</span></div>
+        <div class="spec-row"><span class="spec-label">Closure</span><span>Adjustable brass buckle</span></div>
+        <div class="spec-row"><span class="spec-label">Colours</span><span>12 vintage washed colours</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUCKET HAT -->
+  <div class="shop-product" id="hats">
+    <div class="shop-product-img">
+      <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/bucket%20hat.png" alt="Bucket Hat" id="shop-bucket-img">
+    </div>
+    <div class="shop-product-info">
+      <p class="product-category">Hat</p>
+      <div class="product-name">Bucket Hat</div>
+      <div class="product-price">&euro;44.99</div>
+      <p class="product-desc">100% certified organic cotton corduroy. Soft, lightweight, perfect for beach days. Comes in three earthy tones inspired by the Algarve coast.</p>
+      <div class="color-dots">
+        <button class="color-dot selected" style="background:#f4b8c1;" title="Pink" onclick="swapFilter('shop-bucket-img','none',this,'shop-bucket-name','Pink')"></button>
+        <button class="color-dot" style="background:#e8dcc8;" title="Cream" onclick="swapFilter('shop-bucket-img','sepia(30%) brightness(1.1) saturate(.5)',this,'shop-bucket-name','Cream')"></button>
+        <button class="color-dot" style="background:#b5623a;" title="Terracotta" onclick="swapFilter('shop-bucket-img','sepia(60%) saturate(1.8) hue-rotate(-10deg) brightness(.9)',this,'shop-bucket-name','Terracotta')"></button>
+      </div>
+      <div class="color-name" id="shop-bucket-name">Pink</div>
+      <span class="size-label">Select Size</span>
+      <div class="size-btns" id="sz-shop-bucket">
+        <button class="sz" onclick="selectSize(this,'sz-shop-bucket','shop-bucket-selected-size')">S</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-bucket','shop-bucket-selected-size')">M</button>
+        <button class="sz" onclick="selectSize(this,'sz-shop-bucket','shop-bucket-selected-size')">L</button>
+        <input type="hidden" id="shop-bucket-selected-size" value="">
+      </div>
+      <button class="add-to-cart-btn" onclick="addToCart('Bucket Hat',44.99,'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/bucket%20hat.png',document.getElementById('shop-bucket-selected-size').value,document.getElementById('shop-bucket-name').textContent,'https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I')">Add to Cart</button>
+      <a href="https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I" target="_blank" class="buy-now-btn">Buy Now via Stripe</a>
+      <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
+      <div class="specs-body" style="display:none;">
+        <div class="spec-row"><span class="spec-label">Material</span><span>100% organic cotton corduroy</span></div>
+        <div class="spec-row"><span class="spec-label">Sizes</span><span>S &middot; M &middot; L</span></div>
+        <div class="spec-row"><span class="spec-label">Colours</span><span>Pink &middot; Cream &middot; Terracotta</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">permanent summer</div>
+      <p class="footer-brand-sub">Sun &middot; Salt &middot; Simplicity<br>Made in the Algarve, for every summer.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/permanent_summer" target="_blank">
+          <svg fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"/></svg>
+        </a>
+        <a href="https://facebook.com/permanentsummer" target="_blank">
+          <svg fill="white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://wa.me/351924477353" target="_blank">
+          <svg fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html">All Products</a></li>
+        <li><a href="shop.html#tees">T-Shirts</a></li>
+        <li><a href="shop.html#caps">Caps</a></li>
+        <li><a href="shop.html#hats">Bucket Hats</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="b2b.html">B2B Orders</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="returns.html">Returns</a></li>
+        <li><a href="shipping.html">Shipping</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Permanent Summer &nbsp;&middot;&nbsp; Permanent Summer Lda &nbsp;&middot;&nbsp; Casas Da Alcaria Lote 81, 8950-413 Altura, Portugal &nbsp;&middot;&nbsp; NIF: PT516416804</p>
+    <p>Designed with &hearts; for endless summer</p>
+  </div>
+</footer>
+
+
+<script>
+
+// ── CART ──
+var cart = JSON.parse(localStorage.getItem('ps_cart') || '[]');
+function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
+function updateCartCount() {
+  var total = cart.reduce(function(s,i){return s+i.qty;},0);
+  var el = document.getElementById('cart-count');
+  if (!el) return;
+  el.textContent = total;
+  el.style.display = total > 0 ? 'flex' : 'none';
+}
+function renderCart() {
+  var el = document.getElementById('cart-items');
+  var footer = document.getElementById('cart-footer');
+  if (!el) return;
+  if (!cart.length) {
+    el.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="shop.html" onclick="closeCart()">Shop Now</a></div>';
+    if (footer) footer.style.display = 'none';
+    return;
+  }
+  var html = '';
+  cart.forEach(function(item, idx) {
+    html += '<div class="cart-item">';
+    html += '<img class="cart-item-img" src="' + item.img + '" alt="' + item.name + '">';
+    html += '<div class="cart-item-info">';
+    html += '<div class="cart-item-name">' + item.name + '</div>';
+    html += '<div class="cart-item-variant">Size: ' + item.size + (item.color ? ' &middot; ' + item.color : '') + '</div>';
+    html += '<div class="cart-item-price">&euro;' + (item.price * item.qty).toFixed(2) + (item.qty > 1 ? ' &times;' + item.qty : '') + '</div>';
+    html += '</div>';
+    html += '<button class="cart-item-remove" onclick="removeFromCart(' + idx + ')">&times;</button>';
+    html += '</div>';
+  });
+  el.innerHTML = html;
+  var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
+  var tp = document.getElementById('cart-total-price');
+  if (tp) tp.textContent = '\u20ac' + total.toFixed(2);
+  if (footer) footer.style.display = 'block';
+}
+function addToCart(name, price, img, size, color, stripeUrl) {
+  if (!size) { alert('Please select a size first.'); return; }
+  var existing = cart.find(function(i){ return i.name===name && i.size===size && i.color===color; });
+  if (existing) { existing.qty++; }
+  else { cart.push({name:name, price:price, img:img, size:size, color:color||'', stripeUrl:stripeUrl, qty:1}); }
+  saveCart(); updateCartCount(); renderCart(); openCart();
+}
+function removeFromCart(idx) {
+  cart.splice(idx, 1);
+  saveCart(); updateCartCount(); renderCart();
+}
+function openCart() {
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderCart();
+}
+function closeCart() {
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── MOBILE MENU ──
+function toggleMobileMenu() {
+  var m = document.getElementById('mobile-menu');
+  var b = document.getElementById('hamburger');
+  var open = m.classList.contains('open');
+  m.classList.toggle('open', !open);
+  b.classList.toggle('open', !open);
+  document.body.style.overflow = open ? '' : 'hidden';
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// init
+updateCartCount();
+
+
+function swapImg(imgId, src, btn, nameId) {
+  var img = document.getElementById(imgId);
+  if (img) {
+    img.style.opacity = '0';
+    img.style.filter = 'none';
+    setTimeout(function() { img.src = src; img.style.opacity = '1'; }, 150);
+  }
+  selectDot(btn, nameId, btn.title);
+}
+
+function swapFilter(imgId, filter, btn, nameId, name) {
+  var img = document.getElementById(imgId);
+  if (img) img.style.filter = filter;
+  selectDot(btn, nameId, name);
+}
+
+function selectDot(btn, nameId, name) {
+  var dots = btn.closest('.color-dots').querySelectorAll('.color-dot');
+  dots.forEach(function(d) { d.classList.remove('selected'); });
+  btn.classList.add('selected');
+  var el = document.getElementById(nameId);
+  if (el) el.textContent = name;
+}
+
+function selectSize(btn, groupId, hiddenId) {
+  document.querySelectorAll('#' + groupId + ' .sz').forEach(function(b) { b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  document.getElementById(hiddenId).value = btn.textContent;
+}
+
+function toggleSpecs(btn) {
+  var body = btn.nextElementSibling;
+  var arr = btn.querySelector('.arr');
+  var open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  body.style.display = open ? 'none' : 'block';
+  if (arr) arr.innerHTML = open ? '&#9660;' : '&#9650;';
+}
+</script>
+</body>
+</html>
