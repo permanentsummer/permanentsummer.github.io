@@ -308,7 +308,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <li><a href="b2b.html" onclick="closeMobileMenu()">B2B</a></li>
   </ul>
   <div class="mobile-menu-meta">
-    <a href="mailto:christopher@permanentsummer.co">christopher@permanentsummer.co</a>
+    <a href="mailto:christopher@permanentsummer.co" data-x="e5868d978c96918a958d8097a595809788848b808b91969088888097cb868a"><span class="__cf_email__" data-cfemail="d0b3b8a2b9a3a4bfa0b8b5a290a0b5a2bdb1beb5bea4a3a5bdbdb5a2feb3bf">[email&#160;protected]</span></a>
     <a href="https://wa.me/351924477353">+351 924 477 353</a>
     <div class="mobile-socials">
       <a href="https://instagram.com/permanent_summer" target="_blank"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -338,7 +338,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 <div class="announce"><strong>Free shipping</strong> Portugal over &euro;80 &nbsp;&middot;&nbsp; Europe over &euro;150</div>
 <nav>
-  <a href="index.html" class="nav-logo">permanent summer</a>
+  <a href="index.html" class="nav-logo">Permanent Summer</a>
   <ul class="nav-links">
     <li><a href="index.html" >Home</a></li>
     <li><a href="shop.html" class="active">Shop</a></li>
@@ -395,7 +395,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
         <input type="hidden" id="shop-tee-selected-size" value="">
       </div>
       <button class="add-to-cart-btn" onclick="addToCart('Signature Tee',29.99,'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png',document.getElementById('shop-tee-selected-size').value,'White','https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G')">Add to Cart</button>
-      <a href="https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G" target="_blank" class="buy-now-btn">Buy Now via Stripe</a>
+      <a href="https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G" target="_blank" class="buy-now-btn">Buy Now</a>
       <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
       <div class="specs-body" style="display:none;">
         <div class="spec-row"><span class="spec-label">Weight</span><span>180 g/m&sup2;</span></div>
@@ -441,7 +441,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
         <input type="hidden" id="shop-cap-selected-size" value="">
       </div>
       <button class="add-to-cart-btn" onclick="addToCart('Coastal Cap',39.99,document.getElementById('shop-cap-img').src,document.getElementById('shop-cap-selected-size').value,document.getElementById('shop-cap-name').textContent,'https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H')">Add to Cart</button>
-      <a href="https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H" target="_blank" class="buy-now-btn">Buy Now via Stripe</a>
+      <a href="https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H" target="_blank" class="buy-now-btn">Buy Now</a>
       <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
       <div class="specs-body" style="display:none;">
         <div class="spec-row"><span class="spec-label">Weight</span><span>93 g</span></div>
@@ -477,7 +477,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
         <input type="hidden" id="shop-bucket-selected-size" value="">
       </div>
       <button class="add-to-cart-btn" onclick="addToCart('Bucket Hat',44.99,'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/bucket%20hat.png',document.getElementById('shop-bucket-selected-size').value,document.getElementById('shop-bucket-name').textContent,'https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I')">Add to Cart</button>
-      <a href="https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I" target="_blank" class="buy-now-btn">Buy Now via Stripe</a>
+      <a href="https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I" target="_blank" class="buy-now-btn">Buy Now</a>
       <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
       <div class="specs-body" style="display:none;">
         <div class="spec-row"><span class="spec-label">Material</span><span>100% organic cotton corduroy</span></div>
@@ -540,12 +540,10 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <p>Designed with &hearts; for endless summer</p>
   </div>
 </footer>
-
-
 <script>
 
-// ── CART ──
-var cart = JSON.parse(localStorage.getItem('ps_cart') || '[]');
+var cart = [];
+try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
 function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
 function updateCartCount() {
   var total = cart.reduce(function(s,i){return s+i.qty;},0);
@@ -560,105 +558,75 @@ function renderCart() {
   if (!el) return;
   if (!cart.length) {
     el.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="shop.html" onclick="closeCart()">Shop Now</a></div>';
-    if (footer) footer.style.display = 'none';
-    return;
+    if (footer) footer.style.display = 'none'; return;
   }
   var html = '';
   cart.forEach(function(item, idx) {
-    html += '<div class="cart-item">';
-    html += '<img class="cart-item-img" src="' + item.img + '" alt="' + item.name + '">';
-    html += '<div class="cart-item-info">';
-    html += '<div class="cart-item-name">' + item.name + '</div>';
-    html += '<div class="cart-item-variant">Size: ' + item.size + (item.color ? ' &middot; ' + item.color : '') + '</div>';
-    html += '<div class="cart-item-price">&euro;' + (item.price * item.qty).toFixed(2) + (item.qty > 1 ? ' &times;' + item.qty : '') + '</div>';
-    html += '</div>';
-    html += '<button class="cart-item-remove" onclick="removeFromCart(' + idx + ')">&times;</button>';
-    html += '</div>';
+    html += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
+    html += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
+    html += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
+    html += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+(item.qty>1?' &times;'+item.qty:'')+'</div></div>';
+    html += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
   });
   el.innerHTML = html;
   var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
   var tp = document.getElementById('cart-total-price');
-  if (tp) tp.textContent = '\u20ac' + total.toFixed(2);
+  if (tp) tp.textContent = '€'+total.toFixed(2);
   if (footer) footer.style.display = 'block';
 }
 function addToCart(name, price, img, size, color, stripeUrl) {
   if (!size) { alert('Please select a size first.'); return; }
-  var existing = cart.find(function(i){ return i.name===name && i.size===size && i.color===color; });
-  if (existing) { existing.qty++; }
-  else { cart.push({name:name, price:price, img:img, size:size, color:color||'', stripeUrl:stripeUrl, qty:1}); }
+  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
+  if (existing) { existing.qty++; } else { cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1}); }
   saveCart(); updateCartCount(); renderCart(); openCart();
 }
-function removeFromCart(idx) {
-  cart.splice(idx, 1);
-  saveCart(); updateCartCount(); renderCart();
-}
+function removeFromCart(idx) { cart.splice(idx,1); saveCart(); updateCartCount(); renderCart(); }
 function openCart() {
   document.getElementById('cart-drawer').classList.add('open');
   document.getElementById('cart-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderCart();
+  document.body.style.overflow = 'hidden'; renderCart();
 }
 function closeCart() {
   document.getElementById('cart-drawer').classList.remove('open');
   document.getElementById('cart-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
-// ── MOBILE MENU ──
 function toggleMobileMenu() {
-  var m = document.getElementById('mobile-menu');
-  var b = document.getElementById('hamburger');
-  var open = m.classList.contains('open');
-  m.classList.toggle('open', !open);
-  b.classList.toggle('open', !open);
-  document.body.style.overflow = open ? '' : 'hidden';
+  var m=document.getElementById('mobile-menu'); var b=document.getElementById('hamburger');
+  var open=m.classList.contains('open');
+  m.classList.toggle('open',!open); b.classList.toggle('open',!open);
+  document.body.style.overflow=open?'':'hidden';
 }
 function closeMobileMenu() {
   document.getElementById('mobile-menu').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-
-// init
 updateCartCount();
-
 
 function swapImg(imgId, src, btn, nameId) {
   var img = document.getElementById(imgId);
-  if (img) {
-    img.style.opacity = '0';
-    img.style.filter = 'none';
-    setTimeout(function() { img.src = src; img.style.opacity = '1'; }, 150);
-  }
+  if (img) { img.style.opacity='0'; img.style.filter='none'; setTimeout(function(){img.src=src;img.style.opacity='1';},150); }
   selectDot(btn, nameId, btn.title);
 }
-
 function swapFilter(imgId, filter, btn, nameId, name) {
-  var img = document.getElementById(imgId);
-  if (img) img.style.filter = filter;
+  var img = document.getElementById(imgId); if (img) img.style.filter = filter;
   selectDot(btn, nameId, name);
 }
-
 function selectDot(btn, nameId, name) {
-  var dots = btn.closest('.color-dots').querySelectorAll('.color-dot');
-  dots.forEach(function(d) { d.classList.remove('selected'); });
+  btn.closest('.color-dots').querySelectorAll('.color-dot').forEach(function(d){d.classList.remove('selected');});
   btn.classList.add('selected');
-  var el = document.getElementById(nameId);
-  if (el) el.textContent = name;
+  var el = document.getElementById(nameId); if (el) el.textContent = name;
 }
-
 function selectSize(btn, groupId, hiddenId) {
-  document.querySelectorAll('#' + groupId + ' .sz').forEach(function(b) { b.classList.remove('selected'); });
+  document.querySelectorAll('#'+groupId+' .sz').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
   document.getElementById(hiddenId).value = btn.textContent;
 }
-
 function toggleSpecs(btn) {
-  var body = btn.nextElementSibling;
-  var arr = btn.querySelector('.arr');
+  var body = btn.nextElementSibling; var arr = btn.querySelector('.arr');
   var open = body.classList.contains('open');
-  body.classList.toggle('open', !open);
-  body.style.display = open ? 'none' : 'block';
+  body.classList.toggle('open',!open); body.style.display = open ? 'none' : 'block';
   if (arr) arr.innerHTML = open ? '&#9660;' : '&#9650;';
 }
 </script>
