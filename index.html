@@ -428,7 +428,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <li><a href="b2b.html" onclick="closeMobileMenu()">B2B</a></li>
   </ul>
   <div class="mobile-menu-meta">
-    <a href="mailto:christopher@permanentsummer.co">christopher@permanentsummer.co</a>
+    <a href="mailto:christopher@permanentsummer.co" data-x="80e3e8f2e9f3f4eff0e8e5f2c0f0e5f2ede1eee5eef4f3f5edede5f2aee3ef"><span class="__cf_email__" data-cfemail="a0c3c8d2c9d3d4cfd0c8c5d2e0d0c5d2cdc1cec5ced4d3d5cdcdc5d28ec3cf">[email&#160;protected]</span></a>
     <a href="https://wa.me/351924477353">+351 924 477 353</a>
     <div class="mobile-socials">
       <a href="https://instagram.com/permanent_summer" target="_blank"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -458,7 +458,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 <div class="announce"><strong>Free shipping</strong> Portugal over &euro;80 &nbsp;&middot;&nbsp; Europe over &euro;150</div>
 <nav>
-  <a href="index.html" class="nav-logo">permanent summer</a>
+  <a href="index.html" class="nav-logo">Permanent Summer</a>
   <ul class="nav-links">
     <li><a href="index.html" class="active">Home</a></li>
     <li><a href="shop.html" >Shop</a></li>
@@ -711,11 +711,10 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   background: var(--black); border-color: var(--black); color: #fff;
 }
 </style>
-
 <script>
 
-// ── CART ──
-var cart = JSON.parse(localStorage.getItem('ps_cart') || '[]');
+var cart = [];
+try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
 function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
 function updateCartCount() {
   var total = cart.reduce(function(s,i){return s+i.qty;},0);
@@ -730,68 +729,51 @@ function renderCart() {
   if (!el) return;
   if (!cart.length) {
     el.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="shop.html" onclick="closeCart()">Shop Now</a></div>';
-    if (footer) footer.style.display = 'none';
-    return;
+    if (footer) footer.style.display = 'none'; return;
   }
   var html = '';
   cart.forEach(function(item, idx) {
-    html += '<div class="cart-item">';
-    html += '<img class="cart-item-img" src="' + item.img + '" alt="' + item.name + '">';
-    html += '<div class="cart-item-info">';
-    html += '<div class="cart-item-name">' + item.name + '</div>';
-    html += '<div class="cart-item-variant">Size: ' + item.size + (item.color ? ' &middot; ' + item.color : '') + '</div>';
-    html += '<div class="cart-item-price">&euro;' + (item.price * item.qty).toFixed(2) + (item.qty > 1 ? ' &times;' + item.qty : '') + '</div>';
-    html += '</div>';
-    html += '<button class="cart-item-remove" onclick="removeFromCart(' + idx + ')">&times;</button>';
-    html += '</div>';
+    html += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
+    html += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
+    html += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
+    html += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+(item.qty>1?' &times;'+item.qty:'')+'</div></div>';
+    html += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
   });
   el.innerHTML = html;
   var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
   var tp = document.getElementById('cart-total-price');
-  if (tp) tp.textContent = '\u20ac' + total.toFixed(2);
+  if (tp) tp.textContent = '€'+total.toFixed(2);
   if (footer) footer.style.display = 'block';
 }
 function addToCart(name, price, img, size, color, stripeUrl) {
   if (!size) { alert('Please select a size first.'); return; }
-  var existing = cart.find(function(i){ return i.name===name && i.size===size && i.color===color; });
-  if (existing) { existing.qty++; }
-  else { cart.push({name:name, price:price, img:img, size:size, color:color||'', stripeUrl:stripeUrl, qty:1}); }
+  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
+  if (existing) { existing.qty++; } else { cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1}); }
   saveCart(); updateCartCount(); renderCart(); openCart();
 }
-function removeFromCart(idx) {
-  cart.splice(idx, 1);
-  saveCart(); updateCartCount(); renderCart();
-}
+function removeFromCart(idx) { cart.splice(idx,1); saveCart(); updateCartCount(); renderCart(); }
 function openCart() {
   document.getElementById('cart-drawer').classList.add('open');
   document.getElementById('cart-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderCart();
+  document.body.style.overflow = 'hidden'; renderCart();
 }
 function closeCart() {
   document.getElementById('cart-drawer').classList.remove('open');
   document.getElementById('cart-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
-// ── MOBILE MENU ──
 function toggleMobileMenu() {
-  var m = document.getElementById('mobile-menu');
-  var b = document.getElementById('hamburger');
-  var open = m.classList.contains('open');
-  m.classList.toggle('open', !open);
-  b.classList.toggle('open', !open);
-  document.body.style.overflow = open ? '' : 'hidden';
+  var m=document.getElementById('mobile-menu'); var b=document.getElementById('hamburger');
+  var open=m.classList.contains('open');
+  m.classList.toggle('open',!open); b.classList.toggle('open',!open);
+  document.body.style.overflow=open?'':'hidden';
 }
 function closeMobileMenu() {
   document.getElementById('mobile-menu').classList.remove('open');
   document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-
-// init
 updateCartCount();
-
 
 function selectHomeSize(btn, hiddenId) {
   var group = btn.parentElement;
@@ -799,9 +781,8 @@ function selectHomeSize(btn, hiddenId) {
   btn.classList.add('selected');
   document.getElementById(hiddenId).value = btn.textContent;
 }
-
-// Newsletter
-document.getElementById('nl-form').addEventListener('submit', function(e) {
+var nlf = document.getElementById('nl-form');
+if (nlf) nlf.addEventListener('submit', function(e) {
   e.preventDefault();
   document.getElementById('nl-btn').textContent = 'Sent!';
   document.getElementById('nl-btn').style.background = '#4caf82';
