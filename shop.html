@@ -294,6 +294,139 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .spec-row { display: flex; gap: 12px; font-size: 12px; color: #666; padding: 5px 0; border-bottom: 1px solid #f5f0ea; }
 .spec-row:last-child { border-bottom: none; }
 .spec-label { font-weight: 600; color: var(--black); min-width: 76px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════
+   EMBROIDERY CUSTOMISER
+═══════════════════════════════════ */
+.embr-section {
+  margin: 20px 0 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.embr-toggle {
+  width: 100%; background: none; border: none;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; cursor: pointer;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; color: var(--black);
+  border-bottom: 1px solid transparent; transition: background .2s;
+}
+.embr-toggle:hover { background: var(--sand); }
+.embr-toggle.open { border-bottom: 1px solid var(--border); background: var(--sand); }
+.embr-toggle-left { display: flex; align-items: center; gap: 10px; }
+.embr-toggle-badge {
+  background: var(--accent); color: #fff;
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  padding: 3px 7px; text-transform: uppercase;
+}
+.embr-toggle-arrow { font-size: 10px; color: var(--mid); transition: transform .25s; }
+.embr-toggle.open .embr-toggle-arrow { transform: rotate(180deg); }
+.embr-body { display: none; padding: 20px 18px 18px; }
+.embr-body.open { display: block; }
+
+/* Mode tabs */
+.embr-mode-tabs { display: flex; border: 1px solid var(--border); margin-bottom: 18px; }
+.embr-tab {
+  flex: 1; padding: 10px 6px; background: none; border: none;
+  border-right: 1px solid var(--border); font-family: var(--font-body);
+  font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--mid); cursor: pointer; transition: background .2s, color .2s;
+}
+.embr-tab:last-child { border-right: none; }
+.embr-tab.active { background: var(--black); color: #fff; }
+
+/* Logo picker */
+.embr-logos-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 10px; display: block; }
+.embr-logos { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.embr-logo-opt { position: relative; cursor: pointer; }
+.embr-logo-opt input { display: none; }
+.embr-logo-inner {
+  width: 58px; height: 58px; border: 1.5px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px; transition: border-color .2s, background .2s; background: #fff;
+}
+.embr-logo-opt input:checked ~ .embr-logo-inner { border-color: var(--black); background: var(--sand); }
+.embr-logo-inner svg { width: 26px; height: 26px; }
+.embr-logo-inner span { font-size: 9px; color: var(--mid); font-weight: 600; text-align: center; line-height: 1.1; }
+
+/* Quote section */
+.embr-quote-panel { margin-bottom: 4px; }
+.embr-quote-field-wrap { position: relative; margin-bottom: 10px; }
+.embr-quote-input {
+  width: 100%; padding: 11px 44px 11px 14px; border: 1px solid var(--border);
+  font-family: var(--font-body); font-size: 13px; color: var(--black);
+  background: #fff; outline: none; transition: border-color .2s;
+  border-radius: 0;
+}
+.embr-quote-input:focus { border-color: var(--black); }
+.embr-quote-clear {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--mid); font-size: 16px;
+  cursor: pointer; line-height: 1; display: none;
+}
+.embr-quote-clear.visible { display: block; }
+.embr-char-count { font-size: 10px; color: var(--mid); text-align: right; margin-top: -6px; margin-bottom: 10px; }
+.embr-char-count.over { color: #e05; }
+
+/* AI generate button */
+.embr-ai-btn {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px; border: 1.5px dashed var(--accent); background: none;
+  font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--accent); cursor: pointer;
+  transition: background .2s; margin-bottom: 12px;
+}
+.embr-ai-btn:hover { background: rgba(214,167,122,.08); }
+.embr-ai-btn.loading { opacity: .6; pointer-events: none; }
+.embr-ai-icon { font-size: 14px; }
+
+/* AI suggestions */
+.embr-suggestions { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.embr-suggestion {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; border: 1px solid var(--border); background: #fff;
+  cursor: pointer; transition: border-color .15s, background .15s; font-size: 13px;
+}
+.embr-suggestion:hover { border-color: var(--accent); background: rgba(214,167,122,.06); }
+.embr-suggestion span { font-style: italic; color: var(--black); }
+.embr-suggestion-use { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); white-space: nowrap; margin-left: 10px; }
+.embr-loading-dots { display: flex; gap: 4px; align-items: center; justify-content: center; padding: 14px; }
+.embr-loading-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: embrdot .9s infinite; }
+.embr-loading-dots span:nth-child(2) { animation-delay: .2s; }
+.embr-loading-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes embrdot { 0%,80%,100%{transform:scale(0.6);opacity:.4} 40%{transform:scale(1);opacity:1} }
+
+/* Preview strip */
+.embr-preview {
+  margin-top: 12px; border: 1px solid var(--border); background: var(--sand);
+  padding: 12px 16px; display: none;
+}
+.embr-preview.show { display: block; }
+.embr-preview-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
+.embr-preview-content { display: flex; align-items: center; gap: 10px; }
+.embr-preview-icon svg { width: 22px; height: 22px; color: var(--accent); }
+.embr-preview-text { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--black); }
+.embr-preview-badge { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: var(--accent); color: #fff; padding: 3px 8px; }
+
+/* Confirm CTA */
+.embr-confirm-btn {
+  width: 100%; margin-top: 14px; padding: 13px; background: var(--accent);
+  border: none; font-family: var(--font-body); font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: #fff; cursor: pointer;
+  transition: background .2s; display: none;
+}
+.embr-confirm-btn.show { display: block; }
+.embr-confirm-btn:hover { background: #c49060; }
+.embr-confirmed {
+  margin-top: 14px; padding: 11px 14px; background: #f0faf4;
+  border: 1px solid #a8d8b8; display: none; align-items: center; gap: 10px;
+}
+.embr-confirmed.show { display: flex; }
+.embr-confirmed-check { color: #2a8a4a; font-size: 18px; }
+.embr-confirmed-text { font-size: 13px; color: #2a8a4a; font-weight: 600; }
+.embr-confirmed-edit { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); background: none; border: none; cursor: pointer; }
+
 </style>
 </head>
 <body>
@@ -308,7 +441,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <li><a href="b2b.html" onclick="closeMobileMenu()">B2B</a></li>
   </ul>
   <div class="mobile-menu-meta">
-    <a href="mailto:christopher@permanentsummer.co" data-x="e5868d978c96918a958d8097a595809788848b808b91969088888097cb868a"><span class="__cf_email__" data-cfemail="d0b3b8a2b9a3a4bfa0b8b5a290a0b5a2bdb1beb5bea4a3a5bdbdb5a2feb3bf">[email&#160;protected]</span></a>
+    <a href="mailto:christopher@permanentsummer.co" data-x="e5868d978c96918a958d8097a595809788848b808b91969088888097cb868a">christopher@permanentsummer.co</a>
     <a href="https://wa.me/351924477353">+351 924 477 353</a>
     <div class="mobile-socials">
       <a href="https://instagram.com/permanent_summer" target="_blank"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="22" height="22"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
@@ -394,6 +527,100 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
         <button class="sz" onclick="selectSize(this,'sz-shop-tee','shop-tee-selected-size')">2XL</button>
         <input type="hidden" id="shop-tee-selected-size" value="">
       </div>
+      
+<!-- EMBROIDERY CUSTOMISER: tee -->
+<div class="embr-section">
+  <input type="hidden" id="embr-product-name-tee" value="Signature Tee">
+  <button class="embr-toggle" id="embr-toggle-tee" onclick="toggleEmbr('tee')">
+    <span class="embr-toggle-left">
+      <span class="embr-toggle-badge">New</span>
+      Add embroidery personalisation
+    </span>
+    <span class="embr-toggle-arrow">&#9660;</span>
+  </button>
+  <div class="embr-body" id="embr-body-tee">
+    <!-- Mode tabs -->
+    <div class="embr-mode-tabs">
+      <button class="embr-tab" id="embr-tab-tee-logo" onclick="selectEmbrTab('tee','logo')">Logo only</button>
+      <button class="embr-tab active" id="embr-tab-tee-quote" onclick="selectEmbrTab('tee','quote')">Caption only</button>
+      <button class="embr-tab" id="embr-tab-tee-both" onclick="selectEmbrTab('tee','both')">Logo + Caption</button>
+    </div>
+
+    <!-- Logo picker -->
+    <div id="embr-tee-logo-section" style="display:none;">
+      <span class="embr-logos-label">Choose an icon</span>
+      <div class="embr-logos" id="embr-logos-tee"><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-tee" value="wave" data-label="Wave" onchange="updateEmbrPreview('tee')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 22 Q8 14 14 22 Q20 30 26 22 Q32 14 38 22"/><path d="M2 28 Q8 20 14 28 Q20 36 26 28 Q32 20 38 28"/></svg><span>Wave</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-tee" value="sun" data-label="Sun" onchange="updateEmbrPreview('tee')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="20" cy="20" r="7"/><line x1="20" y1="4" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="36"/><line x1="4" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="36" y2="20"/><line x1="8.7" y1="8.7" x2="12.2" y2="12.2"/><line x1="27.8" y1="27.8" x2="31.3" y2="31.3"/><line x1="31.3" y1="8.7" x2="27.8" y2="12.2"/><line x1="12.2" y1="27.8" x2="8.7" y2="31.3"/></svg><span>Sun</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-tee" value="heart" data-label="Heart" onchange="updateEmbrPreview('tee')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 32 C20 32 4 22 4 13 C4 8 8 4 13 4 C16 4 19 6 20 8 C21 6 24 4 27 4 C32 4 36 8 36 13 C36 22 20 32 20 32Z"/></svg><span>Heart</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-tee" value="palm" data-label="Palm" onchange="updateEmbrPreview('tee')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36 L20 20"/><path d="M20 20 Q14 10 6 8 Q12 16 20 20"/><path d="M20 20 Q26 8 34 8 Q28 16 20 20"/><path d="M20 20 Q10 14 8 6 Q16 12 20 20"/><path d="M20 20 Q30 12 34 4 Q28 12 20 20"/><path d="M20 20 Q18 10 20 4 Q22 10 20 20"/></svg><span>Palm</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-tee" value="anchor" data-label="Anchor" onchange="updateEmbrPreview('tee')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="20" cy="10" r="5"/><line x1="20" y1="15" x2="20" y2="36"/><path d="M10 20 L30 20"/><path d="M8 36 Q8 28 20 36 Q32 28 32 36"/></svg><span>Anchor</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-tee" value="star" data-label="Star" onchange="updateEmbrPreview('tee')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M20 4 L23.5 15 L36 15 L26 22.5 L29.5 34 L20 27 L10.5 34 L14 22.5 L4 15 L16.5 15 Z"/></svg><span>Star</span></div>
+        </label></div>
+    </div>
+
+    <!-- Quote section -->
+    <div id="embr-tee-quote-section" style="display:block;">
+      <span class="embr-logos-label">Your caption</span>
+      <div class="embr-quote-field-wrap">
+        <input class="embr-quote-input" id="embr-quote-tee" type="text" maxlength="40"
+          placeholder="e.g. High tides good vibes"
+          oninput="onQuoteInput('tee')">
+        <button class="embr-quote-clear" id="embr-clear-tee" onclick="clearQuote('tee')">&times;</button>
+      </div>
+      <div class="embr-char-count" id="embr-char-tee">0/40</div>
+
+      <!-- AI generate -->
+      <button class="embr-ai-btn" id="embr-ai-btn-tee" onclick="generateQuotes('tee')">
+        <span class="embr-ai-icon">&#10024;</span>
+        Generate summer quotes with AI
+      </button>
+      <div class="embr-suggestions" id="embr-suggestions-tee" style="display:none;"></div>
+    </div>
+
+    <!-- Live preview -->
+    <div class="embr-preview" id="embr-preview-tee">
+      <div class="embr-preview-label">Embroidery preview</div>
+      <div class="embr-preview-content">
+        <div class="embr-preview-icon" id="embr-preview-icon-tee">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 20C12 20 3 14 3 8a5 5 0 019-3 5 5 0 019 3c0 6-9 12-9 12z"/></svg>
+        </div>
+        <div class="embr-preview-text" id="embr-preview-text-tee"></div>
+        <div class="embr-preview-badge">Left chest</div>
+      </div>
+    </div>
+
+    <!-- Confirm -->
+    <button class="embr-confirm-btn" id="embr-confirm-tee" onclick="confirmEmbroidery('tee')">
+      Confirm embroidery &rarr;
+    </button>
+
+    <!-- Confirmed state -->
+    <div class="embr-confirmed" id="embr-confirmed-tee">
+      <span class="embr-confirmed-check">&#10003;</span>
+      <div>
+        <div class="embr-confirmed-text">Embroidery added</div>
+        <div style="font-size:12px;color:#2a8a4a;margin-top:2px;" id="embr-confirmed-desc-tee"></div>
+      </div>
+      <button class="embr-confirmed-edit" onclick="editEmbroidery('tee')">Edit</button>
+    </div>
+
+    <p style="font-size:11px;color:var(--mid);margin-top:12px;line-height:1.6;">
+      Embroidery is hand-produced on each order. Christopher will confirm details by email before production. No extra charge on standard orders.
+    </p>
+  </div>
+</div>
       <button class="add-to-cart-btn" onclick="addToCart('Signature Tee',29.99,'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png',document.getElementById('shop-tee-selected-size').value,'White','https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G')">Add to Cart</button>
       <a href="https://buy.stripe.com/cNi4gAc46dw59jeeXQcjS0G" target="_blank" class="buy-now-btn">Buy Now</a>
       <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
@@ -440,6 +667,100 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
         <button class="sz" onclick="selectSize(this,'sz-shop-cap','shop-cap-selected-size')">L</button>
         <input type="hidden" id="shop-cap-selected-size" value="">
       </div>
+      
+<!-- EMBROIDERY CUSTOMISER: cap -->
+<div class="embr-section">
+  <input type="hidden" id="embr-product-name-cap" value="Coastal Cap">
+  <button class="embr-toggle" id="embr-toggle-cap" onclick="toggleEmbr('cap')">
+    <span class="embr-toggle-left">
+      <span class="embr-toggle-badge">New</span>
+      Add embroidery personalisation
+    </span>
+    <span class="embr-toggle-arrow">&#9660;</span>
+  </button>
+  <div class="embr-body" id="embr-body-cap">
+    <!-- Mode tabs -->
+    <div class="embr-mode-tabs">
+      <button class="embr-tab" id="embr-tab-cap-logo" onclick="selectEmbrTab('cap','logo')">Logo only</button>
+      <button class="embr-tab active" id="embr-tab-cap-quote" onclick="selectEmbrTab('cap','quote')">Caption only</button>
+      <button class="embr-tab" id="embr-tab-cap-both" onclick="selectEmbrTab('cap','both')">Logo + Caption</button>
+    </div>
+
+    <!-- Logo picker -->
+    <div id="embr-cap-logo-section" style="display:none;">
+      <span class="embr-logos-label">Choose an icon</span>
+      <div class="embr-logos" id="embr-logos-cap"><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-cap" value="wave" data-label="Wave" onchange="updateEmbrPreview('cap')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 22 Q8 14 14 22 Q20 30 26 22 Q32 14 38 22"/><path d="M2 28 Q8 20 14 28 Q20 36 26 28 Q32 20 38 28"/></svg><span>Wave</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-cap" value="sun" data-label="Sun" onchange="updateEmbrPreview('cap')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="20" cy="20" r="7"/><line x1="20" y1="4" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="36"/><line x1="4" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="36" y2="20"/><line x1="8.7" y1="8.7" x2="12.2" y2="12.2"/><line x1="27.8" y1="27.8" x2="31.3" y2="31.3"/><line x1="31.3" y1="8.7" x2="27.8" y2="12.2"/><line x1="12.2" y1="27.8" x2="8.7" y2="31.3"/></svg><span>Sun</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-cap" value="heart" data-label="Heart" onchange="updateEmbrPreview('cap')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 32 C20 32 4 22 4 13 C4 8 8 4 13 4 C16 4 19 6 20 8 C21 6 24 4 27 4 C32 4 36 8 36 13 C36 22 20 32 20 32Z"/></svg><span>Heart</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-cap" value="palm" data-label="Palm" onchange="updateEmbrPreview('cap')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36 L20 20"/><path d="M20 20 Q14 10 6 8 Q12 16 20 20"/><path d="M20 20 Q26 8 34 8 Q28 16 20 20"/><path d="M20 20 Q10 14 8 6 Q16 12 20 20"/><path d="M20 20 Q30 12 34 4 Q28 12 20 20"/><path d="M20 20 Q18 10 20 4 Q22 10 20 20"/></svg><span>Palm</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-cap" value="anchor" data-label="Anchor" onchange="updateEmbrPreview('cap')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="20" cy="10" r="5"/><line x1="20" y1="15" x2="20" y2="36"/><path d="M10 20 L30 20"/><path d="M8 36 Q8 28 20 36 Q32 28 32 36"/></svg><span>Anchor</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-cap" value="star" data-label="Star" onchange="updateEmbrPreview('cap')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M20 4 L23.5 15 L36 15 L26 22.5 L29.5 34 L20 27 L10.5 34 L14 22.5 L4 15 L16.5 15 Z"/></svg><span>Star</span></div>
+        </label></div>
+    </div>
+
+    <!-- Quote section -->
+    <div id="embr-cap-quote-section" style="display:block;">
+      <span class="embr-logos-label">Your caption</span>
+      <div class="embr-quote-field-wrap">
+        <input class="embr-quote-input" id="embr-quote-cap" type="text" maxlength="40"
+          placeholder="e.g. High tides good vibes"
+          oninput="onQuoteInput('cap')">
+        <button class="embr-quote-clear" id="embr-clear-cap" onclick="clearQuote('cap')">&times;</button>
+      </div>
+      <div class="embr-char-count" id="embr-char-cap">0/40</div>
+
+      <!-- AI generate -->
+      <button class="embr-ai-btn" id="embr-ai-btn-cap" onclick="generateQuotes('cap')">
+        <span class="embr-ai-icon">&#10024;</span>
+        Generate summer quotes with AI
+      </button>
+      <div class="embr-suggestions" id="embr-suggestions-cap" style="display:none;"></div>
+    </div>
+
+    <!-- Live preview -->
+    <div class="embr-preview" id="embr-preview-cap">
+      <div class="embr-preview-label">Embroidery preview</div>
+      <div class="embr-preview-content">
+        <div class="embr-preview-icon" id="embr-preview-icon-cap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 20C12 20 3 14 3 8a5 5 0 019-3 5 5 0 019 3c0 6-9 12-9 12z"/></svg>
+        </div>
+        <div class="embr-preview-text" id="embr-preview-text-cap"></div>
+        <div class="embr-preview-badge">Left chest</div>
+      </div>
+    </div>
+
+    <!-- Confirm -->
+    <button class="embr-confirm-btn" id="embr-confirm-cap" onclick="confirmEmbroidery('cap')">
+      Confirm embroidery &rarr;
+    </button>
+
+    <!-- Confirmed state -->
+    <div class="embr-confirmed" id="embr-confirmed-cap">
+      <span class="embr-confirmed-check">&#10003;</span>
+      <div>
+        <div class="embr-confirmed-text">Embroidery added</div>
+        <div style="font-size:12px;color:#2a8a4a;margin-top:2px;" id="embr-confirmed-desc-cap"></div>
+      </div>
+      <button class="embr-confirmed-edit" onclick="editEmbroidery('cap')">Edit</button>
+    </div>
+
+    <p style="font-size:11px;color:var(--mid);margin-top:12px;line-height:1.6;">
+      Embroidery is hand-produced on each order. Christopher will confirm details by email before production. No extra charge on standard orders.
+    </p>
+  </div>
+</div>
       <button class="add-to-cart-btn" onclick="addToCart('Coastal Cap',39.99,document.getElementById('shop-cap-img').src,document.getElementById('shop-cap-selected-size').value,document.getElementById('shop-cap-name').textContent,'https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H')">Add to Cart</button>
       <a href="https://buy.stripe.com/28E8wQ8RU77H672cPIcjS0H" target="_blank" class="buy-now-btn">Buy Now</a>
       <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
@@ -476,6 +797,100 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
         <button class="sz" onclick="selectSize(this,'sz-shop-bucket','shop-bucket-selected-size')">L</button>
         <input type="hidden" id="shop-bucket-selected-size" value="">
       </div>
+      
+<!-- EMBROIDERY CUSTOMISER: hat -->
+<div class="embr-section">
+  <input type="hidden" id="embr-product-name-hat" value="Bucket Hat">
+  <button class="embr-toggle" id="embr-toggle-hat" onclick="toggleEmbr('hat')">
+    <span class="embr-toggle-left">
+      <span class="embr-toggle-badge">New</span>
+      Add embroidery personalisation
+    </span>
+    <span class="embr-toggle-arrow">&#9660;</span>
+  </button>
+  <div class="embr-body" id="embr-body-hat">
+    <!-- Mode tabs -->
+    <div class="embr-mode-tabs">
+      <button class="embr-tab" id="embr-tab-hat-logo" onclick="selectEmbrTab('hat','logo')">Logo only</button>
+      <button class="embr-tab active" id="embr-tab-hat-quote" onclick="selectEmbrTab('hat','quote')">Caption only</button>
+      <button class="embr-tab" id="embr-tab-hat-both" onclick="selectEmbrTab('hat','both')">Logo + Caption</button>
+    </div>
+
+    <!-- Logo picker -->
+    <div id="embr-hat-logo-section" style="display:none;">
+      <span class="embr-logos-label">Choose an icon</span>
+      <div class="embr-logos" id="embr-logos-hat"><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-hat" value="wave" data-label="Wave" onchange="updateEmbrPreview('hat')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 22 Q8 14 14 22 Q20 30 26 22 Q32 14 38 22"/><path d="M2 28 Q8 20 14 28 Q20 36 26 28 Q32 20 38 28"/></svg><span>Wave</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-hat" value="sun" data-label="Sun" onchange="updateEmbrPreview('hat')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="20" cy="20" r="7"/><line x1="20" y1="4" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="36"/><line x1="4" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="36" y2="20"/><line x1="8.7" y1="8.7" x2="12.2" y2="12.2"/><line x1="27.8" y1="27.8" x2="31.3" y2="31.3"/><line x1="31.3" y1="8.7" x2="27.8" y2="12.2"/><line x1="12.2" y1="27.8" x2="8.7" y2="31.3"/></svg><span>Sun</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-hat" value="heart" data-label="Heart" onchange="updateEmbrPreview('hat')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 32 C20 32 4 22 4 13 C4 8 8 4 13 4 C16 4 19 6 20 8 C21 6 24 4 27 4 C32 4 36 8 36 13 C36 22 20 32 20 32Z"/></svg><span>Heart</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-hat" value="palm" data-label="Palm" onchange="updateEmbrPreview('hat')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36 L20 20"/><path d="M20 20 Q14 10 6 8 Q12 16 20 20"/><path d="M20 20 Q26 8 34 8 Q28 16 20 20"/><path d="M20 20 Q10 14 8 6 Q16 12 20 20"/><path d="M20 20 Q30 12 34 4 Q28 12 20 20"/><path d="M20 20 Q18 10 20 4 Q22 10 20 20"/></svg><span>Palm</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-hat" value="anchor" data-label="Anchor" onchange="updateEmbrPreview('hat')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="20" cy="10" r="5"/><line x1="20" y1="15" x2="20" y2="36"/><path d="M10 20 L30 20"/><path d="M8 36 Q8 28 20 36 Q32 28 32 36"/></svg><span>Anchor</span></div>
+        </label><label class="embr-logo-opt">
+          <input type="radio" name="embr-logo-hat" value="star" data-label="Star" onchange="updateEmbrPreview('hat')">
+          <div class="embr-logo-inner"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M20 4 L23.5 15 L36 15 L26 22.5 L29.5 34 L20 27 L10.5 34 L14 22.5 L4 15 L16.5 15 Z"/></svg><span>Star</span></div>
+        </label></div>
+    </div>
+
+    <!-- Quote section -->
+    <div id="embr-hat-quote-section" style="display:block;">
+      <span class="embr-logos-label">Your caption</span>
+      <div class="embr-quote-field-wrap">
+        <input class="embr-quote-input" id="embr-quote-hat" type="text" maxlength="40"
+          placeholder="e.g. High tides good vibes"
+          oninput="onQuoteInput('hat')">
+        <button class="embr-quote-clear" id="embr-clear-hat" onclick="clearQuote('hat')">&times;</button>
+      </div>
+      <div class="embr-char-count" id="embr-char-hat">0/40</div>
+
+      <!-- AI generate -->
+      <button class="embr-ai-btn" id="embr-ai-btn-hat" onclick="generateQuotes('hat')">
+        <span class="embr-ai-icon">&#10024;</span>
+        Generate summer quotes with AI
+      </button>
+      <div class="embr-suggestions" id="embr-suggestions-hat" style="display:none;"></div>
+    </div>
+
+    <!-- Live preview -->
+    <div class="embr-preview" id="embr-preview-hat">
+      <div class="embr-preview-label">Embroidery preview</div>
+      <div class="embr-preview-content">
+        <div class="embr-preview-icon" id="embr-preview-icon-hat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 20C12 20 3 14 3 8a5 5 0 019-3 5 5 0 019 3c0 6-9 12-9 12z"/></svg>
+        </div>
+        <div class="embr-preview-text" id="embr-preview-text-hat"></div>
+        <div class="embr-preview-badge">Left chest</div>
+      </div>
+    </div>
+
+    <!-- Confirm -->
+    <button class="embr-confirm-btn" id="embr-confirm-hat" onclick="confirmEmbroidery('hat')">
+      Confirm embroidery &rarr;
+    </button>
+
+    <!-- Confirmed state -->
+    <div class="embr-confirmed" id="embr-confirmed-hat">
+      <span class="embr-confirmed-check">&#10003;</span>
+      <div>
+        <div class="embr-confirmed-text">Embroidery added</div>
+        <div style="font-size:12px;color:#2a8a4a;margin-top:2px;" id="embr-confirmed-desc-hat"></div>
+      </div>
+      <button class="embr-confirmed-edit" onclick="editEmbroidery('hat')">Edit</button>
+    </div>
+
+    <p style="font-size:11px;color:var(--mid);margin-top:12px;line-height:1.6;">
+      Embroidery is hand-produced on each order. Christopher will confirm details by email before production. No extra charge on standard orders.
+    </p>
+  </div>
+</div>
       <button class="add-to-cart-btn" onclick="addToCart('Bucket Hat',44.99,'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/bucket%20hat.png',document.getElementById('shop-bucket-selected-size').value,document.getElementById('shop-bucket-name').textContent,'https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I')">Add to Cart</button>
       <a href="https://buy.stripe.com/cNi14ofgi3Vvdzu4jccjS0I" target="_blank" class="buy-now-btn">Buy Now</a>
       <button class="specs-toggle" onclick="toggleSpecs(this)">Details <span class="arr">&#9660;</span></button>
@@ -540,18 +955,210 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <p>Designed with &hearts; for endless summer</p>
   </div>
 </footer>
-<script>
+// ═══════════════════════════════════
+// EMBROIDERY CUSTOMISER ENGINE
+// ═══════════════════════════════════
+var embrState = {};
 
-var cart = [];
-try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
-function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
-function updateCartCount() {
-  var total = cart.reduce(function(s,i){return s+i.qty;},0);
-  var el = document.getElementById('cart-count');
-  if (!el) return;
-  el.textContent = total;
-  el.style.display = total > 0 ? 'flex' : 'none';
+function toggleEmbr(id) {
+  var btn = document.getElementById('embr-toggle-'+id);
+  var body = document.getElementById('embr-body-'+id);
+  var open = btn.classList.contains('open');
+  btn.classList.toggle('open', !open);
+  body.classList.toggle('open', !open);
 }
+
+function selectEmbrTab(id, tab) {
+  ['logo','quote','both'].forEach(function(t) {
+    var el = document.getElementById('embr-tab-'+id+'-'+t);
+    if(el) el.classList.toggle('active', t===tab);
+  });
+  ['logo-section','quote-section'].forEach(function(s) {
+    var el = document.getElementById('embr-'+id+'-'+s);
+    if(!el) return;
+    if(s==='logo-section') el.style.display = (tab==='logo'||tab==='both') ? 'block' : 'none';
+    if(s==='quote-section') el.style.display = (tab==='quote'||tab==='both') ? 'block' : 'none';
+  });
+  if(!embrState[id]) embrState[id] = {};
+  embrState[id].mode = tab;
+  updateEmbrPreview(id);
+}
+
+function getSelectedLogo(id) {
+  var sel = document.querySelector('#embr-logos-'+id+' input:checked');
+  return sel ? sel.value : null;
+}
+function getLogoLabel(id) {
+  var sel = document.querySelector('#embr-logos-'+id+' input:checked');
+  return sel ? sel.dataset.label : null;
+}
+function getQuoteVal(id) {
+  var el = document.getElementById('embr-quote-'+id);
+  return el ? el.value.trim() : '';
+}
+
+function updateEmbrPreview(id) {
+  if(!embrState[id]) embrState[id] = {};
+  var mode = embrState[id].mode || 'quote';
+  var logo = getSelectedLogo(id);
+  var logoLabel = getLogoLabel(id);
+  var quote = getQuoteVal(id);
+  var preview = document.getElementById('embr-preview-'+id);
+  var confirmBtn = document.getElementById('embr-confirm-'+id);
+  var previewText = document.getElementById('embr-preview-text-'+id);
+  var previewIconEl = document.getElementById('embr-preview-icon-'+id);
+  var hasLogo = (mode==='logo'||mode==='both') && logo;
+  var hasQuote = (mode==='quote'||mode==='both') && quote.length > 0;
+  var hasContent = hasLogo || hasQuote;
+  if(preview) preview.classList.toggle('show', hasContent);
+  if(confirmBtn) confirmBtn.classList.toggle('show', hasContent);
+  if(previewText) {
+    var parts = [];
+    if(hasLogo) parts.push('[' + logoLabel + ']');
+    if(hasQuote) parts.push(quote);
+    previewText.textContent = parts.join('  ');
+  }
+}
+
+function onQuoteInput(id) {
+  var el = document.getElementById('embr-quote-'+id);
+  var count = document.getElementById('embr-char-'+id);
+  var clear = document.getElementById('embr-clear-'+id);
+  var len = el.value.length;
+  if(count) { count.textContent = len+'/40'; count.classList.toggle('over', len>40); }
+  if(clear) clear.classList.toggle('visible', len>0);
+  updateEmbrPreview(id);
+}
+
+function clearQuote(id) {
+  var el = document.getElementById('embr-quote-'+id);
+  if(el) el.value = '';
+  onQuoteInput(id);
+}
+
+function useQuote(id, text) {
+  var el = document.getElementById('embr-quote-'+id);
+  if(el) { el.value = text; onQuoteInput(id); }
+  // hide suggestions
+  var sug = document.getElementById('embr-suggestions-'+id);
+  if(sug) sug.style.display = 'none';
+}
+
+async function generateQuotes(id) {
+  var btn = document.getElementById('embr-ai-btn-'+id);
+  var sugEl = document.getElementById('embr-suggestions-'+id);
+  if(!btn||!sugEl) return;
+  btn.classList.add('loading');
+  sugEl.innerHTML = '<div class="embr-loading-dots"><span></span><span></span><span></span></div>';
+  sugEl.style.display = 'block';
+  var productName = document.getElementById('embr-product-name-'+id).value || 'garment';
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        messages: [{
+          role: 'user',
+          content: 'Generate 5 short, witty embroidery captions for a ' + productName + '. These will be embroidered on premium summer clothing by Permanent Summer, an Algarve beach brand. Style: punchy, fun, beach/summer vibe, 2-6 words max each. Mix tones: some poetic, some cheeky, some aspirational. No hashtags. No quotes around them. Return ONLY a JSON array of 5 strings, nothing else. Example format: ["High tides good vibes","Salted heart","Mentally on the beach","Sun. Salt. Simplicity.","Vacation mode: permanent"]'
+        }]
+      })
+    });
+    var data = await resp.json();
+    var raw = data.content && data.content[0] && data.content[0].text ? data.content[0].text.trim() : '[]';
+    raw = raw.replace(/```json|```/g,'').trim();
+    var quotes = JSON.parse(raw);
+    sugEl.innerHTML = '';
+    quotes.forEach(function(q) {
+      var div = document.createElement('div');
+      div.className = 'embr-suggestion';
+      div.innerHTML = '<span>' + q + '</span><span class="embr-suggestion-use">Use this</span>';
+      div.onclick = function() { useQuote(id, q); };
+      sugEl.appendChild(div);
+    });
+  } catch(err) {
+    // Fallback quotes if API fails
+    var fallback = ['High tides good vibes','Salted heart','Mentally on the beach','Sun. Salt. Simplicity.','Vacation mode: permanent'];
+    sugEl.innerHTML = '';
+    fallback.forEach(function(q) {
+      var div = document.createElement('div');
+      div.className = 'embr-suggestion';
+      div.innerHTML = '<span>' + q + '</span><span class="embr-suggestion-use">Use this</span>';
+      div.onclick = function() { useQuote(id, q); };
+      sugEl.appendChild(div);
+    });
+  }
+  btn.classList.remove('loading');
+}
+
+function confirmEmbroidery(id) {
+  var mode = (embrState[id]||{}).mode || 'quote';
+  var logo = getSelectedLogo(id);
+  var logoLabel = getLogoLabel(id);
+  var quote = getQuoteVal(id);
+  if(!embrState[id]) embrState[id] = {};
+  embrState[id].confirmed = true;
+  embrState[id].logo = logo;
+  embrState[id].logoLabel = logoLabel;
+  embrState[id].quote = quote;
+  embrState[id].mode = mode;
+  // Show confirmed bar
+  var conf = document.getElementById('embr-confirmed-'+id);
+  var confirmBtn = document.getElementById('embr-confirm-'+id);
+  var preview = document.getElementById('embr-preview-'+id);
+  var parts = [];
+  if((mode==='logo'||mode==='both') && logoLabel) parts.push(logoLabel + ' icon');
+  if((mode==='quote'||mode==='both') && quote) parts.push('“' + quote + '”');
+  if(conf) {
+    document.getElementById('embr-confirmed-desc-'+id).textContent = parts.join(' + ');
+    conf.classList.add('show');
+  }
+  if(confirmBtn) confirmBtn.classList.remove('show');
+  if(preview) preview.classList.remove('show');
+}
+
+function editEmbroidery(id) {
+  var conf = document.getElementById('embr-confirmed-'+id);
+  if(conf) conf.classList.remove('show');
+  if(embrState[id]) embrState[id].confirmed = false;
+  updateEmbrPreview(id);
+}
+
+// Patch addToCart to include embroidery data
+var _originalAddToCart = addToCart;
+function addToCart(name, price, img, size, color, stripeUrl) {
+  // Find which product this is
+  var productId = null;
+  if(name.indexOf('Tee') !== -1) productId = 'tee';
+  else if(name.indexOf('Cap') !== -1) productId = 'cap';
+  else if(name.indexOf('Bucket') !== -1 || name.indexOf('Hat') !== -1) productId = 'hat';
+  var embrData = null;
+  if(productId && embrState[productId] && embrState[productId].confirmed) {
+    embrData = {
+      mode: embrState[productId].mode,
+      logo: embrState[productId].logoLabel || null,
+      quote: embrState[productId].quote || null
+    };
+  }
+  if(!size) { alert('Please select a size first.'); return; }
+  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
+  var itemNote = embrData ? buildEmbrNote(embrData) : '';
+  if(existing) { existing.qty++; } else {
+    cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1,embroidery:embrData,note:itemNote});
+  }
+  saveCart(); updateCartCount(); renderCart(); openCart();
+}
+
+function buildEmbrNote(e) {
+  if(!e) return '';
+  var parts = [];
+  if(e.logo) parts.push('Logo: ' + e.logo);
+  if(e.quote) parts.push('Caption: “' + e.quote + '”');
+  return parts.join(' · ');
+}
+
+// Override renderCart to show embroidery note
 function renderCart() {
   var el = document.getElementById('cart-items');
   var footer = document.getElementById('cart-footer');
@@ -565,6 +1172,7 @@ function renderCart() {
     html += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
     html += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
     html += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
+    if(item.note) html += '<div class="cart-item-variant" style="color:var(--accent);font-style:italic">'+item.note+'</div>';
     html += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+(item.qty>1?' &times;'+item.qty:'')+'</div></div>';
     html += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
   });
@@ -574,61 +1182,27 @@ function renderCart() {
   if (tp) tp.textContent = '€'+total.toFixed(2);
   if (footer) footer.style.display = 'block';
 }
-function addToCart(name, price, img, size, color, stripeUrl) {
-  if (!size) { alert('Please select a size first.'); return; }
-  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
-  if (existing) { existing.qty++; } else { cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1}); }
-  saveCart(); updateCartCount(); renderCart(); openCart();
-}
-function removeFromCart(idx) { cart.splice(idx,1); saveCart(); updateCartCount(); renderCart(); }
-function openCart() {
-  document.getElementById('cart-drawer').classList.add('open');
-  document.getElementById('cart-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden'; renderCart();
-}
-function closeCart() {
-  document.getElementById('cart-drawer').classList.remove('open');
-  document.getElementById('cart-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function toggleMobileMenu() {
-  var m=document.getElementById('mobile-menu'); var b=document.getElementById('hamburger');
-  var open=m.classList.contains('open');
-  m.classList.toggle('open',!open); b.classList.toggle('open',!open);
-  document.body.style.overflow=open?'':'hidden';
-}
-function closeMobileMenu() {
-  document.getElementById('mobile-menu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow='';
-}
-updateCartCount();
 
-function swapImg(imgId, src, btn, nameId) {
-  var img = document.getElementById(imgId);
-  if (img) { img.style.opacity='0'; img.style.filter='none'; setTimeout(function(){img.src=src;img.style.opacity='1';},150); }
-  selectDot(btn, nameId, btn.title);
-}
-function swapFilter(imgId, filter, btn, nameId, name) {
-  var img = document.getElementById(imgId); if (img) img.style.filter = filter;
-  selectDot(btn, nameId, name);
-}
-function selectDot(btn, nameId, name) {
-  btn.closest('.color-dots').querySelectorAll('.color-dot').forEach(function(d){d.classList.remove('selected');});
-  btn.classList.add('selected');
-  var el = document.getElementById(nameId); if (el) el.textContent = name;
-}
-function selectSize(btn, groupId, hiddenId) {
-  document.querySelectorAll('#'+groupId+' .sz').forEach(function(b){b.classList.remove('selected');});
-  btn.classList.add('selected');
-  document.getElementById(hiddenId).value = btn.textContent;
-}
-function toggleSpecs(btn) {
-  var body = btn.nextElementSibling; var arr = btn.querySelector('.arr');
-  var open = body.classList.contains('open');
-  body.classList.toggle('open',!open); body.style.display = open ? 'none' : 'block';
-  if (arr) arr.innerHTML = open ? '&#9660;' : '&#9650;';
-}
+// Send order email via mailto with full embroidery details
+var _originalCheckout = function() {
+  var lines = cart.map(function(item) {
+    var line = item.qty+'x '+item.name+' ('+item.size+', '+item.color+') €'+item.price;
+    if(item.note) line += ' | Embroidery: '+item.note;
+    return line;
+  });
+  var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
+  var body = 'New order from Permanent Summer shop:\n\n' + lines.join('\n') + '\n\nTotal: €'+total.toFixed(2);
+  var subject = 'New Order - Permanent Summer';
+  window.open('mailto:christopher@permanentsummer.co?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body));
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  var checkoutBtn = document.querySelector('.cart-checkout');
+  if(checkoutBtn) {
+    checkoutBtn.onclick = _originalCheckout;
+  }
+});
+
 </script>
 </body>
 </html>
