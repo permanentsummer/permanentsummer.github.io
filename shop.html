@@ -224,7 +224,11 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   object-position: center center;
   transition: transform .6s ease;
 }
-.shop-product:hover .shop-product-img img { transform: scale(1.03); }
+.shop-product:hover .shop-product-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: center center;
+  transition: transform .6s ease;
+}
 
 .shop-product-info {
   padding: 60px 56px; display: flex; flex-direction: column;
@@ -1361,7 +1365,9 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 
 
+
 <script>
+// ── ICON DATA ─────────────────────────────────────────────────────────────────
 var ICON_IMG_DATA={
   'snorkel':{url:'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/icon_snorkel.png',label:'Snorkel'},
   'beachball':{url:'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/icon_beachball.png',label:'Beach Ball'},
@@ -1382,13 +1388,9 @@ var ICON_IMG_DATA={
   'palmtree':{url:'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/icon_palmtree.png',label:'Palm Tree'},
   'sunglasses':{url:'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/icon_sunglasses.png',label:'Sunglasses'}
 };
-
-// Preload icon images
 var ICON_IMGS={};
 Object.keys(ICON_IMG_DATA).forEach(function(k){
-  var img=new Image();
-  img.src=ICON_IMG_DATA[k].url;
-  ICON_IMGS[k]=img;
+  var img=new Image(); img.src=ICON_IMG_DATA[k].url; ICON_IMGS[k]=img;
 });
 
 // ── CART ─────────────────────────────────────────────────────────────────────
@@ -1398,8 +1400,7 @@ function saveCart(){try{localStorage.setItem('ps_cart',JSON.stringify(cart));}ca
 function updateCartCount(){
   var t=cart.reduce(function(s,i){return s+i.qty;},0);
   var el=document.getElementById('cart-count');
-  if(!el)return;
-  el.textContent=t;el.style.display=t>0?'flex':'none';
+  if(!el)return; el.textContent=t; el.style.display=t>0?'flex':'none';
 }
 function renderCart(){
   var el=document.getElementById('cart-items'),ft=document.getElementById('cart-footer');
@@ -1412,30 +1413,27 @@ function renderCart(){
   cart.forEach(function(item,idx){
     h+='<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
     h+='<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
-    h+='<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
+    h+='<div class="cart-item-variant">'+item.size+(item.color?' · '+item.color:'')+'</div>';
     if(item.note)h+='<div class="cart-item-variant" style="color:var(--accent);font-style:italic;font-size:11px;">'+item.note+'</div>';
-    h+='<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+(item.qty>1?' &times;'+item.qty:'')+'</div></div>';
+    h+='<div class="cart-item-price">€'+(item.price*item.qty).toFixed(2)+'</div></div>';
     h+='<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
   });
   el.innerHTML=h;
   var total=cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
   var tp=document.getElementById('cart-total-price');
-  if(tp)tp.textContent='\u20ac'+total.toFixed(2);
+  if(tp)tp.textContent='€'+total.toFixed(2);
   if(ft)ft.style.display='block';
 }
 function addToCart(name,price,img,size,color,stripeUrl){
   if(!size){alert('Please select a size first.');return;}
-  var pid=null;
-  if(name.indexOf('Tee')!==-1)pid='tee';
-  else if(name.indexOf('Cap')!==-1)pid='cap';
-  else if(name.indexOf('Bucket')!==-1||name.indexOf('Hat')!==-1)pid='hat';
+  var pid=name.indexOf('Tee')!==-1?'tee':name.indexOf('Cap')!==-1?'cap':'hat';
   var note='';
-  if(pid&&embrState[pid]&&embrState[pid].confirmed){
+  if(embrState[pid]&&embrState[pid].confirmed){
     var e=embrState[pid],parts=[];
     if(e.logoLabel)parts.push(e.logoLabel+' icon');
-    if(e.quote)parts.push('\u201c'+e.quote+'\u201d');
+    if(e.quote)parts.push('"'+e.quote+'"');
     if(e.colorLabel)parts.push(e.colorLabel+' thread');
-    note=parts.join(' \u00b7 ');
+    note=parts.join(' · ');
   }
   var existing=cart.find(function(i){return i.name===name&&i.size===size&&i.color===color;});
   if(existing){existing.qty++;}
@@ -1466,21 +1464,9 @@ function closeMobileMenu(){
 }
 function swapImg(imgId,src,btn,nameId){
   var img=document.getElementById(imgId);
-  if(img){img.style.opacity='0';img.style.filter='none';setTimeout(function(){img.src=src;img.style.opacity='1';},150);}
+  if(img){img.style.opacity='0';img.style.filter='none';
+    setTimeout(function(){img.src=src;img.style.opacity='1';renderMockup('hat');},150);}
   selectDot(btn,nameId,btn.title);
-}
-
-function swapImgFilter(imgId, src, filter, btn, nameId) {
-  var img = document.getElementById(imgId);
-  if (img) {
-    img.style.opacity = '0';
-    setTimeout(function() {
-      img.src = src;
-      img.style.filter = filter;
-      img.style.opacity = '1';
-    }, 150);
-  }
-  selectDot(btn, nameId, btn.title);
 }
 function swapFilter(imgId,filter,btn,nameId,name){
   var img=document.getElementById(imgId);if(img)img.style.filter=filter;
@@ -1505,12 +1491,12 @@ function toggleSpecs(btn){
 function checkoutAction(){
   if(!cart.length){alert('Your cart is empty.');return;}
   var lines=cart.map(function(item){
-    var line=item.qty+'x '+item.name+' ('+item.size+', '+item.color+') \u20ac'+item.price.toFixed(2);
+    var line=item.qty+'x '+item.name+' ('+item.size+', '+item.color+') €'+item.price.toFixed(2);
     if(item.note)line+='\nEmbroidery: '+item.note;
     return line;
   });
   var total=cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
-  var body='New order from Permanent Summer shop\n\n'+lines.join('\n\n')+'\n\nTotal: \u20ac'+total.toFixed(2)+'\n\nPlease reply to confirm.';
+  var body='New order from Permanent Summer shop\n\n'+lines.join('\n\n')+'\n\nTotal: €'+total.toFixed(2);
   window.location.href='mailto:christopher@permanentsummer.co?subject='+encodeURIComponent('New Order - Permanent Summer')+'&body='+encodeURIComponent(body);
 }
 updateCartCount();
@@ -1522,26 +1508,29 @@ var QUOTE_POOL=[
   'Born for summer','Sunset chaser','Wave whisperer','Golden hour always',
   'Salt in the air','Barefoot always','Let the tide in','Ocean minded',
   'Mentally on the beach','Vacation mode: permanent','Already on island time',
-  'Out of office: beach','Currently unavailable','Gone surfing',
-  'More beach meetings','Do not disturb: tanning','Vitamin sea daily',
-  'Beach hair don\u2019t care','High tides good vibes','Live by the sun',
-  'Sun. Salt. Simplicity.','Chase the sun','Follow the coast',
-  'Keep it coastal','Summer state of mind','Sea you there','Salt + soul',
-  'Sundaze','Wave life','Ocean child','Beach bound','Coastline kid',
-  'Algarve forever','Sun worshipper','Golden','Drifter','Salty',
-  'Endless','Wild coast','Free tide','The ocean is calling',
-  'Stay wild ocean child','Sunkissed and free','Alexa skip to summer'
+  'Out of office: beach','Gone surfing','More beach meetings',
+  'Do not disturb: tanning','Vitamin sea daily','Beach hair don\u2019t care',
+  'High tides good vibes','Live by the sun','Sun. Salt. Simplicity.',
+  'Chase the sun','Follow the coast','Keep it coastal','Summer state of mind',
+  'Sea you there','Salt + soul','Sundaze','Wave life','Ocean child',
+  'Beach bound','Coastline kid','Algarve forever','Sun worshipper',
+  'Golden','Drifter','Salty','Endless','Wild coast','Free tide',
+  'The ocean is calling','Stay wild ocean child','Sunkissed and free',
+  'Alexa skip to summer'
 ];
 function shuffleArray(arr){
   var a=arr.slice();
   for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
   return a;
 }
+
+// Embroidery placement anchors
 var EMBR_ANCHOR={
-  tee:{cx:0.570,cy:0.310,iconW:0.090,font:0.020,maxW:0.13},
-  cap:{cx:0.500,cy:0.368,iconW:0.110,font:0.028,maxW:0.17},
-  hat:{cx:0.500,cy:0.365,iconW:0.120,font:0.030,maxW:0.20}
+  tee:{cx:0.570,cy:0.310,iconW:0.090,font:0.020,maxW:0.18},
+  cap:{cx:0.500,cy:0.368,iconW:0.110,font:0.028,maxW:0.22},
+  hat:{cx:0.500,cy:0.365,iconW:0.120,font:0.030,maxW:0.25}
 };
+
 function getEmbrFont(pid){
   var sel=document.querySelector('input[name="embr-font-'+pid+'"]:checked');
   return sel?sel.value:"'Cormorant Garamond',Georgia,serif";
@@ -1562,13 +1551,13 @@ function getQuoteVal(pid){
   var el=document.getElementById('embr-quote-'+pid);
   return el?el.value.trim():'';
 }
+
 function renderMockup(pid){
   var canvas=document.getElementById('mockup-canvas-'+pid);
   var baseImg=document.getElementById('mockup-base-'+pid);
   if(!canvas||!baseImg)return;
   var W=baseImg.offsetWidth||500,H=baseImg.offsetHeight||500;
-  if(canvas.width!==W)canvas.width=W;
-  if(canvas.height!==H)canvas.height=H;
+  if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
   var ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,W,H);
   var badge=document.getElementById('mockup-badge-'+pid);
@@ -1581,27 +1570,27 @@ function renderMockup(pid){
   var cx=a.cx*W,cy=a.cy*H,iconW=a.iconW*W,fSize=a.font*W,maxW=a.maxW*W;
   var color=getEmbrColor(pid);
   ctx.strokeStyle=color;ctx.fillStyle=color;
-  ctx.lineWidth=Math.max(1,W*0.0025);
+  ctx.lineWidth=Math.max(1,W*0.002);
   ctx.lineCap='round';ctx.lineJoin='round';
+
   if(hasLogo&&ICON_IMGS[logoKey]){
     var iImg=ICON_IMGS[logoKey];
     var draw=function(){
       ctx.save();
-      ctx.shadowColor='rgba(0,0,0,0.22)';ctx.shadowBlur=3;ctx.shadowOffsetX=1;ctx.shadowOffsetY=1;
+      ctx.shadowColor='rgba(0,0,0,0.2)';ctx.shadowBlur=3;ctx.shadowOffsetX=1;ctx.shadowOffsetY=1;
       var iW=iconW,iH=iconW;
       if(iImg.naturalWidth&&iImg.naturalHeight){iH=iW*(iImg.naturalHeight/iImg.naturalWidth);}
-      ctx.drawImage(iImg,cx-iW/2,cy-iH/2,iW,iH);
+      var iconY=hasQuote?cy-iH*0.3:cy;
+      ctx.drawImage(iImg,cx-iW/2,iconY-iH/2,iW,iH);
       ctx.restore();
       if(hasQuote){
         var fontFace=getEmbrFont(pid);
-        // Auto-scale font so caption always fits on one line
         var fs=fSize;
         ctx.font='italic '+fs+'px '+fontFace;
-        while(ctx.measureText(quote).width>maxW*1.4&&fs>fSize*0.5){fs-=0.5;ctx.font='italic '+fs+'px '+fontFace;}
+        while(ctx.measureText(quote).width>maxW&&fs>fSize*0.5){fs-=0.5;ctx.font='italic '+fs+'px '+fontFace;}
         ctx.textAlign='center';ctx.textBaseline='middle';
-        var textY=cy+iH/2+fs*0.9;
         ctx.shadowColor='rgba(0,0,0,0.1)';ctx.shadowBlur=1;
-        ctx.fillText(quote,cx,textY);
+        ctx.fillText(quote,cx,iconY+iH/2+fs*0.9);
         ctx.shadowBlur=0;
       }
     };
@@ -1609,10 +1598,9 @@ function renderMockup(pid){
     else{iImg.onload=function(){renderMockup(pid);};}
   } else if(hasQuote){
     var fontFace=getEmbrFont(pid);
-    // Auto-scale font so caption always fits on one line
     var fs=fSize;
     ctx.font='italic '+fs+'px '+fontFace;
-    while(ctx.measureText(quote).width>maxW*1.4&&fs>fSize*0.5){fs-=0.5;ctx.font='italic '+fs+'px '+fontFace;}
+    while(ctx.measureText(quote).width>maxW&&fs>fSize*0.5){fs-=0.5;ctx.font='italic '+fs+'px '+fontFace;}
     ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.shadowColor='rgba(0,0,0,0.1)';ctx.shadowBlur=1;
     ctx.fillText(quote,cx,cy);
@@ -1620,6 +1608,7 @@ function renderMockup(pid){
   }
   if(badge)badge.classList.add('show');
 }
+
 function updateEmbrPreview(pid){
   if(!embrState[pid])embrState[pid]={};
   var mode=embrState[pid].mode||'quote';
@@ -1672,8 +1661,7 @@ function useQuote(id,text){
   if(p)setTimeout(function(){p.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
 }
 function generateQuotes(id){
-  var btn=document.getElementById('embr-ai-btn-'+id);
-  var sugEl=document.getElementById('embr-suggestions-'+id);
+  var btn=document.getElementById('embr-ai-btn-'+id),sugEl=document.getElementById('embr-suggestions-'+id);
   if(!btn||!sugEl)return;
   btn.classList.add('loading');
   sugEl.style.display='block';
@@ -1703,12 +1691,12 @@ function confirmEmbroidery(id){
   embrState[id].colorLabel=colorSel?colorSel.dataset.label:'Black';
   var parts=[];
   if((mode==='logo'||mode==='both')&&embrState[id].logoLabel)parts.push(embrState[id].logoLabel+' icon');
-  if((mode==='quote'||mode==='both')&&embrState[id].quote)parts.push('\u201c'+embrState[id].quote+'\u201d');
+  if((mode==='quote'||mode==='both')&&embrState[id].quote)parts.push('"'+embrState[id].quote+'"');
   var conf=document.getElementById('embr-confirmed-'+id);
   var confDesc=document.getElementById('embr-confirmed-desc-'+id);
   var confirmBtn=document.getElementById('embr-confirm-'+id);
   var preview=document.getElementById('embr-preview-'+id);
-  if(confDesc)confDesc.textContent=parts.join(' + ')+(embrState[id].colorLabel?' \u00b7 '+embrState[id].colorLabel+' thread':'');
+  if(confDesc)confDesc.textContent=parts.join(' + ')+(embrState[id].colorLabel?' · '+embrState[id].colorLabel+' thread':'');
   if(conf)conf.classList.add('show');
   if(confirmBtn)confirmBtn.classList.remove('show');
   if(preview)preview.classList.remove('show');
@@ -1724,7 +1712,14 @@ document.addEventListener('DOMContentLoaded',function(){
     var img=document.getElementById('mockup-base-'+pid);
     var cv=document.getElementById('mockup-canvas-'+pid);
     if(!img||!cv)return;
-    function go(){cv.width=img.offsewindow.addEventListener('resize',go);
+    function go(){
+      cv.width=img.offsetWidth||img.naturalWidth||500;
+      cv.height=img.offsetHeight||img.naturalHeight||500;
+      renderMockup(pid);
+    }
+    if(img.complete&&img.naturalWidth>0)go();
+    else img.addEventListener('load',go);
+    window.addEventListener('resize',go);
   });
 });
 </script>
