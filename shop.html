@@ -404,10 +404,10 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 }
 .embr-preview.show { display: block; }
 .embr-preview-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; }
-.embr-preview-content { display: flex; align-items: center; gap: 10px; }
-.embr-preview-icon svg { width: 22px; height: 22px; color: var(--accent); }
-.embr-preview-text { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--black); }
-.embr-preview-badge { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: var(--accent); color: #fff; padding: 3px 8px; }
+.embr-preview-content { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.embr-preview-icon { color: var(--accent); display: none; }
+.embr-preview-icon svg { width: 28px; height: 28px; }
+.embr-preview-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--black); }
 
 /* Confirm CTA */
 .embr-confirm-btn {
@@ -426,6 +426,38 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .embr-confirmed-check { color: #2a8a4a; font-size: 18px; }
 .embr-confirmed-text { font-size: 13px; color: #2a8a4a; font-weight: 600; }
 .embr-confirmed-edit { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); background: none; border: none; cursor: pointer; }
+
+
+/* MOCKUP CANVAS */
+.mockup-wrap {
+  position: relative;
+  width: 100%;
+  background: #f8f6f2;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.mockup-canvas-wrap {
+  position: relative; display: inline-block;
+  width: 100%; max-width: 500px;
+}
+.mockup-canvas-wrap img.mockup-base {
+  width: 100%; display: block;
+  transition: opacity .3s;
+}
+.mockup-canvas-wrap canvas {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.mockup-badge {
+  position: absolute; bottom: 12px; right: 12px;
+  background: rgba(214,167,122,0.92); color: #fff;
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 4px 10px;
+  opacity: 0; transition: opacity .3s;
+  pointer-events: none;
+}
+.mockup-badge.show { opacity: 1; }
 
 </style>
 </head>
@@ -505,7 +537,11 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   <!-- TEE -->
   <div class="shop-product" id="tees">
     <div class="shop-product-img">
-      <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Sun.png" alt="Signature Tee" id="shop-tee-img">
+      <div class="mockup-canvas-wrap">
+      <img class="mockup-base" id="mockup-base-tee" src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/mockup_tee.png" alt="Signature Tee" id="shop-tee-img">
+      <canvas id="mockup-canvas-tee"></canvas>
+      <div class="mockup-badge" id="mockup-badge-tee">Mockup preview</div>
+    </div>
     </div>
     <div class="shop-product-info">
       <p class="product-category">T-Shirt</p>
@@ -593,11 +629,8 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <div class="embr-preview" id="embr-preview-tee">
       <div class="embr-preview-label">Embroidery preview</div>
       <div class="embr-preview-content">
-        <div class="embr-preview-icon" id="embr-preview-icon-tee">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 20C12 20 3 14 3 8a5 5 0 019-3 5 5 0 019 3c0 6-9 12-9 12z"/></svg>
-        </div>
+        <div class="embr-preview-icon" id="embr-preview-icon-tee" style="display:none;"></div>
         <div class="embr-preview-text" id="embr-preview-text-tee"></div>
-        <div class="embr-preview-badge">Left chest</div>
       </div>
     </div>
 
@@ -617,7 +650,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     </div>
 
     <p style="font-size:11px;color:var(--mid);margin-top:12px;line-height:1.6;">
-      Embroidery is hand-produced on each order. Christopher will confirm details by email before production. No extra charge on standard orders.
+      Embroidery is hand-crafted on each order. Our team will confirm details by email before production starts. No extra charge on standard orders.
     </p>
   </div>
 </div>
@@ -637,7 +670,11 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   <!-- CAP -->
   <div class="shop-product" id="caps">
     <div class="shop-product-img">
-      <img src="https://assets.wordans.pt/files/colors/466920/c11754/466920_c11754_model.jpg" alt="Coastal Cap" id="shop-cap-img" style="transition:opacity .3s;">
+      <div class="mockup-canvas-wrap">
+      <img class="mockup-base" id="mockup-base-cap" src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/mockup_cap.jpg" alt="Coastal Cap" id="shop-cap-img">
+      <canvas id="mockup-canvas-cap"></canvas>
+      <div class="mockup-badge" id="mockup-badge-cap">Mockup preview</div>
+    </div>
     </div>
     <div class="shop-product-info">
       <p class="product-category">Cap</p>
@@ -733,11 +770,8 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <div class="embr-preview" id="embr-preview-cap">
       <div class="embr-preview-label">Embroidery preview</div>
       <div class="embr-preview-content">
-        <div class="embr-preview-icon" id="embr-preview-icon-cap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 20C12 20 3 14 3 8a5 5 0 019-3 5 5 0 019 3c0 6-9 12-9 12z"/></svg>
-        </div>
+        <div class="embr-preview-icon" id="embr-preview-icon-cap" style="display:none;"></div>
         <div class="embr-preview-text" id="embr-preview-text-cap"></div>
-        <div class="embr-preview-badge">Left chest</div>
       </div>
     </div>
 
@@ -757,7 +791,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     </div>
 
     <p style="font-size:11px;color:var(--mid);margin-top:12px;line-height:1.6;">
-      Embroidery is hand-produced on each order. Christopher will confirm details by email before production. No extra charge on standard orders.
+      Embroidery is hand-crafted on each order. Our team will confirm details by email before production starts. No extra charge on standard orders.
     </p>
   </div>
 </div>
@@ -777,7 +811,11 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   <!-- BUCKET HAT -->
   <div class="shop-product" id="hats">
     <div class="shop-product-img">
-      <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/bucket%20hat.png" alt="Bucket Hat" id="shop-bucket-img">
+      <div class="mockup-canvas-wrap">
+      <img class="mockup-base" id="mockup-base-hat" src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/mockup_hat.jpg" alt="Bucket Hat">
+      <canvas id="mockup-canvas-hat"></canvas>
+      <div class="mockup-badge" id="mockup-badge-hat">Mockup preview</div>
+    </div>
     </div>
     <div class="shop-product-info">
       <p class="product-category">Hat</p>
@@ -863,11 +901,8 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <div class="embr-preview" id="embr-preview-hat">
       <div class="embr-preview-label">Embroidery preview</div>
       <div class="embr-preview-content">
-        <div class="embr-preview-icon" id="embr-preview-icon-hat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 20C12 20 3 14 3 8a5 5 0 019-3 5 5 0 019 3c0 6-9 12-9 12z"/></svg>
-        </div>
+        <div class="embr-preview-icon" id="embr-preview-icon-hat" style="display:none;"></div>
         <div class="embr-preview-text" id="embr-preview-text-hat"></div>
-        <div class="embr-preview-badge">Left chest</div>
       </div>
     </div>
 
@@ -887,7 +922,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     </div>
 
     <p style="font-size:11px;color:var(--mid);margin-top:12px;line-height:1.6;">
-      Embroidery is hand-produced on each order. Christopher will confirm details by email before production. No extra charge on standard orders.
+      Embroidery is hand-crafted on each order. Our team will confirm details by email before production starts. No extra charge on standard orders.
     </p>
   </div>
 </div>
@@ -955,210 +990,18 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <p>Designed with &hearts; for endless summer</p>
   </div>
 </footer>
-// ═══════════════════════════════════
-// EMBROIDERY CUSTOMISER ENGINE
-// ═══════════════════════════════════
-var embrState = {};
 
-function toggleEmbr(id) {
-  var btn = document.getElementById('embr-toggle-'+id);
-  var body = document.getElementById('embr-body-'+id);
-  var open = btn.classList.contains('open');
-  btn.classList.toggle('open', !open);
-  body.classList.toggle('open', !open);
+<script>
+var cart = [];
+try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
+function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
+function updateCartCount() {
+  var total = cart.reduce(function(s,i){return s+i.qty;},0);
+  var el = document.getElementById('cart-count');
+  if (!el) return;
+  el.textContent = total;
+  el.style.display = total > 0 ? 'flex' : 'none';
 }
-
-function selectEmbrTab(id, tab) {
-  ['logo','quote','both'].forEach(function(t) {
-    var el = document.getElementById('embr-tab-'+id+'-'+t);
-    if(el) el.classList.toggle('active', t===tab);
-  });
-  ['logo-section','quote-section'].forEach(function(s) {
-    var el = document.getElementById('embr-'+id+'-'+s);
-    if(!el) return;
-    if(s==='logo-section') el.style.display = (tab==='logo'||tab==='both') ? 'block' : 'none';
-    if(s==='quote-section') el.style.display = (tab==='quote'||tab==='both') ? 'block' : 'none';
-  });
-  if(!embrState[id]) embrState[id] = {};
-  embrState[id].mode = tab;
-  updateEmbrPreview(id);
-}
-
-function getSelectedLogo(id) {
-  var sel = document.querySelector('#embr-logos-'+id+' input:checked');
-  return sel ? sel.value : null;
-}
-function getLogoLabel(id) {
-  var sel = document.querySelector('#embr-logos-'+id+' input:checked');
-  return sel ? sel.dataset.label : null;
-}
-function getQuoteVal(id) {
-  var el = document.getElementById('embr-quote-'+id);
-  return el ? el.value.trim() : '';
-}
-
-function updateEmbrPreview(id) {
-  if(!embrState[id]) embrState[id] = {};
-  var mode = embrState[id].mode || 'quote';
-  var logo = getSelectedLogo(id);
-  var logoLabel = getLogoLabel(id);
-  var quote = getQuoteVal(id);
-  var preview = document.getElementById('embr-preview-'+id);
-  var confirmBtn = document.getElementById('embr-confirm-'+id);
-  var previewText = document.getElementById('embr-preview-text-'+id);
-  var previewIconEl = document.getElementById('embr-preview-icon-'+id);
-  var hasLogo = (mode==='logo'||mode==='both') && logo;
-  var hasQuote = (mode==='quote'||mode==='both') && quote.length > 0;
-  var hasContent = hasLogo || hasQuote;
-  if(preview) preview.classList.toggle('show', hasContent);
-  if(confirmBtn) confirmBtn.classList.toggle('show', hasContent);
-  if(previewText) {
-    var parts = [];
-    if(hasLogo) parts.push('[' + logoLabel + ']');
-    if(hasQuote) parts.push(quote);
-    previewText.textContent = parts.join('  ');
-  }
-}
-
-function onQuoteInput(id) {
-  var el = document.getElementById('embr-quote-'+id);
-  var count = document.getElementById('embr-char-'+id);
-  var clear = document.getElementById('embr-clear-'+id);
-  var len = el.value.length;
-  if(count) { count.textContent = len+'/40'; count.classList.toggle('over', len>40); }
-  if(clear) clear.classList.toggle('visible', len>0);
-  updateEmbrPreview(id);
-}
-
-function clearQuote(id) {
-  var el = document.getElementById('embr-quote-'+id);
-  if(el) el.value = '';
-  onQuoteInput(id);
-}
-
-function useQuote(id, text) {
-  var el = document.getElementById('embr-quote-'+id);
-  if(el) { el.value = text; onQuoteInput(id); }
-  // hide suggestions
-  var sug = document.getElementById('embr-suggestions-'+id);
-  if(sug) sug.style.display = 'none';
-}
-
-async function generateQuotes(id) {
-  var btn = document.getElementById('embr-ai-btn-'+id);
-  var sugEl = document.getElementById('embr-suggestions-'+id);
-  if(!btn||!sugEl) return;
-  btn.classList.add('loading');
-  sugEl.innerHTML = '<div class="embr-loading-dots"><span></span><span></span><span></span></div>';
-  sugEl.style.display = 'block';
-  var productName = document.getElementById('embr-product-name-'+id).value || 'garment';
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        messages: [{
-          role: 'user',
-          content: 'Generate 5 short, witty embroidery captions for a ' + productName + '. These will be embroidered on premium summer clothing by Permanent Summer, an Algarve beach brand. Style: punchy, fun, beach/summer vibe, 2-6 words max each. Mix tones: some poetic, some cheeky, some aspirational. No hashtags. No quotes around them. Return ONLY a JSON array of 5 strings, nothing else. Example format: ["High tides good vibes","Salted heart","Mentally on the beach","Sun. Salt. Simplicity.","Vacation mode: permanent"]'
-        }]
-      })
-    });
-    var data = await resp.json();
-    var raw = data.content && data.content[0] && data.content[0].text ? data.content[0].text.trim() : '[]';
-    raw = raw.replace(/```json|```/g,'').trim();
-    var quotes = JSON.parse(raw);
-    sugEl.innerHTML = '';
-    quotes.forEach(function(q) {
-      var div = document.createElement('div');
-      div.className = 'embr-suggestion';
-      div.innerHTML = '<span>' + q + '</span><span class="embr-suggestion-use">Use this</span>';
-      div.onclick = function() { useQuote(id, q); };
-      sugEl.appendChild(div);
-    });
-  } catch(err) {
-    // Fallback quotes if API fails
-    var fallback = ['High tides good vibes','Salted heart','Mentally on the beach','Sun. Salt. Simplicity.','Vacation mode: permanent'];
-    sugEl.innerHTML = '';
-    fallback.forEach(function(q) {
-      var div = document.createElement('div');
-      div.className = 'embr-suggestion';
-      div.innerHTML = '<span>' + q + '</span><span class="embr-suggestion-use">Use this</span>';
-      div.onclick = function() { useQuote(id, q); };
-      sugEl.appendChild(div);
-    });
-  }
-  btn.classList.remove('loading');
-}
-
-function confirmEmbroidery(id) {
-  var mode = (embrState[id]||{}).mode || 'quote';
-  var logo = getSelectedLogo(id);
-  var logoLabel = getLogoLabel(id);
-  var quote = getQuoteVal(id);
-  if(!embrState[id]) embrState[id] = {};
-  embrState[id].confirmed = true;
-  embrState[id].logo = logo;
-  embrState[id].logoLabel = logoLabel;
-  embrState[id].quote = quote;
-  embrState[id].mode = mode;
-  // Show confirmed bar
-  var conf = document.getElementById('embr-confirmed-'+id);
-  var confirmBtn = document.getElementById('embr-confirm-'+id);
-  var preview = document.getElementById('embr-preview-'+id);
-  var parts = [];
-  if((mode==='logo'||mode==='both') && logoLabel) parts.push(logoLabel + ' icon');
-  if((mode==='quote'||mode==='both') && quote) parts.push('“' + quote + '”');
-  if(conf) {
-    document.getElementById('embr-confirmed-desc-'+id).textContent = parts.join(' + ');
-    conf.classList.add('show');
-  }
-  if(confirmBtn) confirmBtn.classList.remove('show');
-  if(preview) preview.classList.remove('show');
-}
-
-function editEmbroidery(id) {
-  var conf = document.getElementById('embr-confirmed-'+id);
-  if(conf) conf.classList.remove('show');
-  if(embrState[id]) embrState[id].confirmed = false;
-  updateEmbrPreview(id);
-}
-
-// Patch addToCart to include embroidery data
-var _originalAddToCart = addToCart;
-function addToCart(name, price, img, size, color, stripeUrl) {
-  // Find which product this is
-  var productId = null;
-  if(name.indexOf('Tee') !== -1) productId = 'tee';
-  else if(name.indexOf('Cap') !== -1) productId = 'cap';
-  else if(name.indexOf('Bucket') !== -1 || name.indexOf('Hat') !== -1) productId = 'hat';
-  var embrData = null;
-  if(productId && embrState[productId] && embrState[productId].confirmed) {
-    embrData = {
-      mode: embrState[productId].mode,
-      logo: embrState[productId].logoLabel || null,
-      quote: embrState[productId].quote || null
-    };
-  }
-  if(!size) { alert('Please select a size first.'); return; }
-  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
-  var itemNote = embrData ? buildEmbrNote(embrData) : '';
-  if(existing) { existing.qty++; } else {
-    cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1,embroidery:embrData,note:itemNote});
-  }
-  saveCart(); updateCartCount(); renderCart(); openCart();
-}
-
-function buildEmbrNote(e) {
-  if(!e) return '';
-  var parts = [];
-  if(e.logo) parts.push('Logo: ' + e.logo);
-  if(e.quote) parts.push('Caption: “' + e.quote + '”');
-  return parts.join(' · ');
-}
-
-// Override renderCart to show embroidery note
 function renderCart() {
   var el = document.getElementById('cart-items');
   var footer = document.getElementById('cart-footer');
@@ -1172,37 +1015,349 @@ function renderCart() {
     html += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
     html += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
     html += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
-    if(item.note) html += '<div class="cart-item-variant" style="color:var(--accent);font-style:italic">'+item.note+'</div>';
+    if(item.note) html += '<div class="cart-item-variant" style="color:var(--accent);font-style:italic;font-size:11px;">'+item.note+'</div>';
     html += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+(item.qty>1?' &times;'+item.qty:'')+'</div></div>';
     html += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
   });
   el.innerHTML = html;
   var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
   var tp = document.getElementById('cart-total-price');
-  if (tp) tp.textContent = '€'+total.toFixed(2);
+  if (tp) tp.textContent = '\u20ac'+total.toFixed(2);
   if (footer) footer.style.display = 'block';
 }
-
-// Send order email via mailto with full embroidery details
-var _originalCheckout = function() {
+function addToCart(name, price, img, size, color, stripeUrl) {
+  if (!size) { alert('Please select a size first.'); return; }
+  var pid = null;
+  if(name.indexOf('Tee')!==-1) pid='tee';
+  else if(name.indexOf('Cap')!==-1) pid='cap';
+  else if(name.indexOf('Bucket')!==-1||name.indexOf('Hat')!==-1) pid='hat';
+  var note = '';
+  if(pid && embrState[pid] && embrState[pid].confirmed) {
+    var e = embrState[pid];
+    var parts = [];
+    if(e.logoLabel) parts.push(e.logoLabel+' icon');
+    if(e.quote) parts.push('\u201c'+e.quote+'\u201d');
+    note = parts.join(' \u00b7 ');
+  }
+  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
+  if(existing) { existing.qty++; }
+  else { cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1,note:note}); }
+  saveCart(); updateCartCount(); renderCart(); openCart();
+}
+function removeFromCart(idx) { cart.splice(idx,1); saveCart(); updateCartCount(); renderCart(); }
+function openCart() {
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden'; renderCart();
+}
+function closeCart() {
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function toggleMobileMenu() {
+  var m=document.getElementById('mobile-menu'); var b=document.getElementById('hamburger');
+  var open=m.classList.contains('open');
+  m.classList.toggle('open',!open); b.classList.toggle('open',!open);
+  document.body.style.overflow=open?'':'hidden';
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+function swapImg(imgId, src, btn, nameId) {
+  var img = document.getElementById(imgId);
+  if (img) { img.style.opacity='0'; img.style.filter='none'; setTimeout(function(){img.src=src;img.style.opacity='1';},150); }
+  selectDot(btn, nameId, btn.title);
+}
+function swapFilter(imgId, filter, btn, nameId, name) {
+  var img = document.getElementById(imgId); if (img) img.style.filter = filter;
+  selectDot(btn, nameId, name);
+}
+function selectDot(btn, nameId, name) {
+  btn.closest('.color-dots').querySelectorAll('.color-dot').forEach(function(d){d.classList.remove('selected');});
+  btn.classList.add('selected');
+  var el = document.getElementById(nameId); if (el) el.textContent = name;
+}
+function selectSize(btn, groupId, hiddenId) {
+  document.querySelectorAll('#'+groupId+' .sz').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  document.getElementById(hiddenId).value = btn.textContent;
+}
+function toggleSpecs(btn) {
+  var body = btn.nextElementSibling; var arr = btn.querySelector('.arr');
+  var open = body.classList.contains('open');
+  body.classList.toggle('open',!open); body.style.display = open ? 'none' : 'block';
+  if (arr) arr.innerHTML = open ? '&#9660;' : '&#9650;';
+}
+function checkoutAction() {
+  if(!cart.length) { alert('Your cart is empty.'); return; }
   var lines = cart.map(function(item) {
-    var line = item.qty+'x '+item.name+' ('+item.size+', '+item.color+') €'+item.price;
-    if(item.note) line += ' | Embroidery: '+item.note;
+    var line = item.qty+'x '+item.name+' ('+item.size+', '+item.color+') \u20ac'+item.price.toFixed(2);
+    if(item.note) line += '\nEmbroidery: '+item.note;
     return line;
   });
   var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
-  var body = 'New order from Permanent Summer shop:\n\n' + lines.join('\n') + '\n\nTotal: €'+total.toFixed(2);
-  var subject = 'New Order - Permanent Summer';
-  window.open('mailto:christopher@permanentsummer.co?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body));
+  var body = 'New order from Permanent Summer shop\n\n'+lines.join('\n\n')+'\n\nTotal: \u20ac'+total.toFixed(2)+'\n\nPlease reply to confirm and arrange payment.';
+  window.location.href = 'mailto:christopher@permanentsummer.co?subject='+encodeURIComponent('New Order - Permanent Summer')+'&body='+encodeURIComponent(body);
+}
+updateCartCount();
+// ═══════════════════════════════════
+// EMBROIDERY ENGINE
+// ═══════════════════════════════════
+var embrState = { tee:{mode:'quote'}, cap:{mode:'quote'}, hat:{mode:'quote'} };
+
+var QUOTE_POOL = [
+  'Salted heart','Sun-kissed soul','Tides and time','Made of sea glass',
+  'Born for summer','Sunset chaser','Wave whisperer','Golden hour always',
+  'Salt in the air','Barefoot always','Let the tide in','Ocean minded',
+  'Mentally on the beach','Vacation mode: permanent','Already on island time',
+  'Out of office: beach','Currently unavailable','Gone surfing',
+  'More beach meetings','Do not disturb: tanning','Vitamin sea daily',
+  'Beach hair don\u2019t care','Espresso then the beach','High tides good vibes',
+  'Live by the sun','Sun. Salt. Simplicity.','Chase the sun',
+  'Follow the coast','Keep it coastal','Summer state of mind',
+  'Find me where the waves are','Sea you there','Salt + soul',
+  'Sundaze','Wave life','Ocean child','Beach bound','Coastline kid',
+  'Algarve forever','Sun worshipper','Golden','Drifter','Salty',
+  'Endless','Wild coast','Free tide','Every day is a beach day',
+  'The ocean is calling','Follow the sun','Stay wild ocean child',
+  'Sunkissed and free','Good vibes no exceptions','Alexa skip to summer'
+];
+function shuffleArray(arr) {
+  var a=arr.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+
+// Icon SVGs map (for preview panel)
+var ICON_SVGS = {
+  wave:   '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="28" height="28"><path d="M2 22 Q8 14 14 22 Q20 30 26 22 Q32 14 38 22"/><path d="M2 28 Q8 20 14 28 Q20 36 26 28 Q32 20 38 28"/></svg>',
+  sun:    '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="28" height="28"><circle cx="20" cy="20" r="7"/><line x1="20" y1="4" x2="20" y2="9"/><line x1="20" y1="31" x2="20" y2="36"/><line x1="4" y1="20" x2="9" y2="20"/><line x1="31" y1="20" x2="36" y2="20"/><line x1="8.7" y1="8.7" x2="12.2" y2="12.2"/><line x1="27.8" y1="27.8" x2="31.3" y2="31.3"/><line x1="31.3" y1="8.7" x2="27.8" y2="12.2"/><line x1="12.2" y1="27.8" x2="8.7" y2="31.3"/></svg>',
+  heart:  '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M20 32 C20 32 4 22 4 13 C4 8 8 4 13 4 C16 4 19 6 20 8 C21 6 24 4 27 4 C32 4 36 8 36 13 C36 22 20 32 20 32Z"/></svg>',
+  palm:   '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M20 36 L20 20"/><path d="M20 20 Q14 10 6 8 Q12 16 20 20"/><path d="M20 20 Q26 8 34 8 Q28 16 20 20"/><path d="M20 20 Q10 14 8 6 Q16 12 20 20"/><path d="M20 20 Q30 12 34 4 Q28 12 20 20"/><path d="M20 20 Q18 10 20 4 Q22 10 20 20"/></svg>',
+  anchor: '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="28" height="28"><circle cx="20" cy="10" r="5"/><line x1="20" y1="15" x2="20" y2="36"/><path d="M10 20 L30 20"/><path d="M8 36 Q8 28 20 36 Q32 28 32 36"/></svg>',
+  star:   '<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" width="28" height="28"><path d="M20 4 L23.5 15 L36 15 L26 22.5 L29.5 34 L20 27 L10.5 34 L14 22.5 L4 15 L16.5 15 Z"/></svg>'
 };
 
+// Canvas icon drawing functions
+var ICON_PATHS = {
+  wave: function(ctx,cx,cy,s) {
+    ctx.beginPath();
+    ctx.moveTo(cx-s,cy-s*0.1); ctx.bezierCurveTo(cx-s*0.6,cy-s*0.55,cx-s*0.2,cy-s*0.55,cx,cy-s*0.1);
+    ctx.bezierCurveTo(cx+s*0.2,cy+s*0.35,cx+s*0.6,cy+s*0.35,cx+s,cy-s*0.1); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-s,cy+s*0.3); ctx.bezierCurveTo(cx-s*0.6,cy-s*0.15,cx-s*0.2,cy-s*0.15,cx,cy+s*0.3);
+    ctx.bezierCurveTo(cx+s*0.2,cy+s*0.75,cx+s*0.6,cy+s*0.75,cx+s,cy+s*0.3); ctx.stroke();
+  },
+  sun: function(ctx,cx,cy,s) {
+    ctx.beginPath(); ctx.arc(cx,cy,s*0.38,0,Math.PI*2); ctx.stroke();
+    for(var i=0;i<8;i++){var a=(i/8)*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*s*0.5,cy+Math.sin(a)*s*0.5); ctx.lineTo(cx+Math.cos(a)*s*0.78,cy+Math.sin(a)*s*0.78); ctx.stroke();}
+  },
+  heart: function(ctx,cx,cy,s) {
+    ctx.beginPath(); ctx.moveTo(cx,cy+s*0.55);
+    ctx.bezierCurveTo(cx-s*1.1,cy+s*0.1,cx-s*1.1,cy-s*0.65,cx,cy-s*0.2);
+    ctx.bezierCurveTo(cx+s*1.1,cy-s*0.65,cx+s*1.1,cy+s*0.1,cx,cy+s*0.55); ctx.stroke();
+  },
+  palm: function(ctx,cx,cy,s) {
+    ctx.beginPath(); ctx.moveTo(cx,cy+s); ctx.lineTo(cx+s*0.05,cy-s*0.1); ctx.stroke();
+    [[-0.8,-0.9],[-0.5,-1.1],[0,-1.2],[0.5,-1.1],[0.8,-0.9]].forEach(function(f){
+      ctx.beginPath(); ctx.moveTo(cx+s*0.05,cy-s*0.1);
+      ctx.quadraticCurveTo(cx+f[0]*s*0.5,cy+f[1]*s*0.5,cx+f[0]*s,cy+f[1]*s); ctx.stroke();
+    });
+  },
+  anchor: function(ctx,cx,cy,s) {
+    ctx.beginPath(); ctx.arc(cx,cy-s*0.55,s*0.22,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,cy-s*0.33); ctx.lineTo(cx,cy+s*0.55); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-s*0.5,cy-s*0.1); ctx.lineTo(cx+s*0.5,cy-s*0.1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-s*0.5,cy+s*0.55); ctx.quadraticCurveTo(cx-s*0.6,cy+s*0.2,cx,cy+s*0.55); ctx.quadraticCurveTo(cx+s*0.6,cy+s*0.2,cx+s*0.5,cy+s*0.55); ctx.stroke();
+  },
+  star: function(ctx,cx,cy,s) {
+    ctx.beginPath();
+    for(var i=0;i<5;i++){
+      var aO=(i*2*Math.PI/5)-Math.PI/2, aI=aO+Math.PI/5;
+      var x1=cx+Math.cos(aO)*s*0.78,y1=cy+Math.sin(aO)*s*0.78;
+      var x2=cx+Math.cos(aI)*s*0.32,y2=cy+Math.sin(aI)*s*0.32;
+      if(i===0) ctx.moveTo(x1,y1); else ctx.lineTo(x1,y1); ctx.lineTo(x2,y2);
+    }
+    ctx.closePath(); ctx.stroke();
+  }
+};
+
+// Placement anchors: [cx%, cy%, iconSizeFraction, fontSizeFraction, maxWidthFraction]
+var EMBR_ANCHOR = {
+  tee: { cx:0.345, cy:0.270, icon:0.060, font:0.025, maxW:0.15 },
+  cap: { cx:0.555, cy:0.350, icon:0.080, font:0.033, maxW:0.20 },
+  hat: { cx:0.500, cy:0.390, icon:0.085, font:0.036, maxW:0.22 }
+};
+var EMBR_COLOR = { tee:'#b87840', cap:'#f5ede0', hat:'#D6A77A' };
+
+function renderMockup(pid) {
+  var canvas = document.getElementById('mockup-canvas-'+pid);
+  var baseImg = document.getElementById('mockup-base-'+pid);
+  if(!canvas || !baseImg) return;
+  var W = baseImg.offsetWidth || 500;
+  var H = baseImg.offsetHeight || 500;
+  if(canvas.width !== W) canvas.width = W;
+  if(canvas.height !== H) canvas.height = H;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  var badge = document.getElementById('mockup-badge-'+pid);
+  var st = embrState[pid]||{};
+  var mode = st.mode||'quote';
+  var logoKey = getSelectedLogoKey(pid);
+  var quote = getQuoteVal(pid);
+  var hasLogo = (mode==='logo'||mode==='both') && logoKey;
+  var hasQuote = (mode==='quote'||mode==='both') && quote && quote.length>0;
+  if(!hasLogo && !hasQuote) { if(badge) badge.classList.remove('show'); return; }
+  var a = EMBR_ANCHOR[pid];
+  var cx = a.cx*W, cy = a.cy*H;
+  var iconS = a.icon*W, fSize = a.font*W, maxW = a.maxW*W;
+  var color = EMBR_COLOR[pid];
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = Math.max(1, W*0.0028);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  var drawY = cy;
+  // Cap slight perspective skew
+  if(pid==='cap') { ctx.save(); ctx.transform(1,0.04,-0.05,1,cy*0.05*0.1,0); }
+  if(hasLogo && ICON_PATHS[logoKey]) {
+    ctx.shadowColor='rgba(0,0,0,0.15)'; ctx.shadowBlur=1.5;
+    ICON_PATHS[logoKey](ctx, cx, drawY, iconS*0.5);
+    ctx.shadowBlur=0;
+    if(hasQuote) drawY += iconS*0.7;
+  }
+  if(hasQuote) {
+    ctx.font = 'italic '+fSize+'px "Cormorant Garamond",Georgia,serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    var words=quote.split(' '), lines=[], line='';
+    words.forEach(function(w){ var t=line?line+' '+w:w; if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w;}else line=t; });
+    if(line) lines.push(line);
+    var lH=fSize*1.35, startY=drawY-(lines.length-1)*lH/2;
+    ctx.shadowColor='rgba(0,0,0,0.1)'; ctx.shadowBlur=1;
+    lines.forEach(function(l,i){ ctx.fillText(l,cx,startY+i*lH); });
+    ctx.shadowBlur=0;
+  }
+  if(pid==='cap') ctx.restore();
+  if(badge) badge.classList.add('show');
+}
+
+function getSelectedLogoKey(pid) {
+  var sel = document.querySelector('#embr-logos-'+pid+' input:checked');
+  return sel ? sel.value : null;
+}
+function getLogoLabel(pid) {
+  var sel = document.querySelector('#embr-logos-'+pid+' input:checked');
+  return sel ? sel.dataset.label : null;
+}
+function getQuoteVal(pid) {
+  var el = document.getElementById('embr-quote-'+pid);
+  return el ? el.value.trim() : '';
+}
+function updateEmbrPreview(pid) {
+  if(!embrState[pid]) embrState[pid]={};
+  var mode=embrState[pid].mode||'quote';
+  var logoKey=getSelectedLogoKey(pid), logoLabel=getLogoLabel(pid), quote=getQuoteVal(pid);
+  var hasLogo=(mode==='logo'||mode==='both')&&logoKey;
+  var hasQuote=(mode==='quote'||mode==='both')&&quote.length>0;
+  var hasContent=hasLogo||hasQuote;
+  var preview=document.getElementById('embr-preview-'+pid);
+  var confirmBtn=document.getElementById('embr-confirm-'+pid);
+  var iconEl=document.getElementById('embr-preview-icon-'+pid);
+  var textEl=document.getElementById('embr-preview-text-'+pid);
+  if(preview) preview.classList.toggle('show',hasContent);
+  if(confirmBtn) confirmBtn.classList.toggle('show',hasContent);
+  if(iconEl) { if(hasLogo&&ICON_SVGS[logoKey]){iconEl.innerHTML=ICON_SVGS[logoKey];iconEl.style.display='block';}else{iconEl.style.display='none';} }
+  if(textEl) textEl.textContent=hasQuote?quote:'';
+  renderMockup(pid);
+}
+function toggleEmbr(id) {
+  var btn=document.getElementById('embr-toggle-'+id);
+  var body=document.getElementById('embr-body-'+id);
+  var open=btn.classList.contains('open');
+  btn.classList.toggle('open',!open); body.classList.toggle('open',!open);
+}
+function selectEmbrTab(id,tab) {
+  ['logo','quote','both'].forEach(function(t){ var el=document.getElementById('embr-tab-'+id+'-'+t); if(el) el.classList.toggle('active',t===tab); });
+  var ls=document.getElementById('embr-'+id+'-logo-section'); var qs=document.getElementById('embr-'+id+'-quote-section');
+  if(ls) ls.style.display=(tab==='logo'||tab==='both')?'block':'none';
+  if(qs) qs.style.display=(tab==='quote'||tab==='both')?'block':'none';
+  if(!embrState[id]) embrState[id]={};
+  embrState[id].mode=tab; updateEmbrPreview(id);
+}
+function onQuoteInput(id) {
+  var el=document.getElementById('embr-quote-'+id);
+  var count=document.getElementById('embr-char-'+id);
+  var clear=document.getElementById('embr-clear-'+id);
+  var len=el?el.value.length:0;
+  if(count){count.textContent=len+'/40';count.classList.toggle('over',len>40);}
+  if(clear) clear.classList.toggle('visible',len>0);
+  updateEmbrPreview(id);
+}
+function clearQuote(id) { var el=document.getElementById('embr-quote-'+id); if(el) el.value=''; onQuoteInput(id); }
+function useQuote(id,text) {
+  var el=document.getElementById('embr-quote-'+id); if(el){el.value=text;onQuoteInput(id);}
+  var sug=document.getElementById('embr-suggestions-'+id); if(sug) sug.style.display='none';
+  var preview=document.getElementById('embr-preview-'+id);
+  if(preview) setTimeout(function(){preview.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
+}
+function generateQuotes(id) {
+  var btn=document.getElementById('embr-ai-btn-'+id);
+  var sugEl=document.getElementById('embr-suggestions-'+id);
+  if(!btn||!sugEl) return;
+  btn.classList.add('loading');
+  sugEl.style.display='block';
+  sugEl.innerHTML='<div class="embr-loading-dots"><span></span><span></span><span></span></div>';
+  setTimeout(function(){
+    var picks=shuffleArray(QUOTE_POOL).slice(0,5);
+    sugEl.innerHTML='';
+    picks.forEach(function(q){
+      var div=document.createElement('div'); div.className='embr-suggestion';
+      div.innerHTML='<span>'+q+'</span><span class="embr-suggestion-use">Use this \u2192</span>';
+      div.onclick=function(){useQuote(id,q);}; sugEl.appendChild(div);
+    });
+    btn.classList.remove('loading');
+    btn.innerHTML='<span class="embr-ai-icon">\u2728</span> Generate more ideas';
+  },900);
+}
+function confirmEmbroidery(id) {
+  if(!embrState[id]) embrState[id]={};
+  var mode=embrState[id].mode||'quote';
+  embrState[id].confirmed=true; embrState[id].logoLabel=getLogoLabel(id); embrState[id].quote=getQuoteVal(id); embrState[id].mode=mode;
+  var parts=[];
+  if((mode==='logo'||mode==='both')&&embrState[id].logoLabel) parts.push(embrState[id].logoLabel+' icon');
+  if((mode==='quote'||mode==='both')&&embrState[id].quote) parts.push('\u201c'+embrState[id].quote+'\u201d');
+  var conf=document.getElementById('embr-confirmed-'+id);
+  var confDesc=document.getElementById('embr-confirmed-desc-'+id);
+  var confirmBtn=document.getElementById('embr-confirm-'+id);
+  var preview=document.getElementById('embr-preview-'+id);
+  if(confDesc) confDesc.textContent=parts.join(' + ');
+  if(conf) conf.classList.add('show');
+  if(confirmBtn) confirmBtn.classList.remove('show');
+  if(preview) preview.classList.remove('show');
+}
+function editEmbroidery(id) {
+  var conf=document.getElementById('embr-confirmed-'+id); if(conf) conf.classList.remove('show');
+  if(embrState[id]) embrState[id].confirmed=false; updateEmbrPreview(id);
+}
 document.addEventListener('DOMContentLoaded', function() {
   var checkoutBtn = document.querySelector('.cart-checkout');
-  if(checkoutBtn) {
-    checkoutBtn.onclick = _originalCheckout;
-  }
+  if(checkoutBtn) checkoutBtn.onclick = checkoutAction;
+  // Size canvases once images load
+  ['tee','cap','hat'].forEach(function(pid) {
+    var baseImg=document.getElementById('mockup-base-'+pid);
+    var canvas=document.getElementById('mockup-canvas-'+pid);
+    if(!baseImg||!canvas) return;
+    function sizeAndRender(){
+      canvas.width=baseImg.offsetWidth||baseImg.naturalWidth||500;
+      canvas.height=baseImg.offsetHeight||baseImg.naturalHeight||500;
+      renderMockup(pid);
+    }
+    if(baseImg.complete&&baseImg.naturalWidth>0) sizeAndRender();
+    else baseImg.addEventListener('load', sizeAndRender);
+    window.addEventListener('resize', sizeAndRender);
+  });
 });
-
 </script>
 </body>
 </html>
