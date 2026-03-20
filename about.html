@@ -240,7 +240,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 2: HOW IT BEGAN -->
 <div class="sticky-section flip">
   <div class="sticky-img">
-    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=80" alt="Garage">
+    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/garage.jpg" alt="From the garage in Altura">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">How this all began?</p>
@@ -417,10 +417,6 @@ function closeMobileMenu() {
 updateCartCount();
 
 // Scroll fade-in
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, {threshold:0.12});
-document.querySelectorAll('.sticky-text').forEach(function(el) { observer.observe(el); });
-</script>
+var observer = new Inters
 </body>
 </html>
