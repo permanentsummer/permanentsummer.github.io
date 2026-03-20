@@ -218,17 +218,14 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .shop-product-img {
   overflow: hidden; background: var(--sand);
   position: relative;
+  display: flex; flex-direction: column;
 }
 .shop-product-img img {
   width: 100%; height: 100%; object-fit: cover;
   object-position: center center;
   transition: transform .6s ease;
 }
-.shop-product:hover .shop-product-img img {
-  width: 100%; height: 100%; object-fit: cover;
-  object-position: center center;
-  transition: transform .6s ease;
-}
+.shop-product:hover 
 
 .shop-product-info {
   padding: 60px 56px; display: flex; flex-direction: column;
@@ -440,17 +437,19 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 /* MOCKUP CANVAS */
 .mockup-wrap {
   position: relative;
-  width: 100%;
-  background: #f8f6f2;
-  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
   overflow: hidden;
 }
 .mockup-canvas-wrap {
-  position: relative; display: inline-block;
-  width: 100%; max-width: 500px;
+  position: relative;
+  width: 100%; height: 100%;
+  display: block;
 }
 .mockup-canvas-wrap img.mockup-base {
-  width: 100%; display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
   transition: opacity .3s;
 }
 .mockup-canvas-wrap canvas {
@@ -1713,13 +1712,7 @@ document.addEventListener('DOMContentLoaded',function(){
     var cv=document.getElementById('mockup-canvas-'+pid);
     if(!img||!cv)return;
     function go(){
-      cv.width=img.offsetWidth||img.naturalWidth||500;
-      cv.height=img.offsetHeight||img.naturalHeight||500;
-      renderMockup(pid);
-    }
-    if(img.complete&&img.naturalWidth>0)go();
-    else img.addEventListener('load',go);
-    window.addEventListener('resize',go);
+      cv.width=img.offsetWidth||img.naturalW
   });
 });
 </script>
