@@ -135,12 +135,11 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .sticky-text { display:flex; flex-direction:column; justify-content:center; padding:100px 64px; border-left:1px solid var(--border); min-height:85vh; }
 .sticky-section.flip .sticky-text { border-left:none; border-right:1px solid var(--border); }
 @media(max-width:700px) { .sticky-text { padding:52px 28px; min-height:auto; border:none!important; } }
-.sticky-text .eyebrow { opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
-.sticky-text h2 { font-family:var(--font-display); font-size:clamp(2rem,4vw,3.2rem); font-weight:400; font-style:italic; line-height:1.1; margin-bottom:20px; opacity:0; transform:translateY(20px); transition:opacity .6s ease .1s, transform .6s ease .1s; }
-.sticky-text p { font-size:15px; line-height:1.9; color:#666; max-width:400px; opacity:0; transform:translateY(16px); transition:opacity .6s ease .2s, transform .6s ease .2s; }
-.sticky-text p+p { margin-top:12px; transition-delay:.3s; }
-.sticky-text a { margin-top:28px; opacity:0; transform:translateY(16px); transition:opacity .6s ease .3s, transform .6s ease .3s; align-self:flex-start; }
-.sticky-text.visible .eyebrow, .sticky-text.visible h2, .sticky-text.visible p, .sticky-text.visible a { opacity:1; transform:translateY(0); }
+.sticky-text .eyebrow { transition:opacity .6s ease, transform .6s ease; }
+.sticky-text h2 { font-family:var(--font-display); font-size:clamp(2rem,4vw,3.2rem); font-weight:400; font-style:italic; line-height:1.1; margin-bottom:20px; transition:opacity .6s ease .1s, transform .6s ease .1s; }
+.sticky-text p { font-size:15px; line-height:1.9; color:#666; max-width:400px; transition:opacity .6s ease .2s, transform .6s ease .2s; }
+.sticky-text p+p { margin-top:12px; }
+.sticky-text a { margin-top:28px; transition:opacity .6s ease .3s, transform .6s ease .3s; align-self:flex-start; }
 
 /* VALUES GRID */
 .values-section { padding:80px 40px 0; border-top:1px solid var(--border); }
@@ -351,44 +350,37 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <p>Designed with &hearts; for endless summer</p>
   </div>
 </footer>
+
 <script>
 var cart = [];
 try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
 function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
 function updateCartCount() {
-  var total = cart.reduce(function(s,i){return s+i.qty;},0);
+  var t = cart.reduce(function(s,i){ return s+i.qty; }, 0);
   var el = document.getElementById('cart-count');
   if (!el) return;
-  el.textContent = total;
-  el.style.display = total > 0 ? 'flex' : 'none';
+  el.textContent = t; el.style.display = t > 0 ? 'flex' : 'none';
 }
 function renderCart() {
-  var el = document.getElementById('cart-items');
-  var footer = document.getElementById('cart-footer');
+  var el = document.getElementById('cart-items'), ft = document.getElementById('cart-footer');
   if (!el) return;
   if (!cart.length) {
     el.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="shop.html" onclick="closeCart()">Shop Now</a></div>';
-    if (footer) footer.style.display = 'none'; return;
+    if (ft) ft.style.display = 'none'; return;
   }
-  var html = '';
+  var h = '';
   cart.forEach(function(item, idx) {
-    html += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
-    html += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
-    html += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
-    html += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+(item.qty>1?' &times;'+item.qty:'')+'</div></div>';
-    html += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
+    h += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
+    h += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
+    h += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
+    h += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+'</div></div>';
+    h += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
   });
-  el.innerHTML = html;
-  var total = cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
+  el.innerHTML = h;
+  var total = cart.reduce(function(s,i){ return s+(i.price*i.qty); }, 0);
   var tp = document.getElementById('cart-total-price');
   if (tp) tp.textContent = '€'+total.toFixed(2);
-  if (footer) footer.style.display = 'block';
-}
-function addToCart(name, price, img, size, color, stripeUrl) {
-  if (!size) { alert('Please select a size first.'); return; }
-  var existing = cart.find(function(i){ return i.name===name&&i.size===size&&i.color===color; });
-  if (existing) { existing.qty++; } else { cart.push({name:name,price:price,img:img,size:size,color:color||'',stripeUrl:stripeUrl,qty:1}); }
-  saveCart(); updateCartCount(); renderCart(); openCart();
+  if (ft) ft.style.display = 'block';
 }
 function removeFromCart(idx) { cart.splice(idx,1); saveCart(); updateCartCount(); renderCart(); }
 function openCart() {
@@ -402,12 +394,25 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 function toggleMobileMenu() {
-  var m=document.getElementById('mobile-menu'); var b=document.getElementById('hamburger');
-  var open=m.classList.contains('open');
-  m.classList.toggle('open',!open); b.classList.toggle('open',!open);
-  document.body.style.overflow=open?'':'hidden';
+  var m = document.getElementById('mobile-menu'), b = document.getElementById('hamburger');
+  var open = m.classList.contains('open');
+  m.classList.toggle('open', !open); b.classList.toggle('open', !open);
+  document.body.style.overflow = open ? '' : 'hidden';
 }
-function clo
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+updateCartCount();
+
+// Scroll fade-in (enhancement only - text visible without it)
+if ('IntersectionObserver' in window) {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.sticky-text').forEach(function(el) { observer.observe(el); });
+}
 </script>
 </body>
 </html>
