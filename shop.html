@@ -207,7 +207,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .shop-product {
   display: grid; grid-template-columns: 1fr 1fr;
   border-bottom: 1px solid var(--border);
-  min-height: 600px;
+  align-items: start;
 }
 .shop-product:nth-child(even) { direction: rtl; }
 .shop-product:nth-child(even) > * { direction: ltr; }
@@ -217,8 +217,10 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 .shop-product-img {
   overflow: hidden; background: var(--sand);
-  position: relative;
-  display: flex; flex-direction: column;
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  max-height: 800px;
 }
 .shop-product-img img {
   width: 100%; height: 100%; object-fit: cover;
@@ -233,6 +235,14 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .shop-product:nth-child(even) .shop-product-info { border-left: none; border-right: 1px solid var(--border); }
 @media(max-width:768px) {
   .shop-product-info { padding: 40px 24px; border: none !important; }
+}
+@media(max-width:768px) {
+  .shop-product-img {
+    position: relative;
+    top: auto;
+    height: 65vw;
+    max-height: 400px;
+  }
 }
 
 .product-category { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
@@ -440,15 +450,18 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 }
 .mockup-canvas-wrap {
   position: relative;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 .mockup-canvas-wrap img.mockup-base {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center center;
   display: block;
   transition: opacity .3s;
+  will-change: auto;
 }
 .mockup-canvas-wrap canvas {
   position: absolute; top: 0; left: 0;
@@ -1365,6 +1378,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 
 
+
 <script>
 var ICON_IMG_DATA={
   'snorkel':{url:'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/icon_snorkel.png',label:'Snorkel'},
@@ -1703,22 +1717,17 @@ document.addEventListener('DOMContentLoaded',function(){
     var cv=document.getElementById('mockup-canvas-'+pid);
     if(!img||!cv)return;
     function init(){
-      // Size canvas ONCE from the image's natural bounding rect
-      var rect=img.getBoundingClientRect();
-      var w=rect.width||img.naturalWidth||500;
-      var h=rect.height||img.naturalHeight||500;
-      cv.width=Math.round(w);
-      cv.height=Math.round(h);
+      var container=cv.parentElement;
+      var w=container.offsetWidth||500;
+      var h=container.offsetHeight||500;
+      if(Math.abs(cv.width-w)>5||Math.abs(cv.height-h)>5){
+        cv.width=Math.round(w);cv.height=Math.round(h);
+      }
       renderMockup(pid);
     }
     // Only re-init on resize after a debounce, not on every interaction
     var resizeTimer;
     window.addEventListener('resize',function(){
-      clearTimeout(resizeTimer);
-      resizeTimer=setTimeout(function(){init();},200);
-    });
-    if(img.complete&&img.naturalWidth>0){setTimeout(init,50);}
-    else{img.addEventListener('load',function(){setTimeout(init,50);});}
   });
 });
 </script>
