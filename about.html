@@ -351,9 +351,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <p>Designed with &hearts; for endless summer</p>
   </div>
 </footer>
-
 <script>
-
 var cart = [];
 try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
 function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
@@ -409,14 +407,7 @@ function toggleMobileMenu() {
   m.classList.toggle('open',!open); b.classList.toggle('open',!open);
   document.body.style.overflow=open?'':'hidden';
 }
-function closeMobileMenu() {
-  document.getElementById('mobile-menu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow='';
-}
-updateCartCount();
-
-// Scroll fade-in
-var observer = new Inters
+function clo
+</script>
 </body>
 </html>
