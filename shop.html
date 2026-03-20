@@ -1364,6 +1364,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 
 
+
 <script>
 var ICON_IMG_DATA={
   'snorkel':{url:'https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/icon_snorkel.png',label:'Snorkel'},
@@ -1546,8 +1547,9 @@ function renderMockup(pid){
   var canvas=document.getElementById('mockup-canvas-'+pid);
   var baseImg=document.getElementById('mockup-base-'+pid);
   if(!canvas||!baseImg)return;
-  var W=baseImg.offsetWidth||500,H=baseImg.offsetHeight||500;
-  if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
+  // Use stored dimensions - never resize after init to prevent layout feedback loop
+  var W=canvas.width||500,H=canvas.height||500;
+  if(!W||W<10){W=baseImg.naturalWidth||500;H=baseImg.naturalHeight||500;}
   var ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,W,H);
   var badge=document.getElementById('mockup-badge-'+pid);
@@ -1700,14 +1702,23 @@ document.addEventListener('DOMContentLoaded',function(){
     var img=document.getElementById('mockup-base-'+pid);
     var cv=document.getElementById('mockup-canvas-'+pid);
     if(!img||!cv)return;
-    function go(){
-      cv.width=img.offsetWidth||img.naturalWidth||500;
-      cv.height=img.offsetHeight||img.naturalHeight||500;
+    function init(){
+      // Size canvas ONCE from the image's natural bounding rect
+      var rect=img.getBoundingClientRect();
+      var w=rect.width||img.naturalWidth||500;
+      var h=rect.height||img.naturalHeight||500;
+      cv.width=Math.round(w);
+      cv.height=Math.round(h);
       renderMockup(pid);
     }
-    if(img.complete&&img.naturalWidth>0)go();
-    else img.addEventListener('load',go);
-    window.addEventListener('resize',go);
+    // Only re-init on resize after a debounce, not on every interaction
+    var resizeTimer;
+    window.addEventListener('resize',function(){
+      clearTimeout(resizeTimer);
+      resizeTimer=setTimeout(function(){init();},200);
+    });
+    if(img.complete&&img.naturalWidth>0){setTimeout(init,50);}
+    else{img.addEventListener('load',function(){setTimeout(init,50);});}
   });
 });
 </script>
