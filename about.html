@@ -216,7 +216,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 <!-- HERO -->
 <section class="about-hero">
-  <div class="about-hero-bg"><img src="hero.png" alt="Permanent Summer" loading="eager"></div>
+  <div class="about-hero-bg"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85" alt="Permanent Summer" loading="eager"></div>
   <div class="about-hero-text">
     <p class="eyebrow">About Us</p>
     <h1>Get to know<br>us a bit more.</h1>
@@ -226,7 +226,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 1: WHO WE ARE -->
 <div class="sticky-section">
   <div class="sticky-img">
-    <img src="algarve_card.svg" alt="Algarve">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=85" alt="Algarve">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">So&hellip; who&rsquo;s behind this?</p>
@@ -239,7 +239,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 2: HOW IT BEGAN -->
 <div class="sticky-section flip">
   <div class="sticky-img">
-    <img src="garage.jpg" alt="From the garage in Altura">
+    <img src="Garage.jpg" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85';this.onerror=null;" alt="From the garage in Altura" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85';this.onerror=null;">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">How this all began?</p>
@@ -306,57 +306,65 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
     <p>Designed with &hearts; for endless summer</p>
   </div>
 </footer>
-
 <script>
-var cart = [];
-try { cart = JSON.parse(localStorage.getItem('ps_cart') || '[]'); } catch(e) { cart = []; }
-function saveCart() { try { localStorage.setItem('ps_cart', JSON.stringify(cart)); } catch(e) {} }
-function updateCartCount() {
-  var t = cart.reduce(function(s,i){ return s+i.qty; }, 0);
-  var el = document.getElementById('cart-count');
-  if (!el) return;
-  el.textContent = t; el.style.display = t > 0 ? 'flex' : 'none';
+var cart=[];
+try{cart=JSON.parse(localStorage.getItem('ps_cart')||'[]');}catch(e){cart=[];}
+function saveCart(){try{localStorage.setItem('ps_cart',JSON.stringify(cart));}catch(e){}}
+function updateCartCount(){
+  var t=cart.reduce(function(s,i){return s+i.qty;},0);
+  var el=document.getElementById('cart-count');
+  if(!el)return;el.textContent=t;el.style.display=t>0?'flex':'none';
 }
-function renderCart() {
-  var el = document.getElementById('cart-items'), ft = document.getElementById('cart-footer');
-  if (!el) return;
-  if (!cart.length) {
-    el.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="shop.html" onclick="closeCart()">Shop Now</a></div>';
-    if (ft) ft.style.display = 'none'; return;
+function renderCart(){
+  var el=document.getElementById('cart-items'),ft=document.getElementById('cart-footer');
+  if(!el)return;
+  if(!cart.length){
+    el.innerHTML='<div class="cart-empty"><p>Your cart is empty.</p><a href="shop.html" onclick="closeCart()">Shop Now</a></div>';
+    if(ft)ft.style.display='none';return;
   }
-  var h = '';
-  cart.forEach(function(item, idx) {
-    h += '<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
-    h += '<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
-    h += '<div class="cart-item-variant">Size: '+item.size+(item.color?' &middot; '+item.color:'')+'</div>';
-    h += '<div class="cart-item-price">&euro;'+(item.price*item.qty).toFixed(2)+'</div></div>';
-    h += '<button class="cart-item-remove" onclick="removeFromCart('+idx+')">&times;</button></div>';
+  var h='';
+  cart.forEach(function(item,idx){
+    h+='<div class="cart-item"><img class="cart-item-img" src="'+item.img+'" alt="'+item.name+'">';
+    h+='<div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div>';
+    h+='<div class="cart-item-variant">'+item.size+(item.color?' · '+item.color:'')+'</div>';
+    h+='<div class="cart-item-price">€'+(item.price*item.qty).toFixed(2)+'</div></div>';
+    h+='<button class="cart-item-remove" onclick="removeFromCart('+idx+')">×</button></div>';
   });
-  el.innerHTML = h;
-  var total = cart.reduce(function(s,i){ return s+(i.price*i.qty); }, 0);
-  var tp = document.getElementById('cart-total-price');
-  if (tp) tp.textContent = '€'+total.toFixed(2);
-  if (ft) ft.style.display = 'block';
+  el.innerHTML=h;
+  var total=cart.reduce(function(s,i){return s+(i.price*i.qty);},0);
+  var tp=document.getElementById('cart-total-price');
+  if(tp)tp.textContent='€'+total.toFixed(2);
+  if(ft)ft.style.display='block';
 }
-function removeFromCart(idx) { cart.splice(idx,1); saveCart(); updateCartCount(); renderCart(); }
-function openCart() {
+function removeFromCart(idx){cart.splice(idx,1);saveCart();updateCartCount();renderCart();}
+function openCart(){
   document.getElementById('cart-drawer').classList.add('open');
   document.getElementById('cart-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden'; renderCart();
+  document.body.style.overflow='hidden';renderCart();
 }
-function closeCart() {
+function closeCart(){
   document.getElementById('cart-drawer').classList.remove('open');
   document.getElementById('cart-overlay').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-function toggleMobileMenu() {
-  var m = document.getElementById('mobile-menu'), b = document.getElementById('hamburger');
-  var open = m.classList.contains('open');
-  m.classList.toggle('open', !open); b.classList.toggle('open', !open);
-  document.body.style.overflow = open ? '' : 'hidden';
+function toggleMobileMenu(){
+  var m=document.getElementById('mobile-menu'),b=document.getElementById('hamburger');
+  var open=m.classList.contains('open');
+  m.classList.toggle('open',!open);b.classList.toggle('open',!open);
+  document.body.style.overflow=open?'':'hidden';
 }
-function closeMobileMenu() {
+function closeMobileMenu(){
   document.getElementById('mobile-menu').classList.remove('open');
-  document.getEle
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+updateCartCount();
+if('IntersectionObserver' in window){
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.12});
+  document.querySelectorAll('.sticky-text').forEach(function(el){observer.observe(el);});
+}
+</script>
 </body>
 </html>
