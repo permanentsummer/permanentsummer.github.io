@@ -142,19 +142,19 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 .sticky-text a { margin-top:28px; transition:opacity .6s ease .3s, transform .6s ease .3s; align-self:flex-start; }
 
 /* VALUES GRID */
-.values-section { padding:80px 40px 0; border-top:1px solid var(--border); }
-.values-section h2 { font-family:var(--font-display); font-size:clamp(2rem,4vw,2.8rem); font-weight:400; font-style:italic; margin-bottom:48px; }
-.values-grid { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); border-bottom:none; margin:0 -40px; }
-@media(max-width:900px) { .values-grid { grid-template-columns:repeat(2,1fr); } }
-@media(max-width:480px) { .values-grid { grid-template-columns:1fr; } }
-.value-card { border-right:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden; }
-.value-card:nth-child(4n) { border-right:none; }
-.value-card-img { aspect-ratio:1; overflow:hidden; }
-.value-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
-.value-card:hover .value-card-img img { transform:scale(1.05); }
-.value-card-body { padding:20px 24px 28px; }
-.value-card-body h3 { font-family:var(--font-display); font-size:1.25rem; font-weight:500; font-style:italic; margin-bottom:8px; }
-.value-card-body p { font-size:13px; color:#666; line-height:1.65; }
+
+
+
+@media(max-width:900px) {  }
+@media(max-width:480px) {  }
+
+
+
+
+
+
+
+
 
 /* CTA BANNER */
 .cta-banner { background:var(--black); color:#fff; padding:100px 40px; text-align:center; border-top:1px solid rgba(255,255,255,.05); }
@@ -216,7 +216,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 
 <!-- HERO -->
 <section class="about-hero">
-  <div class="about-hero-bg"><img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/hero.png" alt="Permanent Summer" loading="eager"></div>
+  <div class="about-hero-bg"><img src="hero.png" alt="Permanent Summer" loading="eager"></div>
   <div class="about-hero-text">
     <p class="eyebrow">About Us</p>
     <h1>Get to know<br>us a bit more.</h1>
@@ -226,7 +226,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 1: WHO WE ARE -->
 <div class="sticky-section">
   <div class="sticky-img">
-    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1000&q=80" alt="Algarve">
+    <img src="algarve_card.svg" alt="Algarve">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">So&hellip; who&rsquo;s behind this?</p>
@@ -239,7 +239,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 2: HOW IT BEGAN -->
 <div class="sticky-section flip">
   <div class="sticky-img">
-    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/garage.jpg" alt="From the garage in Altura">
+    <img src="garage.jpg" alt="From the garage in Altura">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">How this all began?</p>
@@ -252,7 +252,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 3: WHAT WE MAKE -->
 <div class="sticky-section">
   <div class="sticky-img">
-    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20Hanging.png" alt="Our pieces">
+    <img src="Tshirt%20Hanging.png" alt="Our pieces">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">What do we actually make?</p>
@@ -266,7 +266,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
 <!-- SECTION 4: MANIFESTO -->
 <div class="sticky-section flip">
   <div class="sticky-img">
-    <img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/Tshirt%20with%20Label.png" alt="Detail">
+    <img src="Tshirt%20with%20Label.png" alt="Detail">
   </div>
   <div class="sticky-text">
     <p class="eyebrow">What&rsquo;s our manifesto?</p>
@@ -276,52 +276,8 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   </div>
 </div>
 
-<!-- VALUES -->
-<div class="values-section">
-  <h2>What reeeally matters to us&hellip;</h2>
-  <div class="values-grid">
-    <div class="value-card">
-      <div class="value-card-img"><img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/algarve_card.svg" alt="Algarve coastline at golden hour"></div>
-      <div class="value-card-body"><h3>Rooted in the Algarve</h3><p>Altura is our home. The light, the pace, the sea &mdash; it shapes every decision. We draw inspiration from a coastline, not a trend report.</p></div>
-    </div>
-    <div class="value-card">
-      <div class="value-card-img"><img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=600&q=80" alt="Warm design"></div>
-      <div class="value-card-body"><h3>Design with warmth</h3><p>Quietly confident, not loud. A clean tee with a small embroidered heart says exactly what it needs to. No more, no less.</p></div>
-    </div>
-    <div class="value-card">
-      <div class="value-card-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Quality"></div>
-      <div class="value-card-body"><h3>Properly made</h3><p>180 g/m&sup2; cotton. Organic corduroy. Brushed cotton caps. We obsess over feel and finish because you shouldn&rsquo;t replace something made right the first time.</p></div>
-    </div>
-    <div class="value-card">
-      <div class="value-card-img"><img src="https://images.unsplash.com/photo-1500622944204-b135684e99fd?w=600&q=80" alt="Eco"></div>
-      <div class="value-card-body"><h3>Eco-conscious always</h3><p>Small runs. Organic materials. Removable labels. We care about the planet that gives us our summers.</p></div>
-    </div>
-  </div>
-</div>
-
 <!-- BADGES -->
-<div class="badges">
-  <div class="badge">
-    <div class="badge-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
-    <div class="badge-label">Algarve Made</div>
-    <div class="badge-desc">Born in Altura, Portugal</div>
-  </div>
-  <div class="badge">
-    <div class="badge-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 8 10 8 6a4 4 0 018 0c0 4-4 6-4 6z"/><path d="M8 18s-3-1.5-3-5M16 18s3-1.5 3-5"/></svg></div>
-    <div class="badge-label">Organic Cotton</div>
-    <div class="badge-desc">Sustainable materials only</div>
-  </div>
-  <div class="badge">
-    <div class="badge-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-    <div class="badge-label">Family Business</div>
-    <div class="badge-desc">Mauritian &amp; Portuguese roots</div>
-  </div>
-  <div class="badge">
-    <div class="badge-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="badge-label">Small Runs</div>
-    <div class="badge-desc">No overproduction ever</div>
-  </div>
-</div>
+
 
 <!-- CTA -->
 <div class="cta-banner">
@@ -401,13 +357,6 @@ function toggleMobileMenu() {
 }
 function closeMobileMenu() {
   document.getElementById('mobile-menu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow = '';
-}
-updateCartCount();
-
-// Scroll fade-in (enhancement only - text visible without it)
-if ('IntersectionObserver' in window) {
-  var observer = new IntersectionObserv
+  document.getEle
 </body>
 </html>
