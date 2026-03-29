@@ -281,7 +281,7 @@ footer { background: var(--black); color: rgba(255,255,255,.7); }
   <h2>What reeeally matters to us&hellip;</h2>
   <div class="values-grid">
     <div class="value-card">
-      <div class="value-card-img"><img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" alt="Algarve"></div>
+      <div class="value-card-img"><img src="https://raw.githubusercontent.com/permanentsummer/permanentsummer.github.io/main/algarve_card.svg" alt="Algarve coastline at golden hour"></div>
       <div class="value-card-body"><h3>Rooted in the Algarve</h3><p>Altura is our home. The light, the pace, the sea &mdash; it shapes every decision. We draw inspiration from a coastline, not a trend report.</p></div>
     </div>
     <div class="value-card">
@@ -408,11 +408,6 @@ updateCartCount();
 
 // Scroll fade-in (enhancement only - text visible without it)
 if ('IntersectionObserver' in window) {
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.sticky-text').forEach(function(el) { observer.observe(el); });
-}
-</script>
+  var observer = new IntersectionObserv
 </body>
 </html>
